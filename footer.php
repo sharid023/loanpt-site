@@ -5,7 +5,7 @@
       <div>
         <div class="logo" style="color:#fff;margin-bottom:10px"><span class="mk">L</span>Loan<b style="color:var(--mint)">Pt</b></div>
         <p style="max-width:34ch">Credit in Pocket. We help salaried professionals compare and get personal loans, overdraft &amp; balance transfer at the best available rates — at zero cost.</p>
-        <p style="margin-top:12px;color:#fff">&#128222; <?php echo esc_html(LOANPT_PHONE); ?> &middot; &#9993; <?php echo esc_html(LOANPT_EMAIL); ?></p>
+        <p style="margin-top:12px;color:#fff">&#128222; <?php echo esc_html(loanpt_opt('phone', LOANPT_PHONE)); ?> &middot; &#9993; <?php echo esc_html(loanpt_opt('email', LOANPT_EMAIL)); ?></p>
       </div>
       <div>
         <h4>Products</h4>
@@ -18,14 +18,14 @@
         <h4>Company</h4>
         <a href="#how">How it works</a>
         <a href="#faq">FAQ</a>
-        <a href="tel:+91<?php echo esc_attr(LOANPT_PHONE); ?>">Contact us</a>
-        <a href="https://wa.me/<?php echo esc_attr(LOANPT_WA); ?>">WhatsApp</a>
+        <a href="tel:+91<?php echo esc_attr(loanpt_opt('phone', LOANPT_PHONE)); ?>">Contact us</a>
+        <a href="https://wa.me/<?php echo esc_attr(loanpt_opt('wa', LOANPT_WA)); ?>">WhatsApp</a>
       </div>
       <div>
         <h4>Login</h4>
-        <a href="<?php echo esc_url(LOANPT_CONNECTOR_URL); ?>">&#128100; Connector Login</a>
-        <a href="<?php echo esc_url(LOANPT_TEAM_URL); ?>">&#128274; Team Login</a>
-        <a href="<?php echo esc_url(LOANPT_CONNECTOR_URL); ?>">Become a connector</a>
+        <a href="<?php echo esc_url(loanpt_opt('connector_url', LOANPT_CONNECTOR_URL)); ?>">&#128100; Connector Login</a>
+        <a href="<?php echo esc_url(loanpt_opt('team_url', LOANPT_TEAM_URL)); ?>">&#128274; Team Login</a>
+        <a href="<?php echo esc_url(loanpt_opt('connector_url', LOANPT_CONNECTOR_URL)); ?>">Become a connector</a>
       </div>
     </div>
     <div class="legal">

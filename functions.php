@@ -30,7 +30,7 @@ function loanpt_assets() {
     wp_enqueue_script('loanpt-app', get_template_directory_uri() . '/assets/app.js', array(), '1.0.0', true);
     wp_localize_script('loanpt-app', 'LOANPT', array(
         'leadUrl' => esc_url_raw(rest_url('loanpt/v1/lead')),
-        'wa'      => 'https://wa.me/' . LOANPT_WA . '?text=' . rawurlencode('Hi LoanPt, I just applied on your website — I want to know about a loan.'),
+        'wa'      => 'https://wa.me/' . loanpt_opt('wa', LOANPT_WA) . '?text=' . rawurlencode('Hi LoanPt, I just applied on your website — I want to know about a loan.'),
     ));
 }
 add_action('wp_enqueue_scripts', 'loanpt_assets');
@@ -45,7 +45,7 @@ function loanpt_head() {
         $ld = array(
             '@context' => 'https://schema.org',
             '@graph'   => array(
-                array('@type' => 'FinancialService', '@id' => home_url('/#org'), 'name' => 'LoanPt', 'url' => home_url('/'), 'telephone' => '+91-' . LOANPT_PHONE, 'email' => LOANPT_EMAIL, 'slogan' => 'Credit in Pocket', 'areaServed' => 'IN', 'description' => 'Loan facilitation service helping salaried professionals compare and get personal loans, overdraft and balance transfer at the best rates from partner banks.'),
+                array('@type' => 'FinancialService', '@id' => home_url('/#org'), 'name' => 'LoanPt', 'url' => home_url('/'), 'telephone' => '+91-' . loanpt_opt('phone', LOANPT_PHONE), 'email' => loanpt_opt('email', LOANPT_EMAIL), 'slogan' => 'Credit in Pocket', 'areaServed' => 'IN', 'description' => 'Loan facilitation service helping salaried professionals compare and get personal loans, overdraft and balance transfer at the best rates from partner banks.'),
                 array('@type' => 'FAQPage', 'mainEntity' => array(
                     array('@type' => 'Question', 'name' => 'Is LoanPt free to use?', 'acceptedAnswer' => array('@type' => 'Answer', 'text' => 'Yes. Comparing offers and applying through LoanPt is completely free for you. We are paid by the lender, not by you.')),
                     array('@type' => 'Question', 'name' => 'Which banks can I compare?', 'acceptedAnswer' => array('@type' => 'Answer', 'text' => 'Leading banks and NBFCs including HDFC, Kotak, ICICI, Axis, Bajaj Finserv and more.')),
@@ -62,14 +62,35 @@ add_action('wp_head', 'loanpt_head', 5);
    server-side to the CRM. Returns {ok:true} on success. */
 require get_template_directory() . '/inc/leads.php';
 
-/* Comparison data — edit here to change banks/rates shown on the homepage. */
+/* No-code settings panel (Appearance → Customize → "LoanPt …"). */
+require get_template_directory() . '/inc/customizer.php';
+
+/* Default bank comparison rows, as the editable "one per line" text. */
+function loanpt_banks_default_text() {
+    return "HDFC Bank | 10.50%* | ₹40 Lakh | 12–72 mo | Up to 2%\n" .
+           "ICICI Bank | 10.75%* | ₹50 Lakh | 12–72 mo | Up to 2%\n" .
+           "Axis Bank | 10.99%* | ₹40 Lakh | 12–84 mo | Up to 2%\n" .
+           "Kotak Mahindra | 10.99%* | ₹35 Lakh | 12–72 mo | Up to 3%\n" .
+           "Bajaj Finserv | 11.00%* | ₹55 Lakh | 12–96 mo | Up to 3.5%\n" .
+           "IDFC First | 10.99%* | ₹1 Crore | 12–60 mo | Up to 2%";
+}
+
+/* Comparison data — read from the Customizer textarea (editable, no code). */
 function loanpt_banks() {
-    return array(
-        array('HDFC Bank',      '10.50%*', '₹40 Lakh', '12–72 mo', 'Up to 2%'),
-        array('ICICI Bank',     '10.75%*', '₹50 Lakh', '12–72 mo', 'Up to 2%'),
-        array('Axis Bank',      '10.99%*', '₹40 Lakh', '12–84 mo', 'Up to 2%'),
-        array('Kotak Mahindra', '10.99%*', '₹35 Lakh', '12–72 mo', 'Up to 3%'),
-        array('Bajaj Finserv',  '11.00%*', '₹55 Lakh', '12–96 mo', 'Up to 3.5%'),
-        array('IDFC First',     '10.99%*', '₹1 Crore', '12–60 mo', 'Up to 2%'),
-    );
+    $text = get_theme_mod('loanpt_banks_text', loanpt_banks_default_text());
+    $rows = array();
+    foreach (preg_split('/\r\n|\r|\n/', (string) $text) as $line) {
+        $line = trim($line);
+        if ($line === '') continue;
+        $c = array_map('trim', explode('|', $line));
+        if ($c[0] === '') continue;
+        $rows[] = array(
+            isset($c[0]) ? $c[0] : '',
+            isset($c[1]) ? $c[1] : '',
+            isset($c[2]) ? $c[2] : '',
+            isset($c[3]) ? $c[3] : '',
+            isset($c[4]) ? $c[4] : '',
+        );
+    }
+    return $rows;
 }

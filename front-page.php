@@ -4,9 +4,9 @@
 <section class="hero">
   <div class="wrap">
     <div>
-      <span class="eyebrow">Credit in Pocket</span>
-      <h1>Compare Personal Loans from <em>Every Bank</em>, Get the Lowest Rate</h1>
-      <p class="lead">Personal Loan, Overdraft &amp; Balance Transfer offers from HDFC, Kotak, ICICI, Axis, Bajaj &amp; more — matched to your profile. Check eligibility free and apply in minutes.</p>
+      <span class="eyebrow"><?php echo esc_html(loanpt_opt('eyebrow', 'Credit in Pocket')); ?></span>
+      <h1><?php echo loanpt_headline_html(); ?></h1>
+      <p class="lead"><?php echo esc_html(loanpt_opt('subtext', 'Personal Loan, Overdraft & Balance Transfer offers from HDFC, Kotak, ICICI, Axis, Bajaj & more — matched to your profile. Check eligibility free and apply in minutes.')); ?></p>
       <div class="trust">
         <span><span class="tick">&#10003;</span> 100% free to apply</span>
         <span><span class="tick">&#10003;</span> All major banks &amp; NBFCs</span>

@@ -17,8 +17,8 @@
       <a href="#products">Products</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a class="authlnk" href="<?php echo esc_url(LOANPT_CONNECTOR_URL); ?>">&#128100; Connector Login</a>
-    <a class="authlnk" href="<?php echo esc_url(LOANPT_TEAM_URL); ?>">&#128274; Team Login</a>
-    <a class="btn btn-call" href="tel:+91<?php echo esc_attr(LOANPT_PHONE); ?>">&#128222; <?php echo esc_html(LOANPT_PHONE); ?></a>
+    <a class="authlnk" href="<?php echo esc_url(loanpt_opt('connector_url', LOANPT_CONNECTOR_URL)); ?>">&#128100; Connector Login</a>
+    <a class="authlnk" href="<?php echo esc_url(loanpt_opt('team_url', LOANPT_TEAM_URL)); ?>">&#128274; Team Login</a>
+    <a class="btn btn-call" href="tel:+91<?php echo esc_attr(loanpt_opt('phone', LOANPT_PHONE)); ?>">&#128222; <?php echo esc_html(loanpt_opt('phone', LOANPT_PHONE)); ?></a>
   </div>
 </header>

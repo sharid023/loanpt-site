@@ -43,7 +43,7 @@ function loanpt_handle_lead(WP_REST_Request $req) {
         ),
     );
 
-    $res = wp_remote_post(LOANPT_CRM_LEAD_URL, array(
+    $res = wp_remote_post(loanpt_opt('crm_lead_url', LOANPT_CRM_LEAD_URL), array(
         'timeout' => 15,
         'headers' => array('Content-Type' => 'application/json'),
         'body'    => wp_json_encode($payload),
