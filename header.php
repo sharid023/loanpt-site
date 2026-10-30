@@ -9,7 +9,11 @@
 <body <?php body_class(); ?>>
 <header class="site-header">
   <div class="wrap nav">
-    <a class="logo" href="<?php echo esc_url(home_url('/')); ?>"><span class="mk">L</span>Loan<b>Pt</b></a>
+    <?php if (has_custom_logo()): ?>
+      <a class="logo logo-img" href="<?php echo esc_url(home_url('/')); ?>"><?php echo wp_get_attachment_image(get_theme_mod('custom_logo'), 'full', false, array('alt' => get_bloginfo('name'), 'class' => 'logo-pic')); ?></a>
+    <?php else: ?>
+      <a class="logo" href="<?php echo esc_url(home_url('/')); ?>"><span class="mk">L</span>Loan<b>Pt</b></a>
+    <?php endif; ?>
     <span class="sp"></span>
     <nav class="menu">
       <a href="#compare">Compare</a>

@@ -30,6 +30,8 @@ h1,h2,h3{line-height:1.15;letter-spacing:-.02em}
 .logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:21px}
 .logo .mk{width:34px;height:34px;border-radius:9px;background:var(--green);display:grid;place-items:center;color:#fff;font-weight:800;font-family:Georgia,serif}
 .logo b{color:var(--mint2)}
+.logo.logo-img{padding:0}
+.logo .logo-pic{height:42px;width:auto;display:block}
 .nav .sp{flex:1}
 .nav .menu{display:none;gap:18px}
 .nav .menu a{color:var(--muted);font-weight:600;font-size:14.5px}
