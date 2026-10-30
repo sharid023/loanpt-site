@@ -9,10 +9,10 @@
       </div>
       <div>
         <h4>Products</h4>
-        <a href="#apply">Personal Loan</a>
-        <a href="#apply">Overdraft</a>
-        <a href="#apply">Balance Transfer</a>
-        <a href="#apply">Credit Card</a>
+        <a href="<?php echo esc_url(home_url('/personal-loan/')); ?>">Personal Loan</a>
+        <a href="<?php echo esc_url(home_url('/overdraft/')); ?>">Overdraft</a>
+        <a href="<?php echo esc_url(home_url('/balance-transfer/')); ?>">Balance Transfer</a>
+        <a href="<?php echo esc_url(home_url('/#apply')); ?>">Credit Card</a>
       </div>
       <div>
         <h4>Company</h4>

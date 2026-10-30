@@ -72,6 +72,9 @@ require get_template_directory() . '/inc/leads.php';
 /* No-code settings panel (Appearance → Customize → "LoanPt …"). */
 require get_template_directory() . '/inc/customizer.php';
 
+/* SEO landing pages (the content machine): /personal-loan, /balance-transfer, /overdraft. */
+require get_template_directory() . '/inc/seo-pages.php';
+
 /* Default bank comparison rows, as the editable "one per line" text. */
 function loanpt_banks_default_text() {
     return "HDFC Bank | 10.50%* | ₹40 Lakh | 12–72 mo | Up to 2%\n" .

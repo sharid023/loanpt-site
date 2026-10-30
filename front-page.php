@@ -105,9 +105,9 @@
   <div class="wrap">
     <div class="sec-head"><div class="kicker">What we arrange</div><h2>One place for all your credit needs</h2></div>
     <div class="prods">
-      <div class="prod"><div class="ic">&#128176;</div><h3>Personal Loan</h3><p>Funds for anything — wedding, medical, travel or emergencies. Fixed EMI, quick disbursal.</p><a class="go" href="#apply">Check eligibility &rarr;</a></div>
-      <div class="prod"><div class="ic">&#128260;</div><h3>Overdraft (OD)</h3><p>A credit limit you dip into anytime. Pay interest only on what you use. Great for cash-flow.</p><a class="go" href="#apply">Check eligibility &rarr;</a></div>
-      <div class="prod"><div class="ic">&#128201;</div><h3>Balance Transfer</h3><p>Move your existing loan to a lower rate, cut your EMI, or take a top-up. Save on interest.</p><a class="go" href="#apply">Check eligibility &rarr;</a></div>
+      <div class="prod"><div class="ic">&#128176;</div><h3>Personal Loan</h3><p>Funds for anything — wedding, medical, travel or emergencies. Fixed EMI, quick disbursal.</p><a class="go" href="<?php echo esc_url(home_url('/personal-loan/')); ?>">Compare personal loans &rarr;</a></div>
+      <div class="prod"><div class="ic">&#128260;</div><h3>Overdraft (OD)</h3><p>A credit limit you dip into anytime. Pay interest only on what you use. Great for cash-flow.</p><a class="go" href="<?php echo esc_url(home_url('/overdraft/')); ?>">Explore overdraft &rarr;</a></div>
+      <div class="prod"><div class="ic">&#128201;</div><h3>Balance Transfer</h3><p>Move your existing loan to a lower rate, cut your EMI, or take a top-up. Save on interest.</p><a class="go" href="<?php echo esc_url(home_url('/balance-transfer/')); ?>">Lower my EMI &rarr;</a></div>
     </div>
   </div>
 </section>
