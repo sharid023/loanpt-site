@@ -1,0 +1,143 @@
+/*
+Theme Name: LoanPt
+Theme URI: https://loanpt.com
+Description: Lightweight, SEO-first loan comparison & lead-generation theme for LoanPt — Credit in Pocket. Built to feed the CRM. Pair with Rank Math SEO.
+Author: LoanPt
+Version: 1.0.0
+Requires at least: 5.8
+Tested up to: 6.6
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+Text Domain: loanpt
+*/
+
+:root{
+  --green:#143f29;--green2:#0f3323;--mint:#2bbf86;--mint2:#1ea770;
+  --ink:#132019;--muted:#5a6b61;--line:#e2ebe5;--paper:#f4f8f5;--card:#fff;
+  --mint-soft:#e7f7ef;--maxw:1140px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);line-height:1.6;font-size:16px}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;height:auto}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 18px}
+h1,h2,h3{line-height:1.15;letter-spacing:-.02em}
+.kicker{color:var(--mint2);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+/* header */
+.site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.93);backdrop-filter:saturate(1.6) blur(8px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:16px;height:62px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:21px}
+.logo .mk{width:34px;height:34px;border-radius:9px;background:var(--green);display:grid;place-items:center;color:#fff;font-weight:800;font-family:Georgia,serif}
+.logo b{color:var(--mint2)}
+.nav .sp{flex:1}
+.nav .menu{display:none;gap:18px}
+.nav .menu a{color:var(--muted);font-weight:600;font-size:14.5px}
+.nav .menu a:hover{color:var(--green)}
+.nav .authlnk{display:none;font-weight:700;font-size:13px;color:var(--green);padding:8px 11px;border-radius:9px;border:1.5px solid var(--line)}
+.nav .authlnk:hover{border-color:var(--mint);color:var(--mint2)}
+.btn{display:inline-flex;align-items:center;gap:7px;border-radius:11px;font-weight:700;cursor:pointer;border:none;font-size:15px;padding:11px 18px;transition:.15s}
+.btn-pri{background:var(--mint);color:#06281a}.btn-pri:hover{background:var(--mint2);color:#fff}
+.btn-call{background:var(--green);color:#fff}
+.btn-light{background:#fff;color:var(--green)}
+/* hero */
+.hero{background:linear-gradient(160deg,#0d2c1e,#143f29 60%,#0f3323);color:#fff;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(43,191,134,.28),transparent 68%)}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;padding:54px 18px 50px;position:relative;z-index:2}
+.eyebrow{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#bff0da;background:rgba(43,191,134,.14);border:1px solid rgba(43,191,134,.4);padding:6px 13px;border-radius:999px}
+.hero h1{font-size:44px;font-weight:800;margin:18px 0 14px}
+.hero h1 em{font-style:normal;color:var(--mint)}
+.hero p.lead{font-size:18.5px;color:#d7ece0;max-width:46ch}
+.trust{display:flex;flex-wrap:wrap;gap:10px 20px;margin-top:20px;font-size:14.5px;color:#cfe9db}
+.trust span{display:flex;align-items:center;gap:7px}.tick{color:var(--mint);font-weight:800}
+/* form card */
+.formcard{background:#fff;color:var(--ink);border-radius:18px;padding:24px 22px;box-shadow:0 20px 50px rgba(6,30,18,.3)}
+.formcard h2{font-size:21px}.formcard .fsub{color:var(--muted);font-size:14px;margin:4px 0 16px}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:13px;font-weight:700;margin-bottom:5px;color:#26352c}
+.field input,.field select{width:100%;padding:12px 13px;border:1.5px solid var(--line);border-radius:11px;font-size:15px;font-family:inherit;background:#fff}
+.field input:focus,.field select:focus{outline:none;border-color:var(--mint2);box-shadow:0 0 0 3px rgba(43,191,134,.15)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.formcard .btn-pri{width:100%;justify-content:center;padding:14px;font-size:16px;margin-top:4px}
+.fnote{font-size:11.5px;color:var(--muted);margin-top:10px;text-align:center;line-height:1.4}
+.ok{display:none;text-align:center;padding:14px 4px}.ok .big{font-size:40px}.ok h3{font-size:22px;margin:6px 0}.ok p{color:var(--muted);font-size:14.5px}
+.ok .wa{display:inline-flex;gap:8px;align-items:center;margin-top:14px;background:#25D366;color:#fff;font-weight:700;padding:11px 18px;border-radius:11px}
+.err{display:none;background:#fdecec;color:#9a2c2c;border:1px solid #f3c9c9;border-radius:10px;padding:9px 12px;font-size:13.5px;margin-bottom:10px}
+/* trust bar */
+.trustbar{background:#fff;border-bottom:1px solid var(--line)}
+.trustbar .wrap{display:flex;flex-wrap:wrap;justify-content:space-around;gap:16px;padding:20px 18px;text-align:center}
+.trustbar .stat b{display:block;font-size:26px;font-weight:800;color:var(--green)}
+.trustbar .stat span{font-size:13px;color:var(--muted)}
+/* sections */
+section{padding:52px 0}
+.sec-head{text-align:center;max-width:640px;margin:0 auto 30px}
+.sec-head h2{font-size:32px;font-weight:800}.sec-head p{color:var(--muted);font-size:16.5px;margin-top:8px}
+/* calculator */
+.calc{display:grid;grid-template-columns:1.2fr .8fr;gap:26px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px;box-shadow:0 6px 20px rgba(20,63,41,.05)}
+.calc .ctrl{margin-bottom:20px}
+.calc .ctrl .top{display:flex;justify-content:space-between;font-weight:700;font-size:14.5px;margin-bottom:8px}
+.calc .ctrl .val{color:var(--mint2)}
+.calc input[type=range]{width:100%;accent-color:var(--mint2);height:6px}
+.calc .result{background:linear-gradient(160deg,#0d2c1e,#143f29);color:#fff;border-radius:14px;padding:24px;text-align:center;display:flex;flex-direction:column;justify-content:center}
+.calc .result .emi{font-size:40px;font-weight:800;color:var(--mint)}
+.calc .result .lbl{font-size:13px;color:#bff0da;letter-spacing:.08em;text-transform:uppercase}
+.calc .result .meta{margin-top:14px;font-size:13.5px;color:#cfe9db;line-height:1.7}
+.calc .result .btn{margin-top:16px;justify-content:center}
+/* comparison */
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 4px 16px rgba(20,63,41,.05)}
+table.cmp{width:100%;border-collapse:collapse;min-width:680px}
+table.cmp thead th{background:var(--green);color:#fff;font-size:13.5px;font-weight:700;text-align:left;padding:14px 16px}
+table.cmp tbody td{padding:15px 16px;border-top:1px solid var(--line);font-size:15px;vertical-align:middle}
+table.cmp tbody tr:nth-child(even){background:#fafcfb}
+.bankname{font-weight:800;color:var(--green2);font-size:15.5px}.rate{font-weight:800;color:var(--mint2)}
+.mini{font-size:12.5px;color:var(--muted)}
+table.cmp td .btn{padding:8px 14px;font-size:13.5px}
+.disc{font-size:12.5px;color:var(--muted);margin-top:12px;text-align:center}
+/* products */
+.prods{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.prod{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 22px;transition:.15s}
+.prod:hover{border-color:var(--mint);box-shadow:0 10px 26px rgba(20,63,41,.08);transform:translateY(-2px)}
+.prod .ic{font-size:34px}.prod h3{font-size:20px;margin:10px 0 7px;color:var(--green2)}.prod p{color:var(--muted);font-size:14.5px}
+.prod .go{display:inline-block;margin-top:12px;color:var(--mint2);font-weight:700;font-size:14.5px}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.step{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 22px}
+.step .num{width:40px;height:40px;border-radius:11px;background:var(--mint-soft);color:var(--green);display:grid;place-items:center;font-weight:800;font-size:18px}
+.step h3{font-size:18px;margin:12px 0 6px}.step p{color:var(--muted);font-size:14.5px}
+/* testimonials */
+.tcards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.tcard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px}
+.tcard .stars{color:#f5a623;font-size:16px}
+.tcard p{margin:10px 0;font-size:15px}
+.tcard .who{font-weight:700;color:var(--green2);font-size:14px}
+.tcard .who span{color:var(--muted);font-weight:500}
+/* why */
+.why{background:var(--green2);color:#fff}
+.why .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;text-align:center}
+.why .ic{font-size:30px}.why h3{font-size:17px;margin:10px 0 5px}.why p{color:#aecabb;font-size:13.5px}
+/* faq */
+details{background:#fff;border:1px solid var(--line);border-radius:13px;margin-bottom:10px;overflow:hidden}
+details summary{padding:16px 18px;font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px;font-size:16px;color:var(--green2)}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"+";color:var(--mint2);font-weight:800;font-size:20px}
+details[open] summary::after{content:"\2013"}
+details .a{padding:0 18px 16px;color:#3a4a41;font-size:15px}
+/* cta */
+.ctaband{background:linear-gradient(135deg,var(--mint2),var(--green));color:#fff;text-align:center;border-radius:20px;padding:40px 24px}
+.ctaband h2{font-size:30px;font-weight:800}.ctaband p{color:#e7fff4;margin:8px 0 20px;font-size:16.5px}
+.ctaband .btn{background:#fff;color:var(--green);font-size:16px;padding:14px 26px}
+/* footer */
+.site-footer{background:#0b2418;color:#9fc7b2;padding:40px 0 26px;font-size:14px}
+.site-footer .cols{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:26px;margin-bottom:24px}
+.site-footer h4{color:#fff;font-size:15px;margin-bottom:10px}
+.site-footer a{display:block;color:#9fc7b2;padding:3px 0}.site-footer a:hover{color:var(--mint)}
+.legal{border-top:1px solid #1d3b2b;padding-top:18px;font-size:12px;color:#7ba792;line-height:1.6}
+@media(max-width:860px){
+  .hero .wrap{grid-template-columns:1fr;gap:28px;padding-top:34px}
+  .hero h1{font-size:32px}.calc{grid-template-columns:1fr}
+  .prods,.steps,.tcards,.why .grid{grid-template-columns:1fr}
+  .site-footer .cols{grid-template-columns:1fr 1fr}
+  .sec-head h2{font-size:25px}section{padding:40px 0}
+}
+@media(max-width:520px){.site-footer .cols{grid-template-columns:1fr}}
+@media(min-width:861px){.nav .menu{display:flex}}

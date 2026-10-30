@@ -1,0 +1,75 @@
+<?php
+if (!defined('ABSPATH')) exit;
+
+/**
+ * LoanPt theme setup, assets, SEO head, and lead → CRM forwarding.
+ * CRM endpoint can be overridden in wp-config.php:
+ *   define('LOANPT_CRM_LEAD_URL', 'https://loanpt-crm.onrender.com/api/v1/leads/web-lead');
+ */
+
+if (!defined('LOANPT_CRM_LEAD_URL')) {
+    define('LOANPT_CRM_LEAD_URL', 'https://loanpt-crm.onrender.com/api/v1/leads/web-lead');
+}
+if (!defined('LOANPT_PHONE'))    define('LOANPT_PHONE', '9625913455');
+if (!defined('LOANPT_WA'))       define('LOANPT_WA', '919625913455');
+if (!defined('LOANPT_EMAIL'))    define('LOANPT_EMAIL', 'connect@loanpt.com');
+// Login links shown in the header/footer. Override in wp-config.php if your URLs differ.
+if (!defined('LOANPT_TEAM_URL'))      define('LOANPT_TEAM_URL', 'https://crm.loanpt.com/login');
+if (!defined('LOANPT_CONNECTOR_URL')) define('LOANPT_CONNECTOR_URL', 'https://crm.loanpt.com/portal');
+
+function loanpt_setup() {
+    add_theme_support('title-tag');
+    add_theme_support('post-thumbnails');
+    add_theme_support('html5', array('search-form', 'script', 'style'));
+    register_nav_menus(array('primary' => 'Primary Menu'));
+}
+add_action('after_setup_theme', 'loanpt_setup');
+
+function loanpt_assets() {
+    wp_enqueue_style('loanpt-style', get_stylesheet_uri(), array(), '1.0.0');
+    wp_enqueue_script('loanpt-app', get_template_directory_uri() . '/assets/app.js', array(), '1.0.0', true);
+    wp_localize_script('loanpt-app', 'LOANPT', array(
+        'leadUrl' => esc_url_raw(rest_url('loanpt/v1/lead')),
+        'wa'      => 'https://wa.me/' . LOANPT_WA . '?text=' . rawurlencode('Hi LoanPt, I just applied on your website — I want to know about a loan.'),
+    ));
+}
+add_action('wp_enqueue_scripts', 'loanpt_assets');
+
+/* SEO: sensible meta description + Organization/FAQ structured data on the homepage.
+   (Install Rank Math or Yoast to control per-page titles/descriptions at scale.) */
+function loanpt_head() {
+    if (is_front_page()) {
+        $desc = 'Compare personal loan, overdraft & balance transfer offers from HDFC, Kotak, Axis, ICICI, Bajaj & more. Check eligibility free, get the lowest rate. Zero cost — LoanPt.';
+        echo '<meta name="description" content="' . esc_attr($desc) . '">' . "\n";
+        echo '<meta property="og:type" content="website"><meta property="og:site_name" content="LoanPt">' . "\n";
+        $ld = array(
+            '@context' => 'https://schema.org',
+            '@graph'   => array(
+                array('@type' => 'FinancialService', '@id' => home_url('/#org'), 'name' => 'LoanPt', 'url' => home_url('/'), 'telephone' => '+91-' . LOANPT_PHONE, 'email' => LOANPT_EMAIL, 'slogan' => 'Credit in Pocket', 'areaServed' => 'IN', 'description' => 'Loan facilitation service helping salaried professionals compare and get personal loans, overdraft and balance transfer at the best rates from partner banks.'),
+                array('@type' => 'FAQPage', 'mainEntity' => array(
+                    array('@type' => 'Question', 'name' => 'Is LoanPt free to use?', 'acceptedAnswer' => array('@type' => 'Answer', 'text' => 'Yes. Comparing offers and applying through LoanPt is completely free for you. We are paid by the lender, not by you.')),
+                    array('@type' => 'Question', 'name' => 'Which banks can I compare?', 'acceptedAnswer' => array('@type' => 'Answer', 'text' => 'Leading banks and NBFCs including HDFC, Kotak, ICICI, Axis, Bajaj Finserv and more.')),
+                    array('@type' => 'Question', 'name' => 'What interest rate will I get?', 'acceptedAnswer' => array('@type' => 'Answer', 'text' => 'Rates depend on the lender, the product and your profile. The final rate is decided by the lender after approval.')),
+                )),
+            ),
+        );
+        echo '<script type="application/ld+json">' . wp_json_encode($ld) . '</script>' . "\n";
+    }
+}
+add_action('wp_head', 'loanpt_head', 5);
+
+/* Lead REST endpoint: receives the form (same-origin, no CORS) and forwards
+   server-side to the CRM. Returns {ok:true} on success. */
+require get_template_directory() . '/inc/leads.php';
+
+/* Comparison data — edit here to change banks/rates shown on the homepage. */
+function loanpt_banks() {
+    return array(
+        array('HDFC Bank',      '10.50%*', '₹40 Lakh', '12–72 mo', 'Up to 2%'),
+        array('ICICI Bank',     '10.75%*', '₹50 Lakh', '12–72 mo', 'Up to 2%'),
+        array('Axis Bank',      '10.99%*', '₹40 Lakh', '12–84 mo', 'Up to 2%'),
+        array('Kotak Mahindra', '10.99%*', '₹35 Lakh', '12–72 mo', 'Up to 3%'),
+        array('Bajaj Finserv',  '11.00%*', '₹55 Lakh', '12–96 mo', 'Up to 3.5%'),
+        array('IDFC First',     '10.99%*', '₹1 Crore', '12–60 mo', 'Up to 2%'),
+    );
+}
