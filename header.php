@@ -12,7 +12,7 @@
     <?php if (has_custom_logo()): ?>
       <a class="logo logo-img" href="<?php echo esc_url(home_url('/')); ?>"><?php echo wp_get_attachment_image(get_theme_mod('custom_logo'), 'full', false, array('alt' => get_bloginfo('name'), 'class' => 'logo-pic')); ?></a>
     <?php else: ?>
-      <a class="logo" href="<?php echo esc_url(home_url('/')); ?>"><span class="mk">L</span>Loan<b>Pt</b></a>
+      <a class="logo logo-img" href="<?php echo esc_url(home_url('/')); ?>"><img class="logo-pic" src="<?php echo esc_url(get_template_directory_uri() . '/assets/logo.svg'); ?>" alt="<?php echo esc_attr(get_bloginfo('name') ?: 'LoanPt'); ?>"></a>
     <?php endif; ?>
     <span class="sp"></span>
     <nav class="menu">
