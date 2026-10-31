@@ -8,11 +8,11 @@ if (!defined('ABSPATH')) exit;
  * use the "LoanPt Landing" template. Bump LOANPT_PAGES_VER to re-seed.
  */
 
-define('LOANPT_PAGES_VER', '1');
+define('LOANPT_PAGES_VER', '2');
 
-/** Content for each landing page, keyed by URL slug. */
+/** Content for each landing page, keyed by URL slug (base products + city pages). */
 function loanpt_landing_data() {
-    return array(
+    $base = array(
         'personal-loan' => array(
             'title' => 'Personal Loan — Compare & Apply at the Lowest Rate',
             'h1'    => 'Personal Loan — Compare Offers from <em>Every Bank</em>',
@@ -59,6 +59,40 @@ function loanpt_landing_data() {
             ),
         ),
     );
+    return array_merge($base, loanpt_city_defs());
+}
+
+/** Personal-loan city landing pages across NCR — unique content per city (SEO). */
+function loanpt_city_defs() {
+    $bullets = array('Loan up to ₹50 Lakh+', 'Tenure up to 84 months', 'Minimal documents', 'Quick disbursal', 'Fixed EMI', 'No collateral needed');
+    $cities = array(
+        'noida'         => array('Noida', 'Looking for a personal loan in Noida? Whether you work in the Sector 62 or Sector 125 corporate hubs or live anywhere across the city, LoanPt compares personal loan offers from leading banks and NBFCs and matches you to the lowest rate your profile qualifies for. We handle the paperwork end to end — and it is completely free for you.'),
+        'delhi'         => array('Delhi', 'Need a personal loan in Delhi? From salaried professionals around Connaught Place and Nehru Place to residents across South, West and East Delhi, LoanPt compares offers from every major bank and NBFC, finds you the best rate for your profile, and manages the whole process — at zero cost to you.'),
+        'gurugram'      => array('Gurugram', 'Searching for a personal loan in Gurugram (Gurgaon)? For professionals across Cyber City, Udyog Vihar and the wider corporate belt, LoanPt compares personal loan offers from top banks and NBFCs, matches you to the lowest rate you qualify for, and handles the documentation — free of charge.'),
+        'ghaziabad'     => array('Ghaziabad', 'Looking for a personal loan in Ghaziabad? LoanPt helps salaried and self-employed applicants across Indirapuram, Vaishali, Raj Nagar and the wider city compare offers from leading banks and NBFCs, secure a competitive rate, and get funds with minimal paperwork — at no cost to you.'),
+        'faridabad'     => array('Faridabad', 'For a personal loan in Faridabad, LoanPt compares offers from all the major banks and NBFCs so you do not have to. Whether you are in NIT, Sector 15 or along the industrial belt, we match you to the lowest rate your profile qualifies for and manage the process end to end — completely free.'),
+        'greater-noida' => array('Greater Noida', 'Need a personal loan in Greater Noida? From professionals in the Knowledge Park institutional belt to residents across the city sectors, LoanPt compares personal loan offers from leading banks and NBFCs, finds you a competitive rate, and handles the paperwork — at zero cost to you.'),
+    );
+    $out = array();
+    foreach ($cities as $cslug => $c) {
+        $name = $c[0];
+        $out['personal-loan-' . $cslug] = array(
+            'title'   => 'Personal Loan in ' . $name . ' — Compare & Apply at the Lowest Rate',
+            'h1'      => 'Personal Loan in <em>' . $name . '</em> — Compare Offers from Every Bank',
+            'meta'    => 'Compare personal loan offers in ' . $name . ' from HDFC, Kotak, ICICI, Axis, Bajaj & more. Check eligibility free, get the lowest rate with minimal paperwork. Apply with LoanPt — zero cost.',
+            'product' => 'Personal Loan',
+            'intro'   => $c[1],
+            'bullets' => $bullets,
+            'compare' => true,
+            'faq'     => array(
+                'Can I get a personal loan in ' . $name . '?' => 'Yes — we work with banks and NBFCs that lend across ' . $name . ' and the wider NCR. Share your details and our team finds your best option, free.',
+                'Who is eligible for a personal loan?' => 'Typically salaried or self-employed applicants with a steady income and a reasonable credit score. We check your profile against multiple banks and tell you the best fit.',
+                'What documents do I need?' => 'Usually ID & address proof, PAN, and recent salary slips or bank statements. We guide you through the exact list for the bank you qualify for.',
+                'What interest rate will I get?' => 'It depends on the bank, your income and credit profile, so the lender decides it. We pull competitive partner-bank offers and never promise a fixed rate upfront.',
+            ),
+        );
+    }
+    return $out;
 }
 
 /** Auto-create the landing pages (idempotent, version-guarded). */
@@ -97,3 +131,15 @@ add_action('wp_head', function () {
     }
     echo '<script type="application/ld+json">' . wp_json_encode(array('@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => $items)) . '</script>' . "\n";
 }, 6);
+
+/** Unique, keyword-rich <title> for each landing page (SEO). */
+add_filter('document_title_parts', function ($parts) {
+    if (!is_page()) return $parts;
+    $slug = get_post_field('post_name', get_queried_object_id());
+    $data = loanpt_landing_data();
+    if (isset($data[$slug])) {
+        $parts['title'] = $data[$slug]['title'];
+        unset($parts['tagline']);
+    }
+    return $parts;
+});
