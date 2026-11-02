@@ -15,18 +15,24 @@
       <a class="logo logo-img" href="<?php echo esc_url(home_url('/')); ?>"><img class="logo-pic" src="<?php echo esc_url(get_template_directory_uri() . '/assets/logo.svg'); ?>" alt="<?php echo esc_attr(get_bloginfo('name') ?: 'LoanPt'); ?>"></a>
     <?php endif; ?>
     <span class="sp"></span>
-    <?php if (has_nav_menu('primary')): ?>
-      <nav class="menu"><?php wp_nav_menu(array('theme_location' => 'primary', 'container' => false, 'items_wrap' => '%3$s', 'depth' => 1, 'fallback_cb' => false)); ?></nav>
-    <?php else: ?>
-      <nav class="menu">
-        <a href="<?php echo esc_url(home_url('/#compare')); ?>">Compare</a>
-        <a href="<?php echo esc_url(home_url('/#calc')); ?>">EMI Calculator</a>
-        <a href="<?php echo esc_url(home_url('/personal-loan/')); ?>">Personal Loan</a>
-        <a href="<?php echo esc_url(home_url('/#faq')); ?>">FAQ</a>
-      </nav>
-    <?php endif; ?>
-    <a class="authlnk" href="<?php echo esc_url(loanpt_opt('connector_url', LOANPT_CONNECTOR_URL)); ?>">&#128100; Connector Login</a>
-    <a class="authlnk" href="<?php echo esc_url(loanpt_opt('team_url', LOANPT_TEAM_URL)); ?>">&#128274; Team Login</a>
+    <div class="navlinks" id="navdrop">
+      <?php if (has_nav_menu('primary')): ?>
+        <nav class="menu"><?php wp_nav_menu(array('theme_location' => 'primary', 'container' => false, 'items_wrap' => '%3$s', 'depth' => 1, 'fallback_cb' => false)); ?></nav>
+      <?php else: ?>
+        <nav class="menu">
+          <a href="<?php echo esc_url(home_url('/personal-loan/')); ?>">Personal Loan</a>
+          <a href="<?php echo esc_url(home_url('/overdraft/')); ?>">Overdraft</a>
+          <a href="<?php echo esc_url(home_url('/balance-transfer/')); ?>">Balance Transfer</a>
+          <a href="<?php echo esc_url(home_url('/loan-eligibility/')); ?>">Check Eligibility</a>
+          <a href="<?php echo esc_url(home_url('/blog/')); ?>">Blog</a>
+          <a href="<?php echo esc_url(home_url('/about/')); ?>">About</a>
+          <a href="<?php echo esc_url(home_url('/contact/')); ?>">Contact</a>
+        </nav>
+      <?php endif; ?>
+      <a class="authlnk" href="<?php echo esc_url(loanpt_opt('connector_url', LOANPT_CONNECTOR_URL)); ?>">&#128100; Connector Login</a>
+      <a class="authlnk" href="<?php echo esc_url(loanpt_opt('team_url', LOANPT_TEAM_URL)); ?>">&#128274; Team Login</a>
+    </div>
     <a class="btn btn-call" href="tel:+91<?php echo esc_attr(loanpt_opt('phone', LOANPT_PHONE)); ?>">&#128222; <?php echo esc_html(loanpt_opt('phone', LOANPT_PHONE)); ?></a>
+    <button class="navtoggle" id="navtoggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navdrop"><span></span><span></span><span></span></button>
   </div>
 </header>

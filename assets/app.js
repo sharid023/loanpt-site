@@ -127,6 +127,23 @@
   window.addEventListener('resize', function () { bounds(); x = clamp(x, 6, window.innerWidth - w - 6); y = clamp(y, 6, window.innerHeight - h - 6); render(); });
 })();
 
+/* ---------- Mobile nav toggle ---------- */
+(function () {
+  var t = document.getElementById('navtoggle');
+  var d = document.getElementById('navdrop');
+  if (!t || !d) return;
+  function set(open) {
+    d.classList.toggle('open', open);
+    t.classList.toggle('open', open);
+    t.setAttribute('aria-expanded', open ? 'true' : 'false');
+    t.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+  t.addEventListener('click', function (e) { e.stopPropagation(); set(!d.classList.contains('open')); });
+  d.addEventListener('click', function (e) { if (e.target.closest('a')) set(false); });
+  document.addEventListener('click', function (e) { if (!d.contains(e.target) && e.target !== t && !t.contains(e.target)) set(false); });
+  window.addEventListener('resize', function () { if (window.innerWidth > 860) set(false); });
+})();
+
 /* ---------- Eligibility quiz ---------- */
 (function () {
   var quiz = document.getElementById('lpquiz');
