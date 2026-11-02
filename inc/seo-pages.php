@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) exit;
  * use the "LoanPt Landing" template. Bump LOANPT_PAGES_VER to re-seed.
  */
 
-define('LOANPT_PAGES_VER', '2');
+define('LOANPT_PAGES_VER', '3');
 
 /** Content for each landing page, keyed by URL slug (base products + city pages). */
 function loanpt_landing_data() {
@@ -95,6 +95,30 @@ function loanpt_city_defs() {
     return $out;
 }
 
+/** Informational pages (Services, About, Contact) — clean content that overrides any broken legacy content. */
+function loanpt_info_data() {
+    return array(
+        'services' => array(
+            'h1'    => 'Our Services',
+            'title' => 'Our Loan Services — Personal Loan, Overdraft & Balance Transfer',
+            'meta'  => 'LoanPt helps you compare and get personal loans, overdraft and balance transfer from leading banks & NBFCs at the best rates — free and fully managed.',
+            'intro' => 'We help salaried and self-employed professionals access the right credit at the best available rate — fully managed, at zero cost to you. Here is what we arrange:',
+        ),
+        'about' => array(
+            'h1'    => 'About LoanPt',
+            'title' => 'About LoanPt — Credit in Pocket, Loan Facilitation Made Simple',
+            'meta'  => 'LoanPt is a loan facilitation service helping salaried professionals compare and get personal loans, overdraft and balance transfer at the best rates — at zero cost.',
+            'intro' => 'LoanPt is a loan facilitation service on a simple mission: making credit simple and accessible. We help salaried and self-employed professionals compare and get personal loans, overdraft and balance transfer from leading banks and NBFCs at the best available rate — with minimal paperwork and full guidance, at zero cost to them.',
+        ),
+        'contact' => array(
+            'h1'    => 'Contact LoanPt',
+            'title' => 'Contact LoanPt — Talk to Our Loan Team',
+            'meta'  => 'Contact LoanPt for personal loans, overdraft and balance transfer. Call, WhatsApp or email us — our team responds fast. Free, fully managed loan assistance.',
+            'intro' => 'Have a question or want to apply? Reach us whatever way is easiest — our team responds fast and guides you end to end.',
+        ),
+    );
+}
+
 /** Auto-create the landing pages (idempotent, version-guarded). */
 add_action('init', function () {
     if (get_option('loanpt_pages_ver') === LOANPT_PAGES_VER) return;
@@ -114,6 +138,24 @@ add_action('init', function () {
             update_post_meta($existing->ID, '_wp_page_template', 'tpl-landing.php');
         }
     }
+    // Info pages (Services/About/Contact) — point existing pages at the info template
+    // so their clean content shows instead of any broken legacy content.
+    foreach (loanpt_info_data() as $slug => $d) {
+        $existing = get_page_by_path($slug);
+        if ($existing) {
+            update_post_meta($existing->ID, '_wp_page_template', 'tpl-page-info.php');
+        } else {
+            wp_insert_post(array(
+                'post_title'   => $d['h1'],
+                'post_name'    => $slug,
+                'post_status'  => 'publish',
+                'post_type'    => 'page',
+                'post_content' => 'LoanPt ' . $d['h1'] . '.',
+                'page_template' => 'tpl-page-info.php',
+                'meta_input'   => array('_wp_page_template' => 'tpl-page-info.php'),
+            ));
+        }
+    }
     update_option('loanpt_pages_ver', LOANPT_PAGES_VER);
 }, 20);
 
@@ -121,24 +163,28 @@ add_action('init', function () {
 add_action('wp_head', function () {
     if (!is_page()) return;
     $slug = get_post_field('post_name', get_queried_object_id());
-    $data = loanpt_landing_data();
-    if (!isset($data[$slug])) return;
-    $d = $data[$slug];
-    echo '<meta name="description" content="' . esc_attr($d['meta']) . '">' . "\n";
-    $items = array();
-    foreach ($d['faq'] as $q => $a) {
-        $items[] = array('@type' => 'Question', 'name' => $q, 'acceptedAnswer' => array('@type' => 'Answer', 'text' => $a));
+    $landing = loanpt_landing_data();
+    $info = loanpt_info_data();
+    if (isset($landing[$slug])) {
+        $d = $landing[$slug];
+        echo '<meta name="description" content="' . esc_attr($d['meta']) . '">' . "\n";
+        $items = array();
+        foreach ($d['faq'] as $q => $a) {
+            $items[] = array('@type' => 'Question', 'name' => $q, 'acceptedAnswer' => array('@type' => 'Answer', 'text' => $a));
+        }
+        echo '<script type="application/ld+json">' . wp_json_encode(array('@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => $items)) . '</script>' . "\n";
+    } elseif (isset($info[$slug])) {
+        echo '<meta name="description" content="' . esc_attr($info[$slug]['meta']) . '">' . "\n";
     }
-    echo '<script type="application/ld+json">' . wp_json_encode(array('@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => $items)) . '</script>' . "\n";
 }, 6);
 
 /** Unique, keyword-rich <title> for each landing page (SEO). */
 add_filter('document_title_parts', function ($parts) {
     if (!is_page()) return $parts;
     $slug = get_post_field('post_name', get_queried_object_id());
-    $data = loanpt_landing_data();
-    if (isset($data[$slug])) {
-        $parts['title'] = $data[$slug]['title'];
+    $all = array_merge(loanpt_landing_data(), loanpt_info_data());
+    if (isset($all[$slug])) {
+        $parts['title'] = $all[$slug]['title'];
         unset($parts['tagline']);
     }
     return $parts;
