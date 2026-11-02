@@ -197,6 +197,111 @@
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function pill(s) { var k = String(s || '').toLowerCase().replace(/[^a-z_]/g, ''); return '<span class="pill pill-' + k + '">' + esc(String(s || '—').replace(/_/g, ' ')) + '</span>'; }
 
+  // ----- Tabs -----
+  var tabs = dash.querySelectorAll('.dtab');
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () {
+      tabs.forEach(function (x) { x.classList.toggle('is-active', x === t); });
+      var name = t.getAttribute('data-tab');
+      dash.querySelectorAll('.dpane').forEach(function (p) { p.hidden = p.getAttribute('data-pane') !== name; });
+    });
+  });
+
+  // ----- Profile completion meter -----
+  var curMe = {}, docTypes = {};
+  function updateMeter() {
+    var items = [
+      !!(curMe.fullName && curMe.fullName !== 'Customer'),
+      !!(curMe.personalEmail || curMe.email),
+      !!curMe.officialEmail,
+      !!curMe.address,
+      !!curMe.pan,
+      !!docTypes.pan,
+      !!(docTypes.salary_slip || docTypes.bank_statement)
+    ];
+    var pct = Math.round(items.filter(Boolean).length / items.length * 100);
+    var fill = document.getElementById('pmFill'), pctEl = document.getElementById('pmPct'), hint = document.getElementById('pmHint');
+    if (fill) fill.style.width = pct + '%';
+    if (pctEl) pctEl.textContent = pct + '%';
+    if (hint) hint.textContent = pct >= 100 ? 'Great — your profile is complete! 🎉' : 'Complete your profile & documents to speed up loan approvals.';
+  }
+  function setVal(id, v) { var el = document.getElementById(id); if (el) el.value = (v == null ? '' : v); }
+
+  // ----- Profile form (save) -----
+  var pf = document.getElementById('profileForm');
+  if (pf) pf.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var pfErr = document.getElementById('pfErr'), pfOk = document.getElementById('pfOk');
+    if (pfErr) pfErr.style.display = 'none';
+    if (pfOk) pfOk.style.display = 'none';
+    var pan = (document.getElementById('pfPan').value || '').trim().toUpperCase();
+    if (pan && !/^[A-Z]{5}[0-9]{4}[A-Z]$/.test(pan)) {
+      if (pfErr) { pfErr.textContent = 'Please enter a valid PAN (e.g. ABCDE1234F).'; pfErr.style.display = 'block'; }
+      return;
+    }
+    var body = {
+      fullName: (document.getElementById('pfName').value || '').trim(),
+      personalEmail: (document.getElementById('pfPmail').value || '').trim(),
+      officialEmail: (document.getElementById('pfOmail').value || '').trim(),
+      address: (document.getElementById('pfAddr').value || '').trim(),
+      pan: pan
+    };
+    var btn = document.getElementById('pfSave'); btn.disabled = true; btn.textContent = 'Saving…';
+    api('/customer/me', { method: 'PATCH', body: JSON.stringify(body) }).then(function (res) {
+      btn.disabled = false; btn.textContent = 'Save changes';
+      if (res.ok) {
+        curMe.fullName = body.fullName || curMe.fullName;
+        curMe.personalEmail = body.personalEmail; curMe.officialEmail = body.officialEmail;
+        curMe.address = body.address; curMe.pan = body.pan;
+        var nm = document.getElementById('dashName'); if (nm && body.fullName) nm.textContent = body.fullName;
+        if (pfOk) pfOk.style.display = 'block';
+        updateMeter();
+      } else if (pfErr) { pfErr.textContent = (res.d && res.d.message) || 'Could not save. Please try again.'; pfErr.style.display = 'block'; }
+    }).catch(function () {
+      btn.disabled = false; btn.textContent = 'Save changes';
+      if (pfErr) { pfErr.textContent = 'Network error. Please try again.'; pfErr.style.display = 'block'; }
+    });
+  });
+
+  // ----- Documents (upload + status) -----
+  function apiUpload(path, fd) {
+    var t = token();
+    return fetch(API + path, { method: 'POST', headers: t ? { Authorization: 'Bearer ' + t } : {}, body: fd })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, status: r.status, d: d }; }); });
+  }
+  function setDocStatus(card, text, done) {
+    var s = card.querySelector('.doc-status'); if (s) s.textContent = text;
+    card.classList.toggle('is-done', !!done);
+    var b = card.querySelector('.doc-up span'); if (b) b.textContent = done ? 'Replace' : 'Upload';
+  }
+  var grid = document.getElementById('docGrid');
+  if (grid) grid.addEventListener('change', function (e) {
+    var input = e.target; if (!input || input.type !== 'file') return;
+    var card = input.closest('.doc-card'); if (!card) return;
+    var type = card.getAttribute('data-type');
+    var file = input.files && input.files[0]; if (!file) return;
+    if (file.size > 10 * 1024 * 1024) { setDocStatus(card, 'Max file size 10 MB', false); input.value = ''; return; }
+    setDocStatus(card, 'Uploading…', false);
+    var fd = new FormData(); fd.append('file', file); fd.append('type', type);
+    apiUpload('/customer/profile/documents', fd).then(function (res) {
+      if (res.ok) { docTypes[type] = true; setDocStatus(card, 'Uploaded ✓', true); updateMeter(); }
+      else { setDocStatus(card, 'Upload failed — retry', false); }
+    }).catch(function () { setDocStatus(card, 'Upload failed — retry', false); });
+    input.value = '';
+  });
+  function loadDocs() {
+    api('/customer/profile/documents').then(function (res) {
+      if (!res.ok || !Array.isArray(res.d)) return;
+      docTypes = {};
+      res.d.forEach(function (d) { docTypes[d.type] = true; });
+      Object.keys(docTypes).forEach(function (type) {
+        var card = grid && grid.querySelector('.doc-card[data-type="' + type + '"]');
+        if (card) setDocStatus(card, 'Uploaded ✓', true);
+      });
+      updateMeter();
+    }).catch(function () {});
+  }
+
   function load() {
     if (!token()) { loginCard.hidden = false; dash.hidden = true; return; }
     var prof = {};
@@ -215,6 +320,14 @@
         if (prof.picture) { ava.innerHTML = '<img referrerpolicy="no-referrer" alt="" src="' + encodeURI(prof.picture) + '">'; }
         else { ava.textContent = (name.trim().charAt(0) || 'U').toUpperCase(); }
       }
+      curMe = me;
+      setVal('pfName', (me.fullName && me.fullName !== 'Customer') ? me.fullName : (prof.name || ''));
+      setVal('pfPmail', me.personalEmail || prof.email || '');
+      setVal('pfOmail', me.officialEmail || '');
+      setVal('pfAddr', me.address || '');
+      setVal('pfPan', me.pan || '');
+      updateMeter();
+      loadDocs();
       loginCard.hidden = true; dash.hidden = false;
       return api('/customer/applications');
     }).then(function (res) {
