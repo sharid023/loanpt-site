@@ -54,6 +54,12 @@
   <div class="stat"><b>100%</b><span>Managed by us</span></div>
 </div></div>
 
+<!-- PARTNER BANKS -->
+<div class="partners"><div class="wrap">
+  <span class="lbl">We compare offers across</span>
+  <span>HDFC</span><span>ICICI</span><span>Axis</span><span>Kotak</span><span>Bajaj Finserv</span><span>IDFC First</span><span>&amp; more</span>
+</div></div>
+
 <!-- EMI CALCULATOR (lead magnet) -->
 <section id="calc">
   <div class="wrap">

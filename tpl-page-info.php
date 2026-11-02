@@ -88,6 +88,35 @@ $email = loanpt_opt('email', LOANPT_EMAIL);
     <div class="ok" id="ok"><div class="big">&#127881;</div><h3>Thank you!</h3><p>Our team will call you shortly.</p><a class="wa" id="waLink" href="#">&#128172; Chat on WhatsApp</a></div>
   </div>
 </div></section>
+
+<?php elseif ($slug === 'instant-loan'): ?>
+<!-- INSTANT LOAN: apply form + fast steps -->
+<section style="padding-top:36px"><div class="wrap" style="max-width:560px">
+  <div class="formcard" id="apply" style="box-shadow:0 12px 34px rgba(20,63,41,.12)">
+    <h2>Apply in 60 seconds</h2><p class="fsub">Our team calls you right away with the fastest option.</p>
+    <div class="err" id="err"></div>
+    <form id="leadForm" novalidate>
+      <div class="field"><label for="name">Full name</label><input id="name" name="name" type="text" autocomplete="name" placeholder="Your name" required></div>
+      <div class="field"><label for="mobile">Mobile number</label><input id="mobile" name="mobile" type="tel" inputmode="numeric" autocomplete="tel" maxlength="10" placeholder="10-digit mobile" required></div>
+      <div class="row2">
+        <div class="field"><label for="amount">Amount (&#8377;)</label><input id="amount" name="amount" type="text" inputmode="numeric" placeholder="e.g. 5,00,000"></div>
+        <div class="field"><label for="city">City</label><input id="city" name="city" type="text" placeholder="e.g. Noida"></div>
+      </div>
+      <input type="hidden" id="product" name="product" value="Personal Loan">
+      <button type="submit" class="btn btn-pri" id="submitBtn">Get my instant offer &rarr;</button>
+      <p class="fnote">We never ask for OTP, card or account details.</p>
+    </form>
+    <div class="ok" id="ok"><div class="big">&#127881;</div><h3>Thank you!</h3><p>Our team will call you right away.</p><a class="wa" id="waLink" href="#">&#128172; Chat on WhatsApp</a></div>
+  </div>
+</div></section>
+<section style="background:#fff;border-top:1px solid var(--line)"><div class="wrap">
+  <div class="sec-head"><div class="kicker">Why it's fast</div><h2>Funds without the wait</h2></div>
+  <div class="steps">
+    <div class="step"><div class="num">1</div><h3>60-second eligibility</h3><p>Share a few details — no documents to start.</p></div>
+    <div class="step"><div class="num">2</div><h3>Instantly matched</h3><p>We route you to the bank or NBFC with the fastest journey for your profile.</p></div>
+    <div class="step"><div class="num">3</div><h3>Quick disbursal</h3><p>Minimal paperwork, digital where possible — funds reach you fast.</p></div>
+  </div>
+</div></section>
 <?php endif; ?>
 
 <!-- CTA -->

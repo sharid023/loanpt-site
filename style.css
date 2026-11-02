@@ -145,3 +145,39 @@ details .a{padding:0 18px 16px;color:#3a4a41;font-size:15px}
 }
 @media(max-width:520px){.site-footer .cols{grid-template-columns:1fr}}
 @media(min-width:861px){.nav .menu{display:flex}}
+
+/* ===================== DESIGN UPGRADE ===================== */
+:root{--maxw:1240px}
+h1,h2,h3,.sec-head h2,.hero h1,.ctaband h2{font-family:'Poppins',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+body{font-size:16.5px}
+/* richer hero */
+.hero{background:radial-gradient(1200px 520px at 82% -12%,rgba(43,191,134,.24),transparent 60%),linear-gradient(160deg,#0b2719,#143f29 55%,#0f3323)}
+.hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.055) 1px,transparent 1px);background-size:23px 23px;opacity:.55;pointer-events:none;z-index:1}
+.hero h1{font-size:50px;letter-spacing:-1.5px;line-height:1.07}
+.hero .wrap{padding-top:60px;padding-bottom:56px}
+/* roomier sections */
+section{padding:64px 0}
+.sec-head h2{font-size:35px}
+.sec-head p{font-size:17px}
+/* richer cards */
+.prod,.step,.tcard{border-radius:18px;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.prod:hover,.tcard:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(20,63,41,.13);border-color:var(--mint)}
+.prod .ic{width:64px;height:64px;border-radius:16px;background:var(--mint-soft);display:grid;place-items:center;font-size:30px}
+.prod h3{font-size:21px}
+/* gradient buttons */
+.btn-pri{background:linear-gradient(135deg,#2bbf86,#1ea770);box-shadow:0 6px 18px rgba(43,191,134,.32)}
+.btn-pri:hover{filter:brightness(1.06);color:#06281a}
+/* richer stats band */
+.trustbar{background:linear-gradient(135deg,#f0f8f4,#e8faf0);padding:6px 0}
+.trustbar .stat b{font-size:36px;background:linear-gradient(135deg,#143f29,#1ea770);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* partner banks strip */
+.partners{background:#fff;border-bottom:1px solid var(--line);padding:24px 0}
+.partners .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:11px 13px}
+.partners .lbl{width:100%;text-align:center;color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:10px}
+.partners span{font-weight:800;color:var(--green2);font-size:15.5px;background:var(--paper);border:1px solid var(--line);padding:9px 17px;border-radius:999px}
+/* richer CTA */
+.ctaband{background:radial-gradient(600px 300px at 80% -25%,rgba(255,255,255,.22),transparent),linear-gradient(135deg,#1ea770,#143f29);box-shadow:0 18px 46px rgba(20,63,41,.2)}
+.ctaband h2{font-size:34px}
+/* richer formcard */
+.formcard{border:1px solid rgba(20,63,41,.06)}
+@media(max-width:860px){.hero h1{font-size:34px}.sec-head h2{font-size:27px}section{padding:46px 0}.trustbar .stat b{font-size:28px}}

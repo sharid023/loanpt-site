@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) exit;
  * use the "LoanPt Landing" template. Bump LOANPT_PAGES_VER to re-seed.
  */
 
-define('LOANPT_PAGES_VER', '3');
+define('LOANPT_PAGES_VER', '4');
 
 /** Content for each landing page, keyed by URL slug (base products + city pages). */
 function loanpt_landing_data() {
@@ -115,6 +115,12 @@ function loanpt_info_data() {
             'title' => 'Contact LoanPt — Talk to Our Loan Team',
             'meta'  => 'Contact LoanPt for personal loans, overdraft and balance transfer. Call, WhatsApp or email us — our team responds fast. Free, fully managed loan assistance.',
             'intro' => 'Have a question or want to apply? Reach us whatever way is easiest — our team responds fast and guides you end to end.',
+        ),
+        'instant-loan' => array(
+            'h1'    => 'Instant Loan',
+            'title' => 'Instant Personal Loan — Quick Approval & Fast Disbursal',
+            'meta'  => 'Need funds fast? Apply for an instant personal loan with LoanPt — quick eligibility check, minimal paperwork and fast disbursal from leading banks & NBFCs. Free.',
+            'intro' => 'Need money quickly? We help you access an instant personal loan from banks and NBFCs with the fastest digital journeys — a quick eligibility check, minimal documents and fast disbursal. Share your details and our team gets you moving right away.',
         ),
     );
 }
