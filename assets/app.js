@@ -63,3 +63,57 @@
     calc();
   }
 })();
+
+/* ---------- Draggable WhatsApp button ---------- */
+(function () {
+  var fab = document.querySelector('.wa-float');
+  if (!fab) return;
+  var clamp = function (v, min, max) { return Math.max(min, Math.min(max, v)); };
+  var dragging = false, moved = false, sx = 0, sy = 0, ox = 0, oy = 0;
+
+  function place(left, top) {
+    var w = fab.offsetWidth, h = fab.offsetHeight;
+    left = clamp(left, 6, window.innerWidth - w - 6);
+    top = clamp(top, 6, window.innerHeight - h - 6);
+    fab.style.left = left + 'px';
+    fab.style.top = top + 'px';
+    fab.style.right = 'auto';
+    fab.style.bottom = 'auto';
+  }
+
+  // Restore saved position (kept on this device only).
+  try {
+    var s = JSON.parse(localStorage.getItem('loanpt_wa_pos') || 'null');
+    if (s && typeof s.left === 'number') place(s.left, s.top);
+  } catch (e) {}
+
+  fab.addEventListener('pointerdown', function (e) {
+    dragging = true; moved = false;
+    var r = fab.getBoundingClientRect();
+    ox = r.left; oy = r.top; sx = e.clientX; sy = e.clientY;
+    fab.style.transition = 'none';
+    try { fab.setPointerCapture(e.pointerId); } catch (e2) {}
+  });
+  fab.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var dx = e.clientX - sx, dy = e.clientY - sy;
+    if (Math.abs(dx) > 4 || Math.abs(dy) > 4) moved = true;
+    place(ox + dx, oy + dy);
+  });
+  function end() {
+    if (!dragging) return;
+    dragging = false;
+    fab.style.transition = '';
+    if (moved) {
+      try { var r = fab.getBoundingClientRect(); localStorage.setItem('loanpt_wa_pos', JSON.stringify({ left: r.left, top: r.top })); } catch (e) {}
+    }
+  }
+  fab.addEventListener('pointerup', end);
+  fab.addEventListener('pointercancel', end);
+  // If it was a drag (not a tap), don't open WhatsApp.
+  fab.addEventListener('click', function (e) { if (moved) { e.preventDefault(); moved = false; } });
+  // Keep it on-screen after a resize/rotate.
+  window.addEventListener('resize', function () {
+    if (fab.style.left) { place(parseFloat(fab.style.left) || 0, parseFloat(fab.style.top) || 0); }
+  });
+})();
