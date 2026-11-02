@@ -56,6 +56,26 @@ $email = loanpt_opt('email', LOANPT_EMAIL);
     <div><div class="ic">&#128274;</div><h3>Safe &amp; honest</h3><p>No OTP/card asks. No false promises. Ever.</p></div>
   </div>
 </div></section>
+<!-- CEO MESSAGE -->
+<section class="ceo"><div class="wrap">
+  <div class="sec-head"><div class="kicker">Leadership</div><h2>A Message from Our CEO</h2></div>
+  <div class="ceo-card">
+    <div class="ceo-media">
+      <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/ceo.jpg'); ?>" alt="Tanveer Zehra Rizvi, CEO of LoanPt" loading="lazy" width="340" height="340">
+      <div class="ceo-sign">
+        <strong>Tanveer Zehra Rizvi</strong>
+        <span>Chief Executive Officer, LoanPt</span>
+      </div>
+    </div>
+    <div class="ceo-msg">
+      <span class="ceo-quote" aria-hidden="true">&ldquo;</span>
+      <p>India is living through one of the most exciting chapters in its financial history. As one of the world's fastest-growing economies, millions of Indians are ready to build, grow and dream bigger &mdash; and access to the right credit, at the right time, is what turns those dreams into decisions. At LoanPt, we exist to make that access simple, honest and within everyone's reach.</p>
+      <p>We built LoanPt on one belief: getting a loan should never feel confusing, intimidating or unfair. So we bring every major bank and NBFC into one place, match each person to the offer that genuinely fits their profile, and stay with them through every step &mdash; with no hidden cost and no false promise. <em>&ldquo;Credit in Pocket&rdquo;</em> isn't just our tagline; it's the standard we hold ourselves to.</p>
+      <p>As the industry moves digital, we're building LoanPt to be fast, transparent and genuinely on your side &mdash; pairing smart technology with a real person who owns your file from first call to disbursal. Whether you need a personal loan, an overdraft or a balance transfer, our promise stays the same: your best interest, always first.</p>
+      <p>Thank you for trusting us with your journey. We are only getting started &mdash; and we are glad to have you with us.</p>
+    </div>
+  </div>
+</div></section>
 <section><div class="wrap" style="max-width:820px">
   <div class="sec-head"><div class="kicker">Our promise</div><h2>Honest, transparent lending help</h2></div>
   <p style="font-size:17px;color:#2e3f36;line-height:1.8">We believe getting a loan should be simple and honest. That's why LoanPt compares offers across leading banks and NBFCs, matches you to the lowest rate your profile qualifies for, and handles the paperwork — so you don't run from bank to bank. We never charge you, never ask for OTP, card or account details, and never promise a rate or approval we can't stand behind. Whatever your need — a personal loan, an overdraft or a balance transfer — we help you get the right credit, the right way.</p>
