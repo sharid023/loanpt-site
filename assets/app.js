@@ -530,7 +530,7 @@
   m.innerHTML =
     '<button type="button" class="acctmenu-btn" aria-haspopup="true" aria-expanded="false">' + ava +
       '<span class="am-name">' + first + '</span><span class="am-caret">&#9662;</span></button>' +
-    '<div class="acctmenu-pop" hidden>' +
+    '<div class="acctmenu-pop">' +
       '<a href="' + home + 'customer/#overview">My Applications</a>' +
       '<a href="' + home + 'customer/#profile">My Profile</a>' +
       '<a href="' + home + 'customer/#documents">Documents</a>' +
@@ -540,9 +540,9 @@
   var callBtn = navBar.querySelector('.btn-call');
   if (callBtn) navBar.insertBefore(m, callBtn); else navBar.appendChild(m);
 
-  var btn = m.querySelector('.acctmenu-btn'), pop = m.querySelector('.acctmenu-pop');
-  function setOpen(o) { pop.hidden = !o; btn.setAttribute('aria-expanded', o ? 'true' : 'false'); m.classList.toggle('open', o); }
-  btn.addEventListener('click', function (e) { e.stopPropagation(); setOpen(pop.hidden); });
+  var btn = m.querySelector('.acctmenu-btn');
+  function setOpen(o) { m.classList.toggle('open', o); btn.setAttribute('aria-expanded', o ? 'true' : 'false'); }
+  btn.addEventListener('click', function (e) { e.stopPropagation(); setOpen(!m.classList.contains('open')); });
   document.addEventListener('click', function (e) { if (!m.contains(e.target)) setOpen(false); });
   m.querySelector('.am-logout').addEventListener('click', function () {
     try { localStorage.removeItem(TK); localStorage.removeItem(RK); localStorage.removeItem(PK); } catch (e) {}
