@@ -165,8 +165,82 @@ add_action('init', function () {
     update_option('loanpt_pages_ver', LOANPT_PAGES_VER);
 }, 20);
 
-/* ---------- Blog + Eligibility Quiz + Customer Login ---------- */
-define('LOANPT_BLOG_VER', '2');
+/* ---------- Blog + Eligibility Quiz + Customer Login + Legal ---------- */
+define('LOANPT_BLOG_VER', '3');
+
+/** Full HTML body for the Privacy Policy page. */
+function loanpt_privacy_body() {
+    return <<<'HTML'
+<p>LoanPt (&ldquo;LoanPt&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo; or &ldquo;our&rdquo;) respects your privacy and is committed to protecting your personal data. This Privacy Policy explains what information we collect when you use our website or app, how we use it, and the choices you have. LoanPt is a loan facilitation service (a DSA / referral partner) and is not a bank or a lender.</p>
+<h2>1. Who we are</h2>
+<p>LoanPt helps salaried and self-employed individuals in India compare and apply for personal loans, overdraft and balance-transfer products from partner banks and NBFCs. You can reach us at <a href="mailto:connect@loanpt.com">connect@loanpt.com</a> or <a href="tel:+919625913455">9625913455</a>.</p>
+<h2>2. Information we collect</h2>
+<ul>
+<li><strong>Details you give us:</strong> your name, mobile number, email, city, employment type, income range, and the loan product and amount you are interested in.</li>
+<li><strong>Google sign-in details:</strong> if you log in with Google, we receive your name and verified email address from Google. We never receive your Google password.</li>
+<li><strong>Application documents:</strong> if you choose to apply, documents you upload (such as ID, address or income proof) to process your loan application.</li>
+<li><strong>Technical data:</strong> basic device and usage information needed to run and secure our website and app.</li>
+</ul>
+<h2>3. How we use your information</h2>
+<ul>
+<li>To understand your requirement and match you with suitable loan offers from partner banks and NBFCs;</li>
+<li>To contact you about your enquiry or application by call, SMS, WhatsApp or email;</li>
+<li>To process and track your loan application and share updates with you;</li>
+<li>To improve our services and keep them secure.</li>
+</ul>
+<h2>4. Sharing your information</h2>
+<p>To help you get a loan, we share the information you provide with partner banks and NBFCs so they can assess and process your application. We may also share data with service providers who help us operate (for example SMS, email or hosting providers), under appropriate confidentiality obligations. <strong>We do not sell your personal data to anyone.</strong></p>
+<h2>5. Google Sign-In</h2>
+<p>When you sign in with Google, we use Google&rsquo;s secure authentication only to verify your identity and create or access your LoanPt account. We request only your basic profile (name and email). We do not post anything to your Google account and do not access your contacts, files or other Google data.</p>
+<h2>6. Data security</h2>
+<p>We use reasonable technical and organisational measures to protect your information, and sensitive documents are stored securely. However, no method of transmission over the internet is completely secure, and we cannot guarantee absolute security. <strong>We will never ask you for your OTP, card number, CVV, net-banking password or account password.</strong></p>
+<h2>7. How long we keep your data</h2>
+<p>We keep your information for as long as needed to provide our services and to meet legal, regulatory and record-keeping requirements, after which it is deleted or anonymised.</p>
+<h2>8. Your rights</h2>
+<p>You may ask us to access, correct or delete your personal data, or to stop contacting you, by writing to <a href="mailto:connect@loanpt.com">connect@loanpt.com</a>. We will act on your request in line with applicable law, including India&rsquo;s Digital Personal Data Protection Act, 2023.</p>
+<h2>9. Cookies</h2>
+<p>Our website uses only the minimal cookies and local storage needed to function (for example, to keep you signed in). We do not use them to collect sensitive personal data.</p>
+<h2>10. Children</h2>
+<p>Our services are intended for individuals aged 18 and above. We do not knowingly collect data from minors.</p>
+<h2>11. Changes to this policy</h2>
+<p>We may update this Privacy Policy from time to time. The latest version will always be available on this page with its &ldquo;Last updated&rdquo; date.</p>
+<h2>12. Contact us</h2>
+<p>For any question about this policy or your data, email <a href="mailto:connect@loanpt.com">connect@loanpt.com</a> or call <a href="tel:+919625913455">9625913455</a>.</p>
+HTML;
+}
+
+/** Full HTML body for the Terms &amp; Conditions page. */
+function loanpt_terms_body() {
+    return <<<'HTML'
+<p>These Terms &amp; Conditions (&ldquo;Terms&rdquo;) govern your use of the LoanPt website and app and the services we provide. By using our services or signing in, you agree to these Terms. Please read them carefully.</p>
+<h2>1. About our service</h2>
+<p>LoanPt is a loan facilitation service (a DSA / referral partner). <strong>We are not a bank, NBFC or lender.</strong> We help you compare loan products and connect you with partner banks and NBFCs. All loans are sanctioned and disbursed solely at the discretion of the respective lender, subject to their eligibility criteria, documentation and approval.</p>
+<h2>2. No guarantee of approval or rate</h2>
+<p>We do not guarantee loan approval, any particular loan amount, interest rate or processing time. Interest rates and features shown on our website are indicative and subject to change by the lender. The final terms are decided by the lender.</p>
+<h2>3. Eligibility</h2>
+<p>You must be at least 18 years old and a resident of India to use our services.</p>
+<h2>4. Our service is free to you</h2>
+<p>LoanPt does not charge you for comparing offers or applying through us — we are compensated by the lender. Lenders may charge their own fees (such as a processing fee), which are shown to you by the lender and are your responsibility if you choose to proceed.</p>
+<h2>5. Accurate information</h2>
+<p>You agree to provide true, current and complete information. Providing false information may lead to rejection of your application by the lender, and we are not responsible for such outcomes.</p>
+<h2>6. Your account &amp; Google Sign-In</h2>
+<p>You may create an account using your mobile number and OTP, or by signing in with Google. You are responsible for keeping access to your account secure. <strong>We will never ask you for your OTP, card details or passwords</strong> — never share these with anyone claiming to be from LoanPt.</p>
+<h2>7. Acceptable use</h2>
+<p>You agree not to misuse our services, submit fraudulent information, or use them for any unlawful purpose.</p>
+<h2>8. Third-party lenders</h2>
+<p>Once you proceed with a lender, the lender&rsquo;s own terms, policies and agreements apply to your loan. LoanPt is not a party to the loan contract between you and the lender.</p>
+<h2>9. Limitation of liability</h2>
+<p>Our services are provided on an &ldquo;as is&rdquo; basis. To the extent permitted by law, LoanPt is not liable for any loss arising from a lender&rsquo;s decision, a delay in processing, or your reliance on indicative information. Our role is limited to facilitation.</p>
+<h2>10. Intellectual property</h2>
+<p>The LoanPt name, logo and website content are our property and may not be copied or used without permission.</p>
+<h2>11. Changes to these Terms</h2>
+<p>We may update these Terms from time to time. Continued use of our services after an update means you accept the revised Terms.</p>
+<h2>12. Governing law</h2>
+<p>These Terms are governed by the laws of India, and any disputes are subject to the jurisdiction of the courts of India.</p>
+<h2>13. Contact us</h2>
+<p>Questions about these Terms? Email <a href="mailto:connect@loanpt.com">connect@loanpt.com</a> or call <a href="tel:+919625913455">9625913455</a>.</p>
+HTML;
+}
 
 /** SEO meta for the blog listing + eligibility-quiz + customer-login pages, keyed by slug. */
 function loanpt_tool_pages() {
@@ -189,6 +263,24 @@ function loanpt_tool_pages() {
             'meta'    => 'Log in to your LoanPt account to track your loan application status, approvals and disbursal. Secure Google sign-in.',
             'tpl'     => 'tpl-account.php',
             'noindex' => true,
+        ),
+        'privacy-policy' => array(
+            'h1'      => 'Privacy Policy',
+            'title'   => 'Privacy Policy — How LoanPt Protects Your Data',
+            'meta'    => 'How LoanPt collects, uses and protects your personal data. We never sell your data and never ask for OTP, card or password details.',
+            'tpl'     => 'tpl-legal.php',
+            'intro'   => 'Your privacy matters to us. This policy explains what we collect, how we use it, and the choices you have.',
+            'updated' => 'November 2026',
+            'body'    => loanpt_privacy_body(),
+        ),
+        'terms' => array(
+            'h1'      => 'Terms & Conditions',
+            'title'   => 'Terms & Conditions — LoanPt Loan Facilitation Service',
+            'meta'    => 'The terms governing your use of LoanPt. We are a loan facilitation service (DSA), not a lender, and never charge you or ask for OTP, card or password details.',
+            'tpl'     => 'tpl-legal.php',
+            'intro'   => 'The simple terms that govern your use of LoanPt and our services.',
+            'updated' => 'November 2026',
+            'body'    => loanpt_terms_body(),
         ),
     );
 }

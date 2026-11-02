@@ -30,6 +30,11 @@
       </div>
     </div>
     <div class="legal">
+      <p style="margin-bottom:10px">
+        <a href="<?php echo esc_url(home_url('/privacy-policy/')); ?>" style="display:inline;color:#cfe9db">Privacy Policy</a>
+        &nbsp;&middot;&nbsp;
+        <a href="<?php echo esc_url(home_url('/terms/')); ?>" style="display:inline;color:#cfe9db">Terms &amp; Conditions</a>
+      </p>
       LoanPt is a loan facilitation service (DSA / referral partner), not a lender or a bank. All loans are sanctioned and disbursed solely at the discretion of the respective bank / NBFC, subject to their eligibility and documentation. Interest rates and features shown are indicative and subject to change. LoanPt does not guarantee loan approval or any specific rate. &copy; <?php echo esc_html(date('Y')); ?> LoanPt &middot; Credit in Pocket.
     </div>
   </div>
