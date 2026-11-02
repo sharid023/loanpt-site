@@ -136,6 +136,13 @@
   var TK = 'loanpt_cust_token';
   function token() { try { return localStorage.getItem(TK); } catch (e) { return null; } }
   function setToken(t) { try { t ? localStorage.setItem(TK, t) : localStorage.removeItem(TK); } catch (e) {} }
+  var PK = 'loanpt_cust_profile';
+  function parseJwt(t) {
+    try {
+      var b = t.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+      return JSON.parse(decodeURIComponent(escape(atob(b))));
+    } catch (e) { return {}; }
+  }
   var err = document.getElementById('loginErr');
   function showErr(m) { if (err) { err.textContent = m; err.style.display = 'block'; } }
   function clearErr() { if (err) err.style.display = 'none'; }
@@ -155,6 +162,10 @@
   function onGoogle(resp) {
     if (!resp || !resp.credential) return;
     clearErr();
+    try {
+      var p = parseJwt(resp.credential);
+      localStorage.setItem(PK, JSON.stringify({ name: p.name, email: p.email, picture: p.picture }));
+    } catch (e) {}
     if (gbtn) gbtn.style.opacity = '.5';
     api('/auth/customer/google', { method: 'POST', body: JSON.stringify({ idToken: resp.credential }) }).then(function (res) {
       if (res.ok && res.d && res.d.accessToken) { setToken(res.d.accessToken); load(); }
@@ -176,6 +187,7 @@
   var logoutBtn = document.getElementById('custLogout');
   if (logoutBtn) logoutBtn.addEventListener('click', function () {
     setToken(null);
+    try { localStorage.removeItem(PK); } catch (e) {}
     try { if (window.google && google.accounts && google.accounts.id) google.accounts.id.disableAutoSelect(); } catch (e) {}
     dash.hidden = true; loginCard.hidden = false;
   });
@@ -187,19 +199,37 @@
 
   function load() {
     if (!token()) { loginCard.hidden = false; dash.hidden = true; return; }
+    var prof = {};
+    try { prof = JSON.parse(localStorage.getItem(PK) || '{}') || {}; } catch (e) {}
     api('/customer/me').then(function (res) {
       if (!res.ok) { setToken(null); loginCard.hidden = false; dash.hidden = true; return null; }
       var me = res.d || {};
-      document.getElementById('dashName').textContent = me.fullName || 'Customer';
-      document.getElementById('dashCount').textContent = me.applicationCount || 0;
-      document.getElementById('dashMobile').textContent = me.mobile || '—';
+      var name = me.fullName || prof.name || 'Customer';
+      document.getElementById('dashName').textContent = name;
+      var emailEl = document.getElementById('dashEmail');
+      if (emailEl) emailEl.textContent = me.email || prof.email || '';
+      var mobEl = document.getElementById('dashMobile');
+      if (mobEl) mobEl.textContent = me.mobile ? ('+91 ' + me.mobile) : '';
+      var ava = document.getElementById('dashAva');
+      if (ava) {
+        if (prof.picture) { ava.innerHTML = '<img referrerpolicy="no-referrer" alt="" src="' + encodeURI(prof.picture) + '">'; }
+        else { ava.textContent = (name.trim().charAt(0) || 'U').toUpperCase(); }
+      }
       loginCard.hidden = true; dash.hidden = false;
       return api('/customer/applications');
     }).then(function (res) {
       if (!res) return;
       var wrap = document.getElementById('dashApps');
       var apps = Array.isArray(res.d) ? res.d : [];
-      if (!apps.length) { wrap.innerHTML = '<div class="acct-empty">No applications yet. Tap below to apply — we\'ll find you the best offer.</div>'; return; }
+      var counts = {};
+      apps.forEach(function (a) { var p = a.product || 'Other'; counts[p] = (counts[p] || 0) + 1; });
+      document.querySelectorAll('.dash-tile b[data-prod]').forEach(function (b) {
+        b.textContent = counts[b.getAttribute('data-prod')] || 0;
+      });
+      if (!apps.length) {
+        wrap.innerHTML = '<div class="acct-empty">No applications yet. Use a Quick action below to apply — we\'ll find you the best offer.</div>';
+        return;
+      }
       wrap.innerHTML = apps.map(function (a) {
         var ap = a.application || {};
         var amt = ap.disbursedAt ? ('Disbursed ' + money(ap.approvedAmt != null ? ap.approvedAmt : a.loanAmount))
