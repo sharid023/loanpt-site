@@ -165,12 +165,142 @@ add_action('init', function () {
     update_option('loanpt_pages_ver', LOANPT_PAGES_VER);
 }, 20);
 
+/* ---------- Blog + Eligibility Quiz ---------- */
+define('LOANPT_BLOG_VER', '1');
+
+/** SEO meta for the blog listing + eligibility-quiz pages, keyed by slug. */
+function loanpt_tool_pages() {
+    return array(
+        'blog' => array(
+            'h1'    => 'LoanPt Blog',
+            'title' => 'LoanPt Blog — Personal Loan, CIBIL Score & EMI Guides',
+            'meta'  => 'Simple, honest guides on personal loans, credit score, EMIs, balance transfer and getting the lowest rate — written for borrowers by the LoanPt team.',
+            'tpl'   => 'tpl-blog.php',
+        ),
+        'loan-eligibility' => array(
+            'h1'    => 'Check Your Loan Eligibility',
+            'title' => 'Check Your Loan Eligibility — Free 60-Second Calculator',
+            'meta'  => 'Check how much personal loan you may be eligible for in 60 seconds — free, no documents and no impact on your credit score. Instant estimate from LoanPt.',
+            'tpl'   => 'tpl-quiz.php',
+        ),
+    );
+}
+
+/** Starter SEO blog posts (created once). Internal links feed the landing pages. */
+function loanpt_starter_posts() {
+    return array(
+        'how-to-improve-cibil-score' => array(
+            'title'   => 'How to Improve Your CIBIL Score: 7 Proven Steps',
+            'excerpt' => 'Your CIBIL score decides whether you get a loan — and at what rate. Here are seven practical, proven ways to raise it, and how long each takes.',
+            'content' =>
+                '<p>Your CIBIL score (300–900) is the first thing a lender checks. A higher score means easier approvals and a lower interest rate — on a big loan, even a 1% lower rate can save you tens of thousands of rupees. The good news: your score is in your hands, and most people can improve it in a few months.</p>'
+                . '<h2>What counts as a good CIBIL score?</h2>'
+                . '<p>Generally, <strong>750 and above</strong> is considered good and gets you the best offers. Between 650 and 750 you can still get a loan, but often at a higher rate. Below 650, approvals get harder — but it is fixable.</p>'
+                . '<h2>7 proven ways to improve your score</h2>'
+                . '<ol>'
+                . '<li><strong>Always pay EMIs and card bills on time.</strong> Payment history is the single biggest factor. Set auto-pay so you never miss a date.</li>'
+                . '<li><strong>Keep credit-card usage under 30%.</strong> If your limit is ₹1,00,000, try to stay under ₹30,000 outstanding. High usage drags your score down.</li>'
+                . '<li><strong>Do not close your oldest credit card.</strong> A longer credit history helps. Keep old accounts active with a small recurring spend.</li>'
+                . '<li><strong>Avoid too many loan or card applications at once.</strong> Each application triggers a "hard enquiry" that dips your score. Apply only when you need to.</li>'
+                . '<li><strong>Keep a healthy mix.</strong> A blend of secured (home/auto) and unsecured (personal loan/card) credit, handled well, reads positively.</li>'
+                . '<li><strong>Check your report for errors.</strong> A wrongly reported default or a loan that is not yours can hurt you. Dispute mistakes with the bureau to get them removed.</li>'
+                . '<li><strong>Clear old dues and settlements.</strong> A "settled" status is a red flag — wherever possible, pay the full amount to get a "closed" status instead.</li>'
+                . '</ol>'
+                . '<h2>How long does it take?</h2>'
+                . '<p>There is no overnight fix. With disciplined repayment and low utilisation, most people see a meaningful improvement in <strong>4 to 6 months</strong>. Keep it up and it keeps climbing.</p>'
+                . '<p>Already have a decent score? <a href="/loan-eligibility/">Check your loan eligibility free</a> in 60 seconds, or <a href="/personal-loan/">compare personal loan offers</a> from every major bank with LoanPt.</p>',
+        ),
+        'documents-required-for-personal-loan' => array(
+            'title'   => 'Documents Required for a Personal Loan in India (2026 Checklist)',
+            'excerpt' => 'A clear, up-to-date checklist of the documents banks ask for when you apply for a personal loan — for both salaried and self-employed applicants.',
+            'content' =>
+                '<p>One of the most common reasons a personal loan gets delayed is missing or mismatched paperwork. Keep these ready before you apply and your approval moves much faster. Most banks now accept clear digital copies (PDF or photo).</p>'
+                . '<h2>For salaried applicants</h2>'
+                . '<ul>'
+                . '<li><strong>Identity proof:</strong> PAN card (mandatory), plus Aadhaar / passport / voter ID / driving licence.</li>'
+                . '<li><strong>Address proof:</strong> Aadhaar, passport, utility bill or rent agreement.</li>'
+                . '<li><strong>Income proof:</strong> last 3 months\' salary slips.</li>'
+                . '<li><strong>Bank statement:</strong> last 3–6 months of your salary account.</li>'
+                . '<li><strong>Employment proof:</strong> offer letter or employee ID, if asked.</li>'
+                . '<li><strong>Photograph:</strong> a recent passport-size photo.</li>'
+                . '</ul>'
+                . '<h2>For self-employed applicants</h2>'
+                . '<ul>'
+                . '<li><strong>Identity &amp; address proof:</strong> PAN plus Aadhaar / passport.</li>'
+                . '<li><strong>Income proof:</strong> last 2 years\' ITR with computation of income.</li>'
+                . '<li><strong>Bank statement:</strong> last 6–12 months of your current account.</li>'
+                . '<li><strong>Business proof:</strong> GST registration, shop licence or business registration.</li>'
+                . '</ul>'
+                . '<h2>Tips to avoid rejection</h2>'
+                . '<p>Make sure the name and date of birth match exactly across your PAN, Aadhaar and bank records. Keep file sizes small and images sharp. And apply where you actually qualify — a rejected application leaves a mark on your credit report.</p>'
+                . '<p>Not sure which bank fits your profile? <a href="/loan-eligibility/">Check your eligibility free</a> or let LoanPt <a href="/personal-loan/">compare offers for you</a> — we tell you the exact list for the bank you qualify for.</p>',
+        ),
+        'personal-loan-vs-overdraft-vs-balance-transfer' => array(
+            'title'   => 'Personal Loan vs Overdraft vs Balance Transfer: Which Is Right for You?',
+            'excerpt' => 'Three ways to borrow, three very different cost structures. A plain-English guide to choosing between a personal loan, an overdraft and a balance transfer.',
+            'content' =>
+                '<p>"I need funds" can be solved three very different ways — and picking the right one saves you real money. Here is how a personal loan, an overdraft and a balance transfer actually differ.</p>'
+                . '<h2>Personal loan — a fixed amount, a fixed EMI</h2>'
+                . '<p>You get a lump sum and repay it in equal monthly instalments over a fixed tenure. Best for a <strong>planned, one-time expense</strong> — a wedding, medical bill, travel or home renovation — where you know exactly how much you need. <a href="/personal-loan/">Compare personal loan offers →</a></p>'
+                . '<h2>Overdraft (OD) — a limit you dip into</h2>'
+                . '<p>You get a credit limit and draw from it only when you need to, paying interest <strong>only on the amount and days you actually use</strong>. Repay and reuse freely, with no fixed EMI. Best for <strong>irregular or cash-flow needs</strong> where the amount keeps changing. <a href="/overdraft/">See how overdraft works →</a></p>'
+                . '<h2>Balance transfer — move to a lower rate</h2>'
+                . '<p>Already paying a high rate on an existing loan? A balance transfer moves the outstanding amount to a new lender at a <strong>lower interest rate</strong>, cutting your EMI and total interest — often with a top-up option for extra funds. Best when you still have a good chunk of tenure left. <a href="/balance-transfer/">Check balance-transfer savings →</a></p>'
+                . '<h2>Quick comparison</h2>'
+                . '<ul>'
+                . '<li><strong>Need a fixed sum now?</strong> Personal loan.</li>'
+                . '<li><strong>Need flexible, on-and-off access?</strong> Overdraft.</li>'
+                . '<li><strong>Already have a costly loan?</strong> Balance transfer.</li>'
+                . '</ul>'
+                . '<p>Still unsure? <a href="/loan-eligibility/">Check your eligibility free</a> and our team will recommend the option that costs you the least.</p>',
+        ),
+    );
+}
+
+/** Auto-create blog + quiz pages and starter posts (idempotent, version-guarded). */
+add_action('init', function () {
+    if (get_option('loanpt_blog_ver') === LOANPT_BLOG_VER) return;
+    foreach (loanpt_tool_pages() as $slug => $d) {
+        $existing = get_page_by_path($slug);
+        if ($existing) {
+            update_post_meta($existing->ID, '_wp_page_template', $d['tpl']);
+        } else {
+            wp_insert_post(array(
+                'post_title'    => $d['h1'],
+                'post_name'     => $slug,
+                'post_status'   => 'publish',
+                'post_type'     => 'page',
+                'post_content'  => 'LoanPt ' . $d['h1'] . '.',
+                'page_template' => $d['tpl'],
+                'meta_input'    => array('_wp_page_template' => $d['tpl']),
+            ));
+        }
+    }
+    foreach (loanpt_starter_posts() as $slug => $p) {
+        if (get_page_by_path($slug, OBJECT, 'post')) continue;
+        wp_insert_post(array(
+            'post_title'   => $p['title'],
+            'post_name'    => $slug,
+            'post_status'  => 'publish',
+            'post_type'    => 'post',
+            'post_content' => $p['content'],
+            'post_excerpt' => $p['excerpt'],
+        ));
+    }
+    update_option('loanpt_blog_ver', LOANPT_BLOG_VER);
+}, 21);
+
 /** Per-page SEO: meta description + FAQ structured data. */
 add_action('wp_head', function () {
     if (!is_page()) return;
     $slug = get_post_field('post_name', get_queried_object_id());
     $landing = loanpt_landing_data();
     $info = loanpt_info_data();
+    $tools = loanpt_tool_pages();
+    if (isset($tools[$slug])) {
+        echo '<meta name="description" content="' . esc_attr($tools[$slug]['meta']) . '">' . "\n";
+        return;
+    }
     if (isset($landing[$slug])) {
         $d = $landing[$slug];
         echo '<meta name="description" content="' . esc_attr($d['meta']) . '">' . "\n";
@@ -188,7 +318,7 @@ add_action('wp_head', function () {
 add_filter('document_title_parts', function ($parts) {
     if (!is_page()) return $parts;
     $slug = get_post_field('post_name', get_queried_object_id());
-    $all = array_merge(loanpt_landing_data(), loanpt_info_data());
+    $all = array_merge(loanpt_landing_data(), loanpt_info_data(), loanpt_tool_pages());
     if (isset($all[$slug])) {
         $parts['title'] = $all[$slug]['title'];
         unset($parts['tagline']);

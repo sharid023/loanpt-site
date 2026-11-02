@@ -126,3 +126,49 @@
   fab.addEventListener('click', function (e) { if (moved) { e.preventDefault(); moved = false; } });
   window.addEventListener('resize', function () { bounds(); x = clamp(x, 6, window.innerWidth - w - 6); y = clamp(y, 6, window.innerHeight - h - 6); render(); });
 })();
+
+/* ---------- Eligibility quiz ---------- */
+(function () {
+  var quiz = document.getElementById('lpquiz');
+  if (!quiz) return;
+  var steps = quiz.querySelectorAll('.qstep');
+  var bar = document.getElementById('qbar');
+  var total = steps.length, cur = 1;
+  var data = { employment: '', income: 50000, emi: 0, amount: '', city: '' };
+  var fmt = function (n) { return Math.round(n).toLocaleString('en-IN'); };
+
+  function show(n) {
+    cur = n;
+    steps.forEach(function (s) { s.hidden = (parseInt(s.getAttribute('data-step'), 10) !== n); });
+    if (bar) bar.style.width = Math.round((n - 1) / (total - 1) * 100) + '%';
+    if (n === 5) result();
+  }
+  function result() {
+    var maxEmi = Math.max(0, data.income * 0.5 - data.emi);   // ~50% FOIR
+    var loan = maxEmi / 2275 * 100000;                        // ~EMI per lakh at ~13% / 5yr
+    loan = Math.min(loan, 5000000);                           // cap at ₹50L
+    loan = Math.max(0, Math.round(loan / 10000) * 10000);
+    var out = document.getElementById('qresultamt');
+    if (out) out.innerHTML = '&#8377;' + fmt(loan);
+    var a = document.getElementById('amount'), c = document.getElementById('city');
+    if (a) a.value = data.amount || String(loan);
+    if (c) c.value = data.city;
+  }
+
+  quiz.querySelectorAll('.qopt').forEach(function (b) {
+    b.addEventListener('click', function () { data.employment = b.getAttribute('data-val'); show(2); });
+  });
+  var inc = document.getElementById('qincome'), incOut = document.getElementById('qincomeout');
+  if (inc) inc.addEventListener('input', function () { data.income = +inc.value; incOut.textContent = fmt(inc.value); });
+  var emi = document.getElementById('qemi'), emiOut = document.getElementById('qemiout');
+  if (emi) emi.addEventListener('input', function () { data.emi = +emi.value; emiOut.textContent = fmt(emi.value); });
+  quiz.querySelectorAll('.qnext').forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (cur === 4) {
+        data.amount = (document.getElementById('qamount').value || '').replace(/[^\d]/g, '');
+        data.city = document.getElementById('qcity').value.trim();
+      }
+      show(cur + 1);
+    });
+  });
+})();
