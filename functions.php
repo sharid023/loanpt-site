@@ -16,6 +16,8 @@ if (!defined('LOANPT_EMAIL'))    define('LOANPT_EMAIL', 'connect@loanpt.com');
 // Login links shown in the header/footer. Override in wp-config.php if your URLs differ.
 if (!defined('LOANPT_TEAM_URL'))      define('LOANPT_TEAM_URL', 'https://crm.loanpt.com/login');
 if (!defined('LOANPT_CONNECTOR_URL')) define('LOANPT_CONNECTOR_URL', 'https://crm.loanpt.com/portal');
+// Google Sign-In (Customer Login). Public Web client ID — safe in code. Customizer can override.
+if (!defined('LOANPT_GOOGLE_CLIENT_ID')) define('LOANPT_GOOGLE_CLIENT_ID', '903243722094-8mr9745qp45n8htev12kbnqec6nvg7oh.apps.googleusercontent.com');
 
 function loanpt_setup() {
     add_theme_support('title-tag');

@@ -2,7 +2,7 @@
 /* Template Name: LoanPt Customer Account */
 if (!defined('ABSPATH')) exit;
 get_header();
-$gcid = defined('LOANPT_GOOGLE_CLIENT_ID') ? LOANPT_GOOGLE_CLIENT_ID : loanpt_opt('google_client_id', '');
+$gcid = loanpt_opt('google_client_id', defined('LOANPT_GOOGLE_CLIENT_ID') ? LOANPT_GOOGLE_CLIENT_ID : '');
 ?>
 <section class="acct"><div class="wrap" style="max-width:540px">
 
