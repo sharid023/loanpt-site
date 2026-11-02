@@ -181,3 +181,10 @@ section{padding:64px 0}
 /* richer formcard */
 .formcard{border:1px solid rgba(20,63,41,.06)}
 @media(max-width:860px){.hero h1{font-size:34px}.sec-head h2{font-size:27px}section{padding:46px 0}.trustbar .stat b{font-size:28px}}
+/* floating WhatsApp button */
+.wa-float{position:fixed;left:20px;bottom:20px;z-index:9998;width:60px;height:60px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 8px 24px rgba(37,211,102,.45);transition:transform .15s}
+.wa-float:hover{transform:scale(1.08)}
+.wa-float svg{width:34px;height:34px;position:relative;z-index:2}
+.wa-float::before{content:"";position:absolute;inset:0;border-radius:50%;animation:wapulse 2.2s infinite}
+@keyframes wapulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.5)}70%{box-shadow:0 0 0 16px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+@media(max-width:560px){.wa-float{width:54px;height:54px;left:16px;bottom:16px}.wa-float svg{width:30px;height:30px}}
