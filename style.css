@@ -40,6 +40,9 @@ h1,h2,h3{line-height:1.15;letter-spacing:-.02em}
 .nav .menu ul{display:flex;gap:18px;list-style:none;margin:0;padding:0}
 .nav .authlnk{display:none;font-weight:700;font-size:13px;color:var(--green);padding:8px 11px;border-radius:9px;border:1.5px solid var(--line)}
 .nav .authlnk:hover{border-color:var(--mint);color:var(--mint2)}
+.nav .custlogin{border-color:var(--mint2);color:var(--mint2);background:var(--mint-soft)}
+.nav .custlogin:hover{background:var(--mint2);color:#fff;border-color:var(--mint2)}
+@media(min-width:861px){.nav .custlogin{display:inline-flex}}
 .navlinks{display:contents}
 .navtoggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:46px;height:40px;padding:0 11px;background:transparent;border:1.5px solid var(--line);border-radius:10px;cursor:pointer}
 .navtoggle span{display:block;height:2.5px;width:100%;background:var(--green);border-radius:2px;transition:transform .2s,opacity .2s}
@@ -242,6 +245,46 @@ section{padding:64px 0}
   .ceo-quote{display:none}
   .ceo-msg p{font-size:15.5px}
 }
+/* ---------- Customer account (login + dashboard) ---------- */
+.acct{background:var(--paper)}
+.acct-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:34px 30px;box-shadow:0 18px 50px rgba(20,63,41,.09)}
+.acct-card .eyebrow-dark{color:var(--mint2);background:var(--mint-soft);border:1px solid var(--line)}
+.acct-card h1{font-size:30px;color:var(--green2);margin:14px 0 6px}
+.acct-sub{color:var(--muted);font-size:15px;margin-bottom:20px;line-height:1.6}
+.gwrap{display:flex;justify-content:center;margin:10px 0;min-height:44px}
+.acct-secure{text-align:center;font-size:13px;color:var(--muted);margin:2px 0 6px}
+.otprow{display:flex;gap:8px}
+.otprow input{flex:1}
+.otpbtn{flex:0 0 auto;border:1.5px solid var(--mint2);background:var(--mint-soft);color:var(--mint2);font-weight:800;font-size:13px;letter-spacing:.04em;border-radius:11px;padding:0 16px;cursor:pointer;white-space:nowrap}
+.otpbtn:hover{background:var(--mint2);color:#fff}
+.otpbtn:disabled{opacity:.6;cursor:default}
+.agree{display:flex;align-items:flex-start;gap:9px;font-size:13.5px;color:var(--muted);margin:4px 0 16px;line-height:1.5;cursor:pointer}
+.agree input{margin-top:2px;accent-color:var(--mint2);width:16px;height:16px;flex:0 0 auto}
+.agree strong{color:var(--green2);font-weight:700}
+.acct-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.acct-hi{display:block;font-size:13px;color:var(--muted);font-weight:600}
+.acct-top strong{font-size:22px;color:var(--green2)}
+.acct-logout{background:transparent;border:1.5px solid var(--line);color:var(--muted);font-weight:700;font-size:13px;border-radius:9px;padding:8px 14px;cursor:pointer}
+.acct-logout:hover{border-color:var(--mint);color:var(--mint2)}
+.acct-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px}
+.acct-stat{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
+.acct-stat b{display:block;font-size:26px;color:var(--green2);font-weight:800;font-variant-numeric:tabular-nums}
+.acct-stat span{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.acct-h2{font-size:18px;color:var(--green2);margin-bottom:12px}
+.acct-apps{display:flex;flex-direction:column;gap:12px}
+.acct-app{border:1px solid var(--line);border-radius:14px;padding:15px 16px;background:#fff}
+.acct-app-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:5px}
+.acct-app-top strong{font-size:16px;color:var(--green2)}
+.acct-app-meta{font-size:12.5px;color:var(--muted)}
+.acct-app-amt{font-size:14.5px;font-weight:700;color:var(--ink);margin-top:6px}
+.acct-empty{border:1px dashed var(--line);border-radius:14px;padding:22px;text-align:center;color:var(--muted);font-size:14px}
+.acct-help{display:block;text-align:center;margin-top:14px;font-size:13.5px;color:var(--mint2);font-weight:700}
+.pill{font-size:11px;font-weight:800;letter-spacing:.03em;text-transform:capitalize;padding:4px 10px;border-radius:999px;background:var(--mint-soft);color:var(--mint2);white-space:nowrap}
+.pill-disbursed{background:#e7f7ef;color:#1ea770}
+.pill-approved{background:#e8f0fe;color:#2563c9}
+.pill-rejected,.pill-lost{background:#fdecec;color:#d14343}
+.pill-new,.pill-contacted,.pill-in_progress,.pill-processing{background:#fff5e6;color:#c47d18}
+@media(max-width:560px){.acct-card{padding:26px 20px}.acct-card h1{font-size:26px}}
 /* ---------- Blog post body ---------- */
 .post-body{font-size:17px;line-height:1.75;color:var(--ink)}
 .post-body h2{font-size:26px;color:var(--green2);margin:34px 0 12px;text-wrap:balance}

@@ -23,6 +23,7 @@
       </div>
       <div>
         <h4>Login</h4>
+        <a href="<?php echo esc_url(home_url('/customer/')); ?>">&#128100; Customer Login</a>
         <a href="<?php echo esc_url(loanpt_opt('connector_url', LOANPT_CONNECTOR_URL)); ?>">&#128100; Connector Login</a>
         <a href="<?php echo esc_url(loanpt_opt('team_url', LOANPT_TEAM_URL)); ?>">&#128274; Team Login</a>
         <a href="<?php echo esc_url(loanpt_opt('connector_url', LOANPT_CONNECTOR_URL)); ?>">Become a connector</a>

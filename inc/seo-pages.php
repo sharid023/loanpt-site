@@ -165,10 +165,10 @@ add_action('init', function () {
     update_option('loanpt_pages_ver', LOANPT_PAGES_VER);
 }, 20);
 
-/* ---------- Blog + Eligibility Quiz ---------- */
-define('LOANPT_BLOG_VER', '1');
+/* ---------- Blog + Eligibility Quiz + Customer Login ---------- */
+define('LOANPT_BLOG_VER', '2');
 
-/** SEO meta for the blog listing + eligibility-quiz pages, keyed by slug. */
+/** SEO meta for the blog listing + eligibility-quiz + customer-login pages, keyed by slug. */
 function loanpt_tool_pages() {
     return array(
         'blog' => array(
@@ -182,6 +182,13 @@ function loanpt_tool_pages() {
             'title' => 'Check Your Loan Eligibility — Free 60-Second Calculator',
             'meta'  => 'Check how much personal loan you may be eligible for in 60 seconds — free, no documents and no impact on your credit score. Instant estimate from LoanPt.',
             'tpl'   => 'tpl-quiz.php',
+        ),
+        'customer' => array(
+            'h1'      => 'Customer Login',
+            'title'   => 'Customer Login — Track Your Loan Application | LoanPt',
+            'meta'    => 'Log in to your LoanPt account to track your loan application status, approvals and disbursal. Secure Google sign-in.',
+            'tpl'     => 'tpl-account.php',
+            'noindex' => true,
         ),
     );
 }
@@ -298,6 +305,9 @@ add_action('wp_head', function () {
     $info = loanpt_info_data();
     $tools = loanpt_tool_pages();
     if (isset($tools[$slug])) {
+        if (!empty($tools[$slug]['noindex'])) {
+            echo '<meta name="robots" content="noindex,nofollow">' . "\n";
+        }
         echo '<meta name="description" content="' . esc_attr($tools[$slug]['meta']) . '">' . "\n";
         return;
     }

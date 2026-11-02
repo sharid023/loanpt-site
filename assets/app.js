@@ -127,6 +127,92 @@
   window.addEventListener('resize', function () { bounds(); x = clamp(x, 6, window.innerWidth - w - 6); y = clamp(y, 6, window.innerHeight - h - 6); render(); });
 })();
 
+/* ---------- Customer account (Google login + dashboard) ---------- */
+(function () {
+  var loginCard = document.getElementById('acctLogin');
+  var dash = document.getElementById('acctDash');
+  if (!loginCard || !dash) return;
+  var API = 'https://loanpt-crm.onrender.com/api/v1';
+  var TK = 'loanpt_cust_token';
+  function token() { try { return localStorage.getItem(TK); } catch (e) { return null; } }
+  function setToken(t) { try { t ? localStorage.setItem(TK, t) : localStorage.removeItem(TK); } catch (e) {} }
+  var err = document.getElementById('loginErr');
+  function showErr(m) { if (err) { err.textContent = m; err.style.display = 'block'; } }
+  function clearErr() { if (err) err.style.display = 'none'; }
+
+  function api(path, opts) {
+    opts = opts || {};
+    opts.headers = Object.assign({ 'Content-Type': 'application/json' }, opts.headers || {});
+    var t = token(); if (t) opts.headers.Authorization = 'Bearer ' + t;
+    return fetch(API + path, opts).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, status: r.status, d: d }; });
+    });
+  }
+
+  // ----- Google Sign-In -----
+  var gcid = loginCard.getAttribute('data-gcid') || '';
+  var gbtn = document.getElementById('gbtn');
+  function onGoogle(resp) {
+    if (!resp || !resp.credential) return;
+    clearErr();
+    if (gbtn) gbtn.style.opacity = '.5';
+    api('/auth/customer/google', { method: 'POST', body: JSON.stringify({ idToken: resp.credential }) }).then(function (res) {
+      if (res.ok && res.d && res.d.accessToken) { setToken(res.d.accessToken); load(); }
+      else { if (gbtn) gbtn.style.opacity = '1'; showErr((res.d && res.d.message) || 'Google sign-in failed. Please try again.'); }
+    }).catch(function () { if (gbtn) gbtn.style.opacity = '1'; showErr('Network error. Please try again.'); });
+  }
+  function initGoogle() {
+    if (!(window.google && google.accounts && google.accounts.id)) return false;
+    google.accounts.id.initialize({ client_id: gcid, callback: onGoogle, ux_mode: 'popup' });
+    google.accounts.id.renderButton(gbtn, { theme: 'outline', size: 'large', shape: 'pill', text: 'continue_with', logo_alignment: 'center', width: 300 });
+    return true;
+  }
+  if (gcid && gbtn && !token()) {
+    var tries = 0;
+    var iv = setInterval(function () { if (initGoogle() || ++tries > 40) clearInterval(iv); }, 150);
+  }
+
+  // ----- Logout -----
+  var logoutBtn = document.getElementById('custLogout');
+  if (logoutBtn) logoutBtn.addEventListener('click', function () {
+    setToken(null);
+    try { if (window.google && google.accounts && google.accounts.id) google.accounts.id.disableAutoSelect(); } catch (e) {}
+    dash.hidden = true; loginCard.hidden = false;
+  });
+
+  function money(n) { if (n == null || n === '') return '—'; return '₹' + Number(n).toLocaleString('en-IN'); }
+  function fmtDate(s) { try { return new Date(s).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }); } catch (e) { return ''; } }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function pill(s) { var k = String(s || '').toLowerCase().replace(/[^a-z_]/g, ''); return '<span class="pill pill-' + k + '">' + esc(String(s || '—').replace(/_/g, ' ')) + '</span>'; }
+
+  function load() {
+    if (!token()) { loginCard.hidden = false; dash.hidden = true; return; }
+    api('/customer/me').then(function (res) {
+      if (!res.ok) { setToken(null); loginCard.hidden = false; dash.hidden = true; return null; }
+      var me = res.d || {};
+      document.getElementById('dashName').textContent = me.fullName || 'Customer';
+      document.getElementById('dashCount').textContent = me.applicationCount || 0;
+      document.getElementById('dashMobile').textContent = me.mobile || '—';
+      loginCard.hidden = true; dash.hidden = false;
+      return api('/customer/applications');
+    }).then(function (res) {
+      if (!res) return;
+      var wrap = document.getElementById('dashApps');
+      var apps = Array.isArray(res.d) ? res.d : [];
+      if (!apps.length) { wrap.innerHTML = '<div class="acct-empty">No applications yet. Tap below to apply — we\'ll find you the best offer.</div>'; return; }
+      wrap.innerHTML = apps.map(function (a) {
+        var ap = a.application || {};
+        var amt = ap.disbursedAt ? ('Disbursed ' + money(ap.approvedAmt != null ? ap.approvedAmt : a.loanAmount))
+          : (ap.approvedAmt != null ? ('Approved ' + money(ap.approvedAmt)) : ('Requested ' + money(a.loanAmount)));
+        return '<div class="acct-app"><div class="acct-app-top"><strong>' + esc(a.product || 'Loan') + '</strong>' + pill(a.status) + '</div>' +
+          '<div class="acct-app-meta">' + (a.referenceCode ? ('Ref ' + esc(a.referenceCode) + ' · ') : '') + fmtDate(a.createdAt) + '</div>' +
+          '<div class="acct-app-amt">' + amt + '</div></div>';
+      }).join('');
+    }).catch(function () {});
+  }
+  load();
+})();
+
 /* ---------- Mobile nav toggle ---------- */
 (function () {
   var t = document.getElementById('navtoggle');
