@@ -35,7 +35,7 @@ add_action('after_setup_theme', 'loanpt_setup');
 function loanpt_assets() {
     wp_enqueue_style('loanpt-font', 'https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap', array(), null);
     wp_enqueue_style('loanpt-style', get_stylesheet_uri(), array(), '1.3.0');
-    wp_enqueue_script('loanpt-app', get_template_directory_uri() . '/assets/app.js', array(), '1.1.0', true);
+    wp_enqueue_script('loanpt-app', get_template_directory_uri() . '/assets/app.js', array(), '1.2.0', true);
     wp_localize_script('loanpt-app', 'LOANPT', array(
         'leadUrl' => esc_url_raw(rest_url('loanpt/v1/lead')),
         'wa'      => 'https://wa.me/' . loanpt_opt('wa', LOANPT_WA) . '?text=' . rawurlencode('Hi LoanPt, I just applied on your website — I want to know about a loan.'),

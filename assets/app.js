@@ -64,56 +64,65 @@
   }
 })();
 
-/* ---------- Draggable WhatsApp button ---------- */
+/* ---------- Flingable (slingshot) WhatsApp button ---------- */
 (function () {
   var fab = document.querySelector('.wa-float');
   if (!fab) return;
-  var clamp = function (v, min, max) { return Math.max(min, Math.min(max, v)); };
-  var dragging = false, moved = false, sx = 0, sy = 0, ox = 0, oy = 0;
+  var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
+  var w = 60, h = 60, x = 0, y = 0, vx = 0, vy = 0;
+  var dragging = false, moved = false, offX = 0, offY = 0, lastX = 0, lastY = 0, lastT = 0, raf = null;
+  function bounds() { w = fab.offsetWidth; h = fab.offsetHeight; }
+  function render() { fab.style.left = x + 'px'; fab.style.top = y + 'px'; fab.style.right = 'auto'; fab.style.bottom = 'auto'; }
+  function save() { try { localStorage.setItem('loanpt_wa_pos', JSON.stringify({ left: x, top: y })); } catch (e) {} }
 
-  function place(left, top) {
-    var w = fab.offsetWidth, h = fab.offsetHeight;
-    left = clamp(left, 6, window.innerWidth - w - 6);
-    top = clamp(top, 6, window.innerHeight - h - 6);
-    fab.style.left = left + 'px';
-    fab.style.top = top + 'px';
-    fab.style.right = 'auto';
-    fab.style.bottom = 'auto';
+  bounds();
+  var r0 = fab.getBoundingClientRect(); x = r0.left; y = r0.top;
+  try { var s = JSON.parse(localStorage.getItem('loanpt_wa_pos') || 'null'); if (s && typeof s.left === 'number') { x = s.left; y = s.top; } } catch (e) {}
+  x = clamp(x, 6, window.innerWidth - w - 6); y = clamp(y, 6, window.innerHeight - h - 6); render();
+
+  function animate() {
+    vx *= 0.93; vy *= 0.93;          // friction
+    x += vx; y += vy;
+    var mx = window.innerWidth - w - 6, my = window.innerHeight - h - 6;
+    if (x < 6) { x = 6; vx = -vx * 0.62; }       // bounce off walls
+    if (x > mx) { x = mx; vx = -vx * 0.62; }
+    if (y < 6) { y = 6; vy = -vy * 0.62; }
+    if (y > my) { y = my; vy = -vy * 0.62; }
+    render();
+    if (Math.abs(vx) > 0.35 || Math.abs(vy) > 0.35) { raf = requestAnimationFrame(animate); }
+    else { raf = null; save(); }
   }
-
-  // Restore saved position (kept on this device only).
-  try {
-    var s = JSON.parse(localStorage.getItem('loanpt_wa_pos') || 'null');
-    if (s && typeof s.left === 'number') place(s.left, s.top);
-  } catch (e) {}
 
   fab.addEventListener('pointerdown', function (e) {
     dragging = true; moved = false;
-    var r = fab.getBoundingClientRect();
-    ox = r.left; oy = r.top; sx = e.clientX; sy = e.clientY;
+    if (raf) { cancelAnimationFrame(raf); raf = null; }
+    bounds();
+    var r = fab.getBoundingClientRect(); x = r.left; y = r.top;
+    offX = e.clientX - x; offY = e.clientY - y;
+    lastX = e.clientX; lastY = e.clientY; lastT = Date.now(); vx = 0; vy = 0;
     fab.style.transition = 'none';
     try { fab.setPointerCapture(e.pointerId); } catch (e2) {}
   });
   fab.addEventListener('pointermove', function (e) {
     if (!dragging) return;
-    var dx = e.clientX - sx, dy = e.clientY - sy;
-    if (Math.abs(dx) > 4 || Math.abs(dy) > 4) moved = true;
-    place(ox + dx, oy + dy);
+    if (Math.abs(e.clientX - lastX) > 3 || Math.abs(e.clientY - lastY) > 3) moved = true;
+    var t = Date.now(), dt = Math.max(t - lastT, 1);
+    vx = (e.clientX - lastX) / dt * 16; vy = (e.clientY - lastY) / dt * 16;  // velocity for the fling
+    lastX = e.clientX; lastY = e.clientY; lastT = t;
+    x = clamp(e.clientX - offX, 6, window.innerWidth - w - 6);
+    y = clamp(e.clientY - offY, 6, window.innerHeight - h - 6);
+    render();
   });
   function end() {
     if (!dragging) return;
-    dragging = false;
-    fab.style.transition = '';
+    dragging = false; fab.style.transition = '';
     if (moved) {
-      try { var r = fab.getBoundingClientRect(); localStorage.setItem('loanpt_wa_pos', JSON.stringify({ left: r.left, top: r.top })); } catch (e) {}
+      vx = clamp(vx, -45, 45); vy = clamp(vy, -45, 45);   // cap launch speed
+      if (!raf) raf = requestAnimationFrame(animate);      // fling!
     }
   }
   fab.addEventListener('pointerup', end);
   fab.addEventListener('pointercancel', end);
-  // If it was a drag (not a tap), don't open WhatsApp.
   fab.addEventListener('click', function (e) { if (moved) { e.preventDefault(); moved = false; } });
-  // Keep it on-screen after a resize/rotate.
-  window.addEventListener('resize', function () {
-    if (fab.style.left) { place(parseFloat(fab.style.left) || 0, parseFloat(fab.style.top) || 0); }
-  });
+  window.addEventListener('resize', function () { bounds(); x = clamp(x, 6, window.innerWidth - w - 6); y = clamp(y, 6, window.innerHeight - h - 6); render(); });
 })();
