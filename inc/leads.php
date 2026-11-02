@@ -38,8 +38,9 @@ function loanpt_handle_lead(WP_REST_Request $req) {
         'source'  => 'website_wp',
         'utm'     => array(
             'source' => 'website',
-            'medium' => 'organic',
+            'medium' => isset($p['ref']) && $p['ref'] !== '' ? 'referral' : 'organic',
             'tool'   => isset($p['tool']) ? sanitize_text_field($p['tool']) : 'wp_home',
+            'ref'    => isset($p['ref']) ? sanitize_text_field($p['ref']) : '',
         ),
     );
 

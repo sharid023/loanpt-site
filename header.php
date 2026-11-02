@@ -29,7 +29,7 @@
           <a href="<?php echo esc_url(home_url('/contact/')); ?>">Contact</a>
         </nav>
       <?php endif; ?>
-      <a class="authlnk custlogin" href="<?php echo esc_url(home_url('/customer/')); ?>">&#128100; Customer Login</a>
+      <a class="authlnk custlogin" id="custLoginLink" href="<?php echo esc_url(home_url('/customer/')); ?>">&#128100; Customer Login</a>
       <a class="authlnk" href="<?php echo esc_url(loanpt_opt('connector_url', LOANPT_CONNECTOR_URL)); ?>">&#128100; Connector Login</a>
       <a class="authlnk" href="<?php echo esc_url(loanpt_opt('team_url', LOANPT_TEAM_URL)); ?>">&#128274; Team Login</a>
     </div>

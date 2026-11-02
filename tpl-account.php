@@ -37,10 +37,15 @@ $gcid = loanpt_opt('google_client_id', defined('LOANPT_GOOGLE_CLIENT_ID') ? LOAN
       <button type="button" class="dtab is-active" data-tab="overview">Overview</button>
       <button type="button" class="dtab" data-tab="profile">My Profile</button>
       <button type="button" class="dtab" data-tab="documents">Documents</button>
+      <button type="button" class="dtab" data-tab="refer">Refer &amp; Earn</button>
     </div>
 
     <!-- OVERVIEW -->
     <div class="dpane" data-pane="overview">
+      <a class="preapp" href="<?php echo esc_url(home_url('/loan-eligibility/')); ?>">
+        <div class="preapp-l"><span class="preapp-tag">PRE-APPROVED</span><strong>You&rsquo;re pre-qualified to apply</strong><span>Get instant offers from 10+ banks &amp; NBFCs — check in 60 seconds.</span></div>
+        <span class="preapp-cta">Check offers &rarr;</span>
+      </a>
       <div class="pmeter">
         <div class="pmeter-top"><span>Profile completeness</span><b id="pmPct">0%</b></div>
         <div class="pmeter-bar"><i id="pmFill"></i></div>
@@ -87,6 +92,26 @@ $gcid = loanpt_opt('google_client_id', defined('LOANPT_GOOGLE_CLIENT_ID') ? LOAN
         <div class="doc-card" data-type="aadhaar"><div class="doc-ic">&#128196;</div><div class="doc-info"><strong>Aadhaar Card</strong><span class="doc-status">Not uploaded</span></div><label class="doc-up"><input type="file" accept="image/*,application/pdf" hidden><span>Upload</span></label></div>
         <div class="doc-card" data-type="salary_slip"><div class="doc-ic">&#128181;</div><div class="doc-info"><strong>Salary Slip</strong><span class="doc-status">Not uploaded</span></div><label class="doc-up"><input type="file" accept="image/*,application/pdf" hidden><span>Upload</span></label></div>
         <div class="doc-card" data-type="bank_statement"><div class="doc-ic">&#127974;</div><div class="doc-info"><strong>Bank Statement</strong><span class="doc-status">Not uploaded</span></div><label class="doc-up"><input type="file" accept="image/*,application/pdf" hidden><span>Upload</span></label></div>
+      </div>
+    </div>
+
+    <!-- REFER & EARN -->
+    <div class="dpane" data-pane="refer" hidden>
+      <div class="refer-hero">
+        <div class="refer-ic">&#127873;</div>
+        <h3>Refer friends, help them get a loan</h3>
+        <p>Share your link. When a friend applies through it and gets a loan, you both benefit — it&rsquo;s completely free.</p>
+      </div>
+      <label class="refer-lbl" for="refLink">Your referral link</label>
+      <div class="refer-linkrow">
+        <input id="refLink" type="text" readonly value="">
+        <button type="button" class="refer-copy" id="refCopy">Copy</button>
+      </div>
+      <a class="btn btn-pri" id="refWa" href="#" target="_blank" rel="noopener" style="width:100%;justify-content:center;margin-top:12px">&#128172; Share on WhatsApp</a>
+      <div class="refer-steps">
+        <div><b>1</b><span>Share your link with friends &amp; family</span></div>
+        <div><b>2</b><span>They apply &amp; get their loan through LoanPt</span></div>
+        <div><b>3</b><span>You both benefit — our team will reach out with your reward</span></div>
       </div>
     </div>
   </div>

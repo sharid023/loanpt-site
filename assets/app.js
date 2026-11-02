@@ -2,6 +2,16 @@
   'use strict';
   var CFG = window.LOANPT || {};
 
+  // Capture & remember a referral code (?ref=...) so it rides along on the lead.
+  function loanptRef() {
+    try {
+      var u = new URLSearchParams(location.search).get('ref');
+      if (u) localStorage.setItem('loanpt_ref', u);
+      return localStorage.getItem('loanpt_ref') || '';
+    } catch (e) { return ''; }
+  }
+  loanptRef();
+
   /* ---------- Lead form ---------- */
   var form = document.getElementById('leadForm');
   if (form) {
@@ -33,6 +43,7 @@
         product: document.getElementById('product').value,
         amount: document.getElementById('amount').value.trim(),
         city: document.getElementById('city').value.trim(),
+        ref: loanptRef(),
         tool: 'wp_home'
       };
       fetch(CFG.leadUrl, {
@@ -132,11 +143,13 @@
   var loginCard = document.getElementById('acctLogin');
   var dash = document.getElementById('acctDash');
   if (!loginCard || !dash) return;
+  var CFG = window.LOANPT || {};
   var API = 'https://loanpt-crm.onrender.com/api/v1';
-  var TK = 'loanpt_cust_token';
+  var TK = 'loanpt_cust_token', RK = 'loanpt_cust_refresh', PK = 'loanpt_cust_profile';
   function token() { try { return localStorage.getItem(TK); } catch (e) { return null; } }
   function setToken(t) { try { t ? localStorage.setItem(TK, t) : localStorage.removeItem(TK); } catch (e) {} }
-  var PK = 'loanpt_cust_profile';
+  function refreshTok() { try { return localStorage.getItem(RK); } catch (e) { return null; } }
+  function setRefresh(t) { try { t ? localStorage.setItem(RK, t) : localStorage.removeItem(RK); } catch (e) {} }
   function parseJwt(t) {
     try {
       var b = t.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
@@ -147,11 +160,37 @@
   function showErr(m) { if (err) { err.textContent = m; err.style.display = 'block'; } }
   function clearErr() { if (err) err.style.display = 'none'; }
 
+  // Keep the session alive across the short-lived access token using the refresh token.
+  var refreshing = null;
+  function doRefresh() {
+    var rt = refreshTok();
+    if (!rt) return Promise.resolve(false);
+    if (refreshing) return refreshing;
+    refreshing = fetch(API + '/auth/refresh', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ refreshToken: rt }) })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (d && d.accessToken) { setToken(d.accessToken); if (d.refreshToken) setRefresh(d.refreshToken); return true; }
+        setToken(null); setRefresh(null); return false;
+      })
+      .catch(function () { return false; })
+      .then(function (v) { refreshing = null; return v; });
+    return refreshing;
+  }
   function api(path, opts) {
     opts = opts || {};
-    opts.headers = Object.assign({ 'Content-Type': 'application/json' }, opts.headers || {});
-    var t = token(); if (t) opts.headers.Authorization = 'Bearer ' + t;
-    return fetch(API + path, opts).then(function (r) {
+    var baseHeaders = Object.assign({ 'Content-Type': 'application/json' }, opts.headers || {});
+    function go() {
+      var t = token();
+      var h = Object.assign({}, baseHeaders);
+      if (t) h.Authorization = 'Bearer ' + t;
+      return fetch(API + path, Object.assign({}, opts, { headers: h }));
+    }
+    return go().then(function (r) {
+      if (r.status === 401 && refreshTok()) {
+        return doRefresh().then(function (ok) { return ok ? go() : r; });
+      }
+      return r;
+    }).then(function (r) {
       return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, status: r.status, d: d }; });
     });
   }
@@ -168,7 +207,7 @@
     } catch (e) {}
     if (gbtn) gbtn.style.opacity = '.5';
     api('/auth/customer/google', { method: 'POST', body: JSON.stringify({ idToken: resp.credential }) }).then(function (res) {
-      if (res.ok && res.d && res.d.accessToken) { setToken(res.d.accessToken); load(); }
+      if (res.ok && res.d && res.d.accessToken) { setToken(res.d.accessToken); setRefresh(res.d.refreshToken || null); load(); }
       else { if (gbtn) gbtn.style.opacity = '1'; showErr((res.d && res.d.message) || 'Google sign-in failed. Please try again.'); }
     }).catch(function () { if (gbtn) gbtn.style.opacity = '1'; showErr('Network error. Please try again.'); });
   }
@@ -186,10 +225,10 @@
   // ----- Logout -----
   var logoutBtn = document.getElementById('custLogout');
   if (logoutBtn) logoutBtn.addEventListener('click', function () {
-    setToken(null);
+    setToken(null); setRefresh(null);
     try { localStorage.removeItem(PK); } catch (e) {}
     try { if (window.google && google.accounts && google.accounts.id) google.accounts.id.disableAutoSelect(); } catch (e) {}
-    dash.hidden = true; loginCard.hidden = false;
+    location.href = CFG.home || '/';
   });
 
   function money(n) { if (n == null || n === '') return '—'; return '₹' + Number(n).toLocaleString('en-IN'); }
@@ -302,8 +341,47 @@
     }).catch(function () {});
   }
 
+  // ----- Application status timeline (WhatsApp-tracking style) -----
+  var STAGES = ['Applied', 'In review', 'Documents', 'Bank login', 'Approved', 'Disbursed'];
+  function stageIndex(status) {
+    var s = String(status || '').toLowerCase();
+    if (s === 'rejected' || s === 'dropped' || s === 'closed') return -1;
+    var map = { 'new': 0, 'contacted': 1, 'documents_pending': 2, 'documents_received': 2, 'bank_login_done': 3, 'under_process': 3, 'approved': 4, 'disbursed': 5 };
+    return map[s] == null ? 0 : map[s];
+  }
+  function trackHtml(status) {
+    var idx = stageIndex(status);
+    if (idx === -1) return '<div class="lptrack lptrack-closed">This application is closed. <a href="' + (CFG.home || '/') + 'instant-loan/">Apply again &rarr;</a></div>';
+    var out = '<div class="lptrack">';
+    for (var i = 0; i < STAGES.length; i++) {
+      var cls = i < idx ? 'is-done' : (i === idx ? 'is-now' : '');
+      out += '<div class="lpstep ' + cls + '"><i></i><span>' + STAGES[i] + '</span></div>';
+    }
+    return out + '</div>';
+  }
+
+  // ----- Refer & Earn: copy link -----
+  var refCopy = document.getElementById('refCopy');
+  if (refCopy) refCopy.addEventListener('click', function () {
+    var el = document.getElementById('refLink'); if (!el) return;
+    el.select(); el.setSelectionRange(0, 99999);
+    var done = false;
+    try { if (navigator.clipboard) { navigator.clipboard.writeText(el.value); done = true; } } catch (e) {}
+    if (!done) { try { document.execCommand('copy'); } catch (e2) {} }
+    refCopy.textContent = 'Copied!'; setTimeout(function () { refCopy.textContent = 'Copy'; }, 1500);
+  });
+
+  // ----- Deep-link a tab from the URL hash (header menu) -----
+  function openHashTab() {
+    var h = (location.hash || '').replace('#', '');
+    if (!h) return;
+    var t = dash.querySelector('.dtab[data-tab="' + h + '"]');
+    if (t && !dash.hidden) t.click();
+  }
+  window.addEventListener('hashchange', openHashTab);
+
   function load() {
-    if (!token()) { loginCard.hidden = false; dash.hidden = true; return; }
+    if (!token() && !refreshTok()) { loginCard.hidden = false; dash.hidden = true; return; }
     var prof = {};
     try { prof = JSON.parse(localStorage.getItem(PK) || '{}') || {}; } catch (e) {}
     api('/customer/me').then(function (res) {
@@ -329,6 +407,14 @@
       updateMeter();
       loadDocs();
       loginCard.hidden = true; dash.hidden = false;
+      var refLink = document.getElementById('refLink');
+      if (refLink && me.id) {
+        var link = (CFG.home || (location.origin + '/')) + '?ref=' + encodeURIComponent(me.id);
+        refLink.value = link;
+        var waBtn = document.getElementById('refWa');
+        if (waBtn) waBtn.href = 'https://wa.me/?text=' + encodeURIComponent('Get a personal loan easily with LoanPt — compare offers from every bank, free. Apply here: ' + link);
+      }
+      openHashTab();
       return api('/customer/applications');
     }).then(function (res) {
       if (!res) return;
@@ -349,7 +435,7 @@
           : (ap.approvedAmt != null ? ('Approved ' + money(ap.approvedAmt)) : ('Requested ' + money(a.loanAmount)));
         return '<div class="acct-app"><div class="acct-app-top"><strong>' + esc(a.product || 'Loan') + '</strong>' + pill(a.status) + '</div>' +
           '<div class="acct-app-meta">' + (a.referenceCode ? ('Ref ' + esc(a.referenceCode) + ' · ') : '') + fmtDate(a.createdAt) + '</div>' +
-          '<div class="acct-app-amt">' + amt + '</div></div>';
+          '<div class="acct-app-amt">' + amt + '</div>' + trackHtml(a.status) + '</div>';
       }).join('');
     }).catch(function () {});
   }
@@ -416,5 +502,51 @@
       }
       show(cur + 1);
     });
+  });
+})();
+
+/* ---------- Header "My Account" menu (all pages, when logged in) ---------- */
+(function () {
+  var CFG = window.LOANPT || {};
+  var TK = 'loanpt_cust_token', RK = 'loanpt_cust_refresh', PK = 'loanpt_cust_profile';
+  var loggedIn = false;
+  try { loggedIn = !!(localStorage.getItem(TK) || localStorage.getItem(RK)); } catch (e) {}
+  if (!loggedIn) return;
+  var navBar = document.querySelector('.nav');
+  if (!navBar) return;
+  var loginLink = document.getElementById('custLoginLink');
+  if (loginLink) loginLink.style.display = 'none';
+
+  var prof = {}; try { prof = JSON.parse(localStorage.getItem(PK) || '{}') || {}; } catch (e) {}
+  var first = (prof.name || 'My Account').split(' ')[0];
+  var initial = (prof.name || 'U').trim().charAt(0).toUpperCase() || 'U';
+  var home = CFG.home || '/';
+  var ava = prof.picture
+    ? '<span class="am-ava"><img referrerpolicy="no-referrer" alt="" src="' + encodeURI(prof.picture) + '"></span>'
+    : '<span class="am-ava">' + initial + '</span>';
+
+  var m = document.createElement('div');
+  m.className = 'acctmenu';
+  m.innerHTML =
+    '<button type="button" class="acctmenu-btn" aria-haspopup="true" aria-expanded="false">' + ava +
+      '<span class="am-name">' + first + '</span><span class="am-caret">&#9662;</span></button>' +
+    '<div class="acctmenu-pop" hidden>' +
+      '<a href="' + home + 'customer/#overview">My Applications</a>' +
+      '<a href="' + home + 'customer/#profile">My Profile</a>' +
+      '<a href="' + home + 'customer/#documents">Documents</a>' +
+      '<a href="' + home + 'customer/#refer">Refer &amp; Earn</a>' +
+      '<button type="button" class="am-logout">Logout</button>' +
+    '</div>';
+  var callBtn = navBar.querySelector('.btn-call');
+  if (callBtn) navBar.insertBefore(m, callBtn); else navBar.appendChild(m);
+
+  var btn = m.querySelector('.acctmenu-btn'), pop = m.querySelector('.acctmenu-pop');
+  function setOpen(o) { pop.hidden = !o; btn.setAttribute('aria-expanded', o ? 'true' : 'false'); m.classList.toggle('open', o); }
+  btn.addEventListener('click', function (e) { e.stopPropagation(); setOpen(pop.hidden); });
+  document.addEventListener('click', function (e) { if (!m.contains(e.target)) setOpen(false); });
+  m.querySelector('.am-logout').addEventListener('click', function () {
+    try { localStorage.removeItem(TK); localStorage.removeItem(RK); localStorage.removeItem(PK); } catch (e) {}
+    try { if (window.google && google.accounts && google.accounts.id) google.accounts.id.disableAutoSelect(); } catch (e) {}
+    location.href = home;
   });
 })();
