@@ -426,7 +426,7 @@
         b.textContent = counts[b.getAttribute('data-prod')] || 0;
       });
       if (!apps.length) {
-        wrap.innerHTML = '<div class="acct-empty">No applications yet. Use a Quick action below to apply — we\'ll find you the best offer.</div>';
+        wrap.innerHTML = '<div class="acct-empty">No applications linked to your account yet.<br>Already applied with our team? Make sure you signed in with the <b>same email</b> you shared with us — or <a href="' + (CFG.home || '/') + 'contact/">contact us</a> to link it. New here? Use a Quick action below to apply.</div>';
         return;
       }
       wrap.innerHTML = apps.map(function (a) {
