@@ -22,6 +22,26 @@
     var wa = document.getElementById('waLink');
     if (wa && CFG.wa) wa.href = CFG.wa;
 
+    // Add an Email field (lets the customer track the loan online + links it to their account)
+    if (!document.getElementById('email')) {
+      var mobWrap = mobileEl.closest('.field');
+      if (mobWrap && mobWrap.parentNode) {
+        var ef = document.createElement('div');
+        ef.className = 'field';
+        ef.innerHTML = '<label for="email">Email <span style="color:var(--muted);font-weight:400">(track your loan online)</span></label>' +
+          '<input id="email" name="email" type="email" autocomplete="email" placeholder="you@email.com">';
+        mobWrap.parentNode.insertBefore(ef, mobWrap.nextSibling);
+      }
+    }
+    // Pre-fill known details for a logged-in customer
+    try {
+      var _p = JSON.parse(localStorage.getItem('loanpt_cust_profile') || '{}') || {};
+      var _n = document.getElementById('name'), _e = document.getElementById('email');
+      if (_n && _p.name && !_n.value) _n.value = _p.name;
+      if (_e && _p.email && !_e.value) _e.value = _p.email;
+      if (mobileEl && _p.mobile && !mobileEl.value) mobileEl.value = String(_p.mobile).replace(/\D/g, '').slice(-10);
+    } catch (e) {}
+
     mobileEl.addEventListener('input', function () {
       this.value = this.value.replace(/\D/g, '').slice(0, 10);
     });
@@ -37,12 +57,16 @@
       var mobile = mobileEl.value.trim();
       if (name.length < 2) return showErr('Please enter your name.');
       if (!/^[6-9]\d{9}$/.test(mobile)) return showErr('Please enter a valid 10-digit mobile number.');
+      function fv(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+      var emailVal = fv('email');
+      if (emailVal && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailVal)) return showErr('Please enter a valid email, or leave it blank.');
       btn.disabled = true; btn.textContent = 'Submitting…';
       var payload = {
         name: name, mobile: mobile,
-        product: document.getElementById('product').value,
-        amount: document.getElementById('amount').value.trim(),
-        city: document.getElementById('city').value.trim(),
+        product: fv('product'),
+        amount: fv('amount'),
+        city: fv('city'),
+        email: emailVal,
         ref: loanptRef(),
         tool: 'wp_home'
       };
@@ -399,6 +423,11 @@
         else { ava.textContent = (name.trim().charAt(0) || 'U').toUpperCase(); }
       }
       curMe = me;
+      try {
+        var cp = JSON.parse(localStorage.getItem(PK) || '{}') || {};
+        cp.name = me.fullName || cp.name; cp.email = me.email || cp.email; if (me.mobile) cp.mobile = me.mobile;
+        localStorage.setItem(PK, JSON.stringify(cp));
+      } catch (e) {}
       setVal('pfName', (me.fullName && me.fullName !== 'Customer') ? me.fullName : (prof.name || ''));
       setVal('pfPmail', me.personalEmail || prof.email || '');
       setVal('pfOmail', me.officialEmail || '');
