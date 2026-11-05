@@ -196,6 +196,28 @@ section{padding:64px 0}
 .partners .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:11px 13px}
 .partners .lbl{width:100%;text-align:center;color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:10px}
 .partners span{font-weight:800;color:var(--green2);font-size:15.5px;background:var(--paper);border:1px solid var(--line);padding:9px 17px;border-radius:999px}
+/* promo carousel */
+.promo{padding:24px 0 6px}
+.promo-box{position:relative;border-radius:18px;overflow:hidden;min-height:130px;box-shadow:0 14px 34px rgba(20,63,41,.16)}
+.promo-slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px 28px;text-decoration:none;opacity:0;transition:opacity .5s ease;pointer-events:none;background:linear-gradient(120deg,#0b2719,#1ea770)}
+.promo-slide.is-active{opacity:1;pointer-events:auto}
+.promo-slide.s2{background:linear-gradient(120deg,#143f29,#2bbf86)}
+.promo-slide.s3{background:linear-gradient(120deg,#0f3323,#15936a)}
+.promo-slide.s4{background:linear-gradient(120deg,#0d2c1e,#1ea770)}
+.promo-tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.14em;color:#bff0da;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);padding:3px 10px;border-radius:999px;margin-bottom:8px}
+.promo-txt strong{display:block;color:#fff;font-size:22px;line-height:1.15;font-weight:800;margin-bottom:5px}
+.promo-sub{display:block;color:#d7ece0;font-size:13.5px}
+.promo-cta{flex:0 0 auto;background:#fff;color:var(--green2);font-weight:800;font-size:14px;padding:11px 18px;border-radius:11px;white-space:nowrap}
+.promo-dots{position:absolute;bottom:12px;left:28px;display:flex;gap:7px;z-index:3}
+.promo-dots button{width:8px;height:8px;border-radius:50%;border:none;background:rgba(255,255,255,.45);cursor:pointer;padding:0;transition:width .2s,background .2s}
+.promo-dots button.is-on{background:#fff;width:20px;border-radius:999px}
+@media(max-width:620px){
+  .promo-box{min-height:152px}
+  .promo-slide{flex-direction:column;align-items:flex-start;gap:12px;padding:20px 20px 32px}
+  .promo-txt strong{font-size:18px}
+  .promo-cta{align-self:flex-start}
+  .promo-dots{bottom:10px;left:20px}
+}
 /* product/tool tiles (quick access) */
 .tiles{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .tilegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:14px}

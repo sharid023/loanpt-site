@@ -598,3 +598,26 @@
     if (!e.target.closest('.mi')) items.forEach(function (x) { x.classList.remove('open'); });
   });
 })();
+
+/* ---------- Promo carousel ---------- */
+(function () {
+  var box = document.querySelector('.promo-box');
+  if (!box) return;
+  var slides = box.querySelectorAll('.promo-slide');
+  var dots = box.querySelectorAll('.promo-dots button');
+  if (slides.length < 2) return;
+  var i = 0, timer = null;
+  function show(n) {
+    i = (n + slides.length) % slides.length;
+    slides.forEach(function (s, k) { s.classList.toggle('is-active', k === i); });
+    dots.forEach(function (d, k) { d.classList.toggle('is-on', k === i); });
+  }
+  function start() { stop(); timer = setInterval(function () { show(i + 1); }, 5000); }
+  function stop() { if (timer) { clearInterval(timer); timer = null; } }
+  dots.forEach(function (d) {
+    d.addEventListener('click', function () { show(+d.getAttribute('data-i')); start(); });
+  });
+  box.addEventListener('mouseenter', stop);
+  box.addEventListener('mouseleave', start);
+  show(0); start();
+})();

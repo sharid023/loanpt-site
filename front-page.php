@@ -46,6 +46,34 @@
   </div>
 </section>
 
+<!-- PROMO CAROUSEL -->
+<section class="promo"><div class="wrap">
+  <div class="promo-box">
+    <a class="promo-slide s1 is-active" href="<?php echo esc_url(home_url('/personal-loan/')); ?>">
+      <div class="promo-txt"><span class="promo-tag">PERSONAL LOAN</span><strong>Up to &#8377;50 Lakh at the lowest rate</strong><span class="promo-sub">Quick disbursal &middot; Minimal paperwork &middot; Offers from every bank</span></div>
+      <span class="promo-cta">Apply now &rarr;</span>
+    </a>
+    <a class="promo-slide s2" href="<?php echo esc_url(home_url('/balance-transfer/')); ?>">
+      <div class="promo-txt"><span class="promo-tag">BALANCE TRANSFER</span><strong>Cut your EMI &mdash; move to a lower rate</strong><span class="promo-sub">Lower interest + top-up &middot; Save on total interest</span></div>
+      <span class="promo-cta">Check savings &rarr;</span>
+    </a>
+    <a class="promo-slide s3" href="<?php echo esc_url(home_url('/overdraft/')); ?>">
+      <div class="promo-txt"><span class="promo-tag">OVERDRAFT</span><strong>Pay interest only on what you use</strong><span class="promo-sub">A credit limit you dip into anytime &middot; No fixed EMI</span></div>
+      <span class="promo-cta">Explore OD &rarr;</span>
+    </a>
+    <a class="promo-slide s4" href="<?php echo esc_url(home_url('/loan-eligibility/')); ?>">
+      <div class="promo-txt"><span class="promo-tag">FREE CHECK</span><strong>See how much you qualify for &mdash; in 60 sec</strong><span class="promo-sub">No documents &middot; No impact on your credit score</span></div>
+      <span class="promo-cta">Check free &rarr;</span>
+    </a>
+    <div class="promo-dots" id="promoDots">
+      <button type="button" data-i="0" class="is-on" aria-label="Slide 1"></button>
+      <button type="button" data-i="1" aria-label="Slide 2"></button>
+      <button type="button" data-i="2" aria-label="Slide 3"></button>
+      <button type="button" data-i="3" aria-label="Slide 4"></button>
+    </div>
+  </div>
+</div></section>
+
 <!-- TRUST BAR -->
 <div class="trustbar"><div class="wrap">
   <div class="stat"><b>8+</b><span>Partner banks &amp; NBFCs</span></div>
