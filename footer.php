@@ -44,6 +44,22 @@
   <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16 3C8.82 3 3 8.82 3 16c0 2.3.62 4.46 1.7 6.32L3 29l6.86-1.67A12.9 12.9 0 0 0 16 29c7.18 0 13-5.82 13-13S23.18 3 16 3z" fill="#fff"/><path d="M12.3 9.6c-.24-.53-.5-.54-.72-.55l-.62-.01c-.21 0-.56.08-.85.4-.29.32-1.12 1.1-1.12 2.67 0 1.57 1.15 3.09 1.31 3.3.16.21 2.22 3.55 5.48 4.84 2.71 1.07 3.26.86 3.85.8.59-.05 1.9-.78 2.17-1.53.27-.75.27-1.39.19-1.53-.08-.13-.29-.21-.61-.37-.32-.16-1.9-.94-2.19-1.04-.29-.11-.5-.16-.72.16-.21.32-.82 1.04-1.01 1.25-.19.21-.37.24-.69.08-.32-.16-1.35-.5-2.57-1.59-.95-.85-1.59-1.89-1.78-2.21-.19-.32-.02-.49.14-.65.14-.14.32-.37.48-.56.16-.19.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.7-1.74-.96-2.38z" fill="#25D366"/></svg>
 </a>
 
+<!-- Chat assistant -->
+<div class="lpchat" id="lpchat">
+  <button class="lpchat-launch" id="lpchatLaunch" type="button" aria-label="Chat with LoanPt">
+    <span class="lpchat-ico">&#128172;</span><span class="lpchat-lbl">Need help?</span>
+  </button>
+  <div class="lpchat-panel" id="lpchatPanel" hidden>
+    <div class="lpchat-head">
+      <div class="lpchat-ava">L</div>
+      <div><strong>LoanPt Assistant</strong><span>Typically replies instantly</span></div>
+      <button class="lpchat-close" id="lpchatClose" type="button" aria-label="Close chat">&times;</button>
+    </div>
+    <div class="lpchat-body" id="lpchatBody"></div>
+    <div class="lpchat-quick" id="lpchatQuick"></div>
+  </div>
+</div>
+
 <?php wp_footer(); ?>
 </body>
 </html>

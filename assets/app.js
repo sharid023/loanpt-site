@@ -621,3 +621,85 @@
   box.addEventListener('mouseleave', start);
   show(0); start();
 })();
+
+/* ---------- Chat assistant (rule-based + lead capture) ---------- */
+(function () {
+  var root = document.getElementById('lpchat');
+  if (!root) return;
+  var CFG = window.LOANPT || {};
+  var launch = document.getElementById('lpchatLaunch');
+  var panel = document.getElementById('lpchatPanel');
+  var closeBtn = document.getElementById('lpchatClose');
+  var body = document.getElementById('lpchatBody');
+  var quick = document.getElementById('lpchatQuick');
+
+  var LBL = {
+    elig: 'Am I eligible?', docs: 'Documents needed', rates: 'Interest rates',
+    how: 'How it works', loans: 'Which loans?', callback: '📞 Get a callback',
+    check: '✅ Check eligibility', back: '← Main menu'
+  };
+  var KB = {
+    start: { bot: "Hi! 👋 I'm the LoanPt assistant — here to help with loans. What would you like to know?", replies: ['elig', 'docs', 'rates', 'how', 'loans', 'callback'] },
+    elig: { bot: "You're likely eligible if you're a salaried or self-employed resident of India (18+) with a steady income and a fair credit score. We check your profile across multiple banks — free. Want to see how much you qualify for?", replies: ['check', 'callback', 'back'] },
+    docs: { bot: "Usually just: PAN + Aadhaar, recent salary slips (or ITR if self-employed), and a 3–6 month bank statement. We tell you the exact list for the bank you qualify for.", replies: ['callback', 'how', 'back'] },
+    rates: { bot: "Interest starts around 10.5%* p.a. and is set by the lender based on your profile. We compare offers from every major bank & NBFC to get you the lowest rate you qualify for — at zero cost to you.", replies: ['check', 'callback', 'back'] },
+    how: { bot: "3 simple steps:\n1️⃣ Share your details (60 sec)\n2️⃣ We compare banks & find your best offer\n3️⃣ Apply & get funds — we handle the paperwork and keep you updated.", replies: ['callback', 'check', 'back'] },
+    loans: { bot: "We arrange: 💰 Personal Loan · 🔄 Overdraft · 📉 Balance Transfer · 💳 Credit Card — from leading banks & NBFCs. Shall our team find your best offer?", replies: ['callback', 'check', 'back'] },
+    check: { link: 'loan-eligibility/', bot: "Opening our free 60-second eligibility check… ✅" },
+    callback: { bot: "Sure! Share your name & mobile and our team will call you with your best offer. We never ask for OTP, card or passwords. 🔒", form: true },
+    back: { bot: "What else can I help with?", replies: ['elig', 'docs', 'rates', 'how', 'loans', 'callback'] }
+  };
+
+  function openChat() { panel.hidden = false; launch.classList.add('hidden'); if (!body.childElementCount) go('start'); }
+  function closeChat() { panel.hidden = true; launch.classList.remove('hidden'); }
+  launch.addEventListener('click', openChat);
+  closeBtn.addEventListener('click', closeChat);
+
+  function addMsg(html, who) {
+    var m = document.createElement('div'); m.className = 'lpc-msg lpc-' + who;
+    m.innerHTML = String(html).replace(/\n/g, '<br>');
+    body.appendChild(m); body.scrollTop = body.scrollHeight; return m;
+  }
+  function setQuick(keys) {
+    quick.innerHTML = '';
+    (keys || []).forEach(function (k) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'lpc-qr'; b.textContent = LBL[k] || k;
+      b.addEventListener('click', function () { addMsg(LBL[k] || k, 'user'); setQuick([]); go(k); });
+      quick.appendChild(b);
+    });
+  }
+  function typing(cb) {
+    var t = addMsg('<span class="lpc-dots"><i></i><i></i><i></i></span>', 'bot');
+    setTimeout(function () { t.remove(); cb(); }, 480);
+  }
+  function go(key) {
+    var node = KB[key]; if (!node) return;
+    if (node.link) { typing(function () { addMsg(node.bot, 'bot'); setTimeout(function () { location.href = (CFG.home || '/') + node.link; }, 650); }); return; }
+    typing(function () {
+      if (node.bot) addMsg(node.bot, 'bot');
+      if (node.form) renderForm(); else setQuick(node.replies);
+    });
+  }
+  function renderForm() {
+    var f = document.createElement('form'); f.className = 'lpc-form';
+    f.innerHTML = '<input id="lpcName" placeholder="Your name" autocomplete="name"><input id="lpcMob" placeholder="10-digit mobile" inputmode="numeric" maxlength="10" autocomplete="tel"><button type="submit">Request callback &rarr;</button><div class="lpc-err" id="lpcErr"></div>';
+    body.appendChild(f); body.scrollTop = body.scrollHeight;
+    var mob = f.querySelector('#lpcMob');
+    mob.addEventListener('input', function () { this.value = this.value.replace(/\D/g, '').slice(0, 10); });
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = f.querySelector('#lpcName').value.trim(), m = mob.value.trim(), err = f.querySelector('#lpcErr');
+      if (name.length < 2) { err.textContent = 'Please enter your name.'; return; }
+      if (!/^[6-9]\d{9}$/.test(m)) { err.textContent = 'Enter a valid 10-digit mobile.'; return; }
+      var btn = f.querySelector('button'); btn.disabled = true; btn.textContent = 'Sending…';
+      var ref = ''; try { ref = localStorage.getItem('loanpt_ref') || ''; } catch (e2) {}
+      fetch(CFG.leadUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: name, mobile: m, product: 'Personal Loan', tool: 'chatbot', ref: ref }) })
+        .then(function () { done(name); }).catch(function () { done(name); });
+      function done(nm) { f.remove(); addMsg('Thanks ' + nm + '! ✅ Our team will call you shortly with your best offer.', 'bot'); waOffer(); }
+    });
+  }
+  function waOffer() {
+    if (CFG.wa) { var a = document.createElement('a'); a.className = 'lpc-wa'; a.href = CFG.wa; a.target = '_blank'; a.rel = 'noopener'; a.textContent = '💬 Chat on WhatsApp instead'; body.appendChild(a); body.scrollTop = body.scrollHeight; }
+    setQuick(['back']);
+  }
+})();
