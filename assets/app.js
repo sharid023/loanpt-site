@@ -635,19 +635,35 @@
 
   var LBL = {
     elig: 'Am I eligible?', docs: 'Documents needed', rates: 'Interest rates',
-    how: 'How it works', loans: 'Which loans?', callback: '📞 Get a callback',
-    check: '✅ Check eligibility', back: '← Main menu'
+    how: 'How it works', loans: 'Which loans?', fees: 'Fees & charges',
+    time: 'How long to get it?', amount: 'How much can I get?', cibil: 'Low credit score?',
+    selfemp: "I'm self-employed", rejected: 'Rejected before?', safe: 'Is it safe & free?',
+    contact: 'Contact us', more: 'More questions →',
+    pl: 'Personal Loan', od: 'Overdraft', bt: 'Balance Transfer',
+    callback: '📞 Get a callback', check: '✅ Check eligibility', back: '← Main menu'
   };
   var KB = {
-    start: { bot: "Hi! 👋 I'm the LoanPt assistant — here to help with loans. What would you like to know?", replies: ['elig', 'docs', 'rates', 'how', 'loans', 'callback'] },
+    start: { bot: "Hi! 👋 I'm the LoanPt assistant — here to help with loans. What would you like to know?", replies: ['elig', 'rates', 'docs', 'loans', 'more', 'callback'] },
+    more: { bot: "Sure — here are more common questions:", replies: ['fees', 'time', 'amount', 'cibil', 'selfemp', 'rejected', 'safe', 'contact', 'back'] },
     elig: { bot: "You're likely eligible if you're a salaried or self-employed resident of India (18+) with a steady income and a fair credit score. We check your profile across multiple banks — free. Want to see how much you qualify for?", replies: ['check', 'callback', 'back'] },
-    docs: { bot: "Usually just: PAN + Aadhaar, recent salary slips (or ITR if self-employed), and a 3–6 month bank statement. We tell you the exact list for the bank you qualify for.", replies: ['callback', 'how', 'back'] },
-    rates: { bot: "Interest starts around 10.5%* p.a. and is set by the lender based on your profile. We compare offers from every major bank & NBFC to get you the lowest rate you qualify for — at zero cost to you.", replies: ['check', 'callback', 'back'] },
+    docs: { bot: "Usually just: PAN + Aadhaar, recent salary slips (or 2 years' ITR if self-employed), and a 3–6 month bank statement. We tell you the exact list for the bank you qualify for.", replies: ['callback', 'selfemp', 'back'] },
+    rates: { bot: "Interest starts around 10.5%* p.a. and is set by the lender based on your profile. We compare offers from every major bank & NBFC to get you the lowest rate you qualify for — at zero cost to you.", replies: ['check', 'fees', 'back'] },
     how: { bot: "3 simple steps:\n1️⃣ Share your details (60 sec)\n2️⃣ We compare banks & find your best offer\n3️⃣ Apply & get funds — we handle the paperwork and keep you updated.", replies: ['callback', 'check', 'back'] },
-    loans: { bot: "We arrange: 💰 Personal Loan · 🔄 Overdraft · 📉 Balance Transfer · 💳 Credit Card — from leading banks & NBFCs. Shall our team find your best offer?", replies: ['callback', 'check', 'back'] },
+    loans: { bot: "We arrange these — tap one to know more:", replies: ['pl', 'od', 'bt', 'callback'] },
+    pl: { bot: "Personal Loan — collateral-free funds up to ₹50 Lakh for anything (wedding, medical, travel, emergencies). Fixed EMI, quick disbursal. Want our team to find your best offer?", replies: ['callback', 'check', 'back'] },
+    od: { bot: "Overdraft (OD) — a sanctioned credit limit you dip into anytime, paying interest only on the amount & days you use. No fixed EMI — great for cash-flow needs.", replies: ['callback', 'check', 'back'] },
+    bt: { bot: "Balance Transfer — move your existing loan to a lower interest rate to cut your EMI, often with a top-up for extra funds. We check if it actually saves you money.", replies: ['callback', 'check', 'back'] },
+    fees: { bot: "LoanPt is 100% free to you — we're paid by the lender. The bank/NBFC may charge its own processing fee (typically ~0.5%–2% of the loan), shown to you upfront before you proceed. No hidden charges from us.", replies: ['callback', 'rates', 'back'] },
+    time: { bot: "It depends on the lender and your documents. With complete papers, many personal loans are approved in 1–3 working days — and our Instant Loan options are even faster. We route you to the bank with the quickest journey for your profile.", replies: ['callback', 'check', 'back'] },
+    amount: { bot: "It depends on your income, existing EMIs and credit profile — personal loans go up to ₹50 Lakh+. The quickest way is our free 60-second eligibility check, which gives you an indicative amount instantly.", replies: ['check', 'callback', 'back'] },
+    cibil: { bot: "A low credit score makes it harder, but not always impossible — some lenders still consider a fair score with strong income proof. We check multiple banks to find who may approve you, and can guide you on improving your score. Want our team to review your case?", replies: ['callback', 'check', 'back'] },
+    selfemp: { bot: "Yes! Self-employed & business owners can apply. You'll usually need 1–2 years' ITR, a 6–12 month current-account statement, and business proof (GST/registration). We match you to lenders comfortable with self-employed profiles.", replies: ['callback', 'docs', 'back'] },
+    rejected: { bot: "Don't worry — one bank's rejection doesn't mean all will. We compare multiple lenders and often find a fit, and can tell you what to improve (credit score, income proof, existing EMIs). Shall our team review your case?", replies: ['callback', 'check', 'back'] },
+    safe: { bot: "100% safe. LoanPt is free for you, and we never ask for your OTP, card number, CVV or any password. We only use your details to find your best offer and contact you.", replies: ['callback', 'back'] },
+    contact: { bot: "Reach our team anytime:\n📞 Call 9625913455\n✉️ connect@loanpt.com\nOr tap 'Get a callback' and we'll call you.", replies: ['callback', 'back'] },
     check: { link: 'loan-eligibility/', bot: "Opening our free 60-second eligibility check… ✅" },
     callback: { bot: "Sure! Share your name & mobile and our team will call you with your best offer. We never ask for OTP, card or passwords. 🔒", form: true },
-    back: { bot: "What else can I help with?", replies: ['elig', 'docs', 'rates', 'how', 'loans', 'callback'] }
+    back: { bot: "What else can I help with?", replies: ['elig', 'rates', 'docs', 'loans', 'more', 'callback'] }
   };
 
   function openChat() { panel.hidden = false; launch.classList.add('hidden'); if (!body.childElementCount) go('start'); }
