@@ -54,6 +54,25 @@
   <div class="stat"><b>100%</b><span>Managed by us</span></div>
 </div></div>
 
+<!-- PRODUCT & TOOL TILES (quick access) -->
+<section class="tiles">
+  <div class="wrap">
+    <div class="sec-head" style="margin-bottom:22px"><div class="kicker">One place for everything</div><h2>Loans, Cards &amp; Free Tools</h2><p>Pick what you need — compare offers from every major bank in minutes.</p></div>
+    <div class="tilegrid">
+      <a class="tile" href="<?php echo esc_url(home_url('/personal-loan/')); ?>"><span class="tile-ico"><span class="tile-ic">&#128176;</span><span class="tile-badge">Lowest rate</span></span><span class="tile-name">Personal Loan</span></a>
+      <a class="tile" href="<?php echo esc_url(home_url('/overdraft/')); ?>"><span class="tile-ico"><span class="tile-ic">&#128260;</span><span class="tile-badge">Flexible</span></span><span class="tile-name">Overdraft</span></a>
+      <a class="tile" href="<?php echo esc_url(home_url('/balance-transfer/')); ?>"><span class="tile-ico"><span class="tile-ic">&#128201;</span><span class="tile-badge">Save EMI</span></span><span class="tile-name">Balance Transfer</span></a>
+      <a class="tile" href="<?php echo esc_url(home_url('/instant-loan/')); ?>"><span class="tile-ico"><span class="tile-ic">&#9889;</span><span class="tile-badge">Instant</span></span><span class="tile-name">Instant Loan</span></a>
+      <a class="tile" href="<?php echo esc_url(home_url('/#apply')); ?>"><span class="tile-ico"><span class="tile-ic">&#128179;</span></span><span class="tile-name">Credit Card</span></a>
+      <a class="tile" href="<?php echo esc_url(home_url('/#apply')); ?>"><span class="tile-ico"><span class="tile-ic">&#127970;</span></span><span class="tile-name">Business Loan</span></a>
+      <a class="tile" href="<?php echo esc_url(home_url('/loan-eligibility/')); ?>"><span class="tile-ico"><span class="tile-ic">&#9989;</span><span class="tile-badge">Free</span></span><span class="tile-name">Check Eligibility</span></a>
+      <a class="tile" href="<?php echo esc_url(home_url('/#calc')); ?>"><span class="tile-ico"><span class="tile-ic">&#129518;</span></span><span class="tile-name">EMI Calculator</span></a>
+      <a class="tile" href="<?php echo esc_url(home_url('/#compare')); ?>"><span class="tile-ico"><span class="tile-ic">&#127974;</span></span><span class="tile-name">Compare Banks</span></a>
+      <a class="tile" href="<?php echo esc_url(home_url('/blog/')); ?>"><span class="tile-ico"><span class="tile-ic">&#128218;</span></span><span class="tile-name">Loan Guides</span></a>
+    </div>
+  </div>
+</section>
+
 <!-- PARTNER BANKS -->
 <div class="partners"><div class="wrap">
   <span class="lbl">We compare offers across</span>

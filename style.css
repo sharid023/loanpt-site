@@ -195,6 +195,21 @@ section{padding:64px 0}
 .partners .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:11px 13px}
 .partners .lbl{width:100%;text-align:center;color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:10px}
 .partners span{font-weight:800;color:var(--green2);font-size:15.5px;background:var(--paper);border:1px solid var(--line);padding:9px 17px;border-radius:999px}
+/* product/tool tiles (quick access) */
+.tiles{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tilegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:14px}
+.tile{display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none;padding:10px 4px;border-radius:14px;transition:transform .15s ease,background .15s ease}
+.tile:hover{transform:translateY(-4px);background:var(--paper)}
+.tile-ico{position:relative;margin-bottom:10px}
+.tile-ic{width:66px;height:66px;border-radius:50%;background:var(--mint-soft);border:1px solid var(--line);display:grid;place-items:center;font-size:30px}
+.tile:hover .tile-ic{border-color:var(--mint)}
+.tile-badge{position:absolute;top:-7px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:9px;font-weight:800;color:#0f7a4f;background:#d9f5e7;border:1px solid #bdebd3;padding:2px 7px;border-radius:999px;letter-spacing:.02em}
+.tile-name{font-size:13px;font-weight:700;color:var(--green2);line-height:1.25}
+@media(max-width:560px){.tilegrid{grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:10px}.tile-ic{width:58px;height:58px;font-size:26px}.tile-name{font-size:12px}}
+/* header "Check Eligibility" CTA */
+.btn-elig{background:linear-gradient(135deg,#2bbf86,#1ea770);color:#fff;font-size:13.5px;padding:9px 15px;box-shadow:0 4px 14px rgba(43,191,134,.3)}
+.btn-elig:hover{filter:brightness(1.06);color:#fff}
+@media(max-width:900px){.nav .btn-elig{display:none}}
 /* richer CTA */
 .ctaband{background:radial-gradient(600px 300px at 80% -25%,rgba(255,255,255,.22),transparent),linear-gradient(135deg,#1ea770,#143f29);box-shadow:0 18px 46px rgba(20,63,41,.2)}
 .ctaband h2{font-size:34px}
