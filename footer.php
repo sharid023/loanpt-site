@@ -3,8 +3,8 @@
   <div class="wrap">
     <div class="cols">
       <div>
-        <div class="logo" style="color:#fff;margin-bottom:10px"><span class="mk">L</span>Loan<b style="color:var(--mint)">Pt</b></div>
-        <p style="max-width:34ch">Credit in Pocket. We help salaried professionals compare and get personal loans, overdraft &amp; balance transfer at the best available rates — at zero cost.</p>
+        <a href="<?php echo esc_url(home_url('/')); ?>" style="display:inline-block;margin-bottom:12px"><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/logo-light.svg'); ?>" alt="LoanPt — Credit in Pocket" style="height:46px;width:auto;display:block"></a>
+        <p style="max-width:34ch">We help salaried &amp; self-employed professionals compare and get personal loans, overdraft &amp; balance transfer at the best available rates — at zero cost.</p>
         <p style="margin-top:12px;color:#fff">&#128222; <?php echo esc_html(loanpt_opt('phone', LOANPT_PHONE)); ?> &middot; &#9993; <?php echo esc_html(loanpt_opt('email', LOANPT_EMAIL)); ?></p>
       </div>
       <div>

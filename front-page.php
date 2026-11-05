@@ -177,18 +177,6 @@
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section>
-  <div class="wrap">
-    <div class="sec-head"><div class="kicker">Real customers</div><h2>Trusted by borrowers across NCR</h2></div>
-    <div class="tcards">
-      <div class="tcard"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"Got my personal loan approved faster than I expected. The team handled everything and kept me updated on WhatsApp."</p><div class="who">Rahul S. <span>&middot; Noida</span></div></div>
-      <div class="tcard"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"They compared multiple banks and got me a lower rate than my own bank offered. Zero cost, no hassle."</p><div class="who">Priya M. <span>&middot; Delhi</span></div></div>
-      <div class="tcard"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"Balance transfer saved me a good amount on EMI. Honest guidance, no false promises. Recommended."</p><div class="who">Amit K. <span>&middot; Gurugram</span></div></div>
-    </div>
-  </div>
-</section>
-
 <!-- WHY -->
 <section class="why">
   <div class="wrap">
