@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) exit;
  * use the "LoanPt Landing" template. Bump LOANPT_PAGES_VER to re-seed.
  */
 
-define('LOANPT_PAGES_VER', '4');
+define('LOANPT_PAGES_VER', '5');
 
 /** Content for each landing page, keyed by URL slug (base products + city pages). */
 function loanpt_landing_data() {
@@ -58,8 +58,23 @@ function loanpt_landing_data() {
                 'Is LoanPt free?' => 'Yes, our service is free to you. Any lender fees are shown transparently.',
             ),
         ),
+        'business-loan' => array(
+            'title' => 'Business Loan — Unsecured Funds to Grow Your Business',
+            'h1'    => 'Business Loan — Fund Your Growth with the <em>Right Lender</em>',
+            'meta'  => 'Compare business loan & working-capital offers from leading banks & NBFCs. Collateral-free options, flexible tenure, quick disbursal. Apply with LoanPt — free.',
+            'product' => 'Business Loan',
+            'intro' => 'A business loan gives you the working capital or growth funds your business needs — to buy stock, expand, manage cash-flow or invest in equipment. LoanPt compares unsecured business-loan and working-capital offers across leading banks and NBFCs, matches you to a lender comfortable with your profile, and handles the paperwork end to end. It is completely free for you.',
+            'bullets' => array('Collateral-free options', 'Working capital & term loans', 'Flexible tenure', 'Quick disbursal', 'Minimal paperwork', 'For self-employed & businesses'),
+            'compare' => false,
+            'faq' => array(
+                'Who can get a business loan?' => 'Self-employed professionals, proprietors, partnerships and companies with a running business and reasonable financials. We match you to lenders comfortable with your profile.',
+                'What documents are needed?' => 'Usually KYC, business proof (GST / registration), bank statements and ITR. We tell you the exact list for the lender you qualify for.',
+                'Is collateral required?' => 'Many business loans are unsecured (no collateral) up to a limit based on your profile; larger amounts may need security. We find the best fit for you.',
+                'Does LoanPt charge a fee?' => 'No — our service is free to you. The lender may charge its own processing fee, shown upfront.',
+            ),
+        ),
     );
-    return array_merge($base, loanpt_city_defs());
+    return array_merge($base, loanpt_city_defs(), loanpt_biz_city_defs());
 }
 
 /** Personal-loan city landing pages across NCR — unique content per city (SEO). */
@@ -72,6 +87,21 @@ function loanpt_city_defs() {
         'ghaziabad'     => array('Ghaziabad', 'Looking for a personal loan in Ghaziabad? LoanPt helps salaried and self-employed applicants across Indirapuram, Vaishali, Raj Nagar and the wider city compare offers from leading banks and NBFCs, secure a competitive rate, and get funds with minimal paperwork — at no cost to you.'),
         'faridabad'     => array('Faridabad', 'For a personal loan in Faridabad, LoanPt compares offers from all the major banks and NBFCs so you do not have to. Whether you are in NIT, Sector 15 or along the industrial belt, we match you to the lowest rate your profile qualifies for and manage the process end to end — completely free.'),
         'greater-noida' => array('Greater Noida', 'Need a personal loan in Greater Noida? From professionals in the Knowledge Park institutional belt to residents across the city sectors, LoanPt compares personal loan offers from leading banks and NBFCs, finds you a competitive rate, and handles the paperwork — at zero cost to you.'),
+        'mumbai'        => array('Mumbai', 'Looking for a personal loan in Mumbai? From professionals in BKC, Andheri and Lower Parel to residents across the suburbs and Navi Mumbai, LoanPt compares personal loan offers from every major bank and NBFC and matches you to the lowest rate your profile qualifies for — paperwork handled, at zero cost to you.'),
+        'bangalore'     => array('Bengaluru', 'Need a personal loan in Bengaluru? Whether you work in the Whitefield, Electronic City or Outer Ring Road tech corridors or live anywhere across the city, LoanPt compares offers from leading banks and NBFCs, finds your best rate, and manages the process end to end — completely free.'),
+        'hyderabad'     => array('Hyderabad', 'Searching for a personal loan in Hyderabad? For professionals across HITEC City, Gachibowli and the wider metro, LoanPt compares personal loan offers from top banks and NBFCs, matches you to a competitive rate, and handles the documentation — at no cost to you.'),
+        'chennai'       => array('Chennai', 'Looking for a personal loan in Chennai? From the OMR IT corridor and Guindy to residents across the city, LoanPt compares offers from every major bank and NBFC, secures you the lowest rate you qualify for, and manages everything — free of charge.'),
+        'pune'          => array('Pune', 'Need a personal loan in Pune? Whether you are in Hinjewadi, Kharadi or anywhere across the city and PCMC, LoanPt compares personal loan offers from leading banks and NBFCs, finds your best rate, and handles the paperwork — at zero cost to you.'),
+        'kolkata'       => array('Kolkata', 'For a personal loan in Kolkata, LoanPt compares offers from all the major banks and NBFCs so you do not have to. From Salt Lake and New Town to residents across the city, we match you to the lowest rate your profile qualifies for and manage the process end to end — completely free.'),
+        'ahmedabad'     => array('Ahmedabad', 'Looking for a personal loan in Ahmedabad? LoanPt helps salaried and self-employed applicants across SG Highway, Prahlad Nagar and the wider city compare offers from leading banks and NBFCs, secure a competitive rate, and get funds with minimal paperwork — at no cost to you.'),
+        'jaipur'        => array('Jaipur', 'Need a personal loan in Jaipur? From professionals in Malviya Nagar and C-Scheme to residents across the Pink City, LoanPt compares personal loan offers from top banks and NBFCs, matches you to a competitive rate, and handles the documentation — free of charge.'),
+        'lucknow'       => array('Lucknow', 'Searching for a personal loan in Lucknow? Whether you are in Gomti Nagar, Hazratganj or anywhere across the city, LoanPt compares offers from every major bank and NBFC, finds you the best rate for your profile, and manages the whole process — at zero cost to you.'),
+        'chandigarh'    => array('Chandigarh', 'Looking for a personal loan in Chandigarh? For residents and professionals across the city and the wider Tricity (Mohali, Panchkula), LoanPt compares personal loan offers from leading banks and NBFCs, secures your best rate, and handles the paperwork — completely free.'),
+        'indore'        => array('Indore', 'Need a personal loan in Indore? From the Vijay Nagar commercial belt to residents across the city, LoanPt compares offers from top banks and NBFCs, matches you to a competitive rate, and manages the process end to end — at no cost to you.'),
+        'surat'         => array('Surat', 'Looking for a personal loan in Surat? Whether you are in the textile and diamond trade or salaried across the city, LoanPt compares personal loan offers from leading banks and NBFCs, finds your best rate, and handles everything — free of charge.'),
+        'bhopal'        => array('Bhopal', 'Need a personal loan in Bhopal? From the MP Nagar hub to residents across the city, LoanPt compares offers from every major bank and NBFC, secures the lowest rate you qualify for, and manages the paperwork — at zero cost to you.'),
+        'patna'         => array('Patna', 'Searching for a personal loan in Patna? LoanPt helps salaried and self-employed applicants across Boring Road, Kankarbagh and the wider city compare offers from leading banks and NBFCs, secure a competitive rate, and get funds fast — completely free.'),
+        'nagpur'        => array('Nagpur', 'Looking for a personal loan in Nagpur? From professionals across the city commercial and residential areas, LoanPt compares personal loan offers from top banks and NBFCs, matches you to your best rate, and handles the documentation — at no cost to you.'),
     );
     $out = array();
     foreach ($cities as $cslug => $c) {
@@ -81,14 +111,51 @@ function loanpt_city_defs() {
             'h1'      => 'Personal Loan in <em>' . $name . '</em> — Compare Offers from Every Bank',
             'meta'    => 'Compare personal loan offers in ' . $name . ' from HDFC, Kotak, ICICI, Axis, Bajaj & more. Check eligibility free, get the lowest rate with minimal paperwork. Apply with LoanPt — zero cost.',
             'product' => 'Personal Loan',
+            'city'    => $name,
             'intro'   => $c[1],
             'bullets' => $bullets,
             'compare' => true,
             'faq'     => array(
-                'Can I get a personal loan in ' . $name . '?' => 'Yes — we work with banks and NBFCs that lend across ' . $name . ' and the wider NCR. Share your details and our team finds your best option, free.',
+                'Can I get a personal loan in ' . $name . '?' => 'Yes — we work with banks and NBFCs that lend across ' . $name . ' and nearby areas. Share your details and our team finds your best option, free.',
                 'Who is eligible for a personal loan?' => 'Typically salaried or self-employed applicants with a steady income and a reasonable credit score. We check your profile against multiple banks and tell you the best fit.',
                 'What documents do I need?' => 'Usually ID & address proof, PAN, and recent salary slips or bank statements. We guide you through the exact list for the bank you qualify for.',
                 'What interest rate will I get?' => 'It depends on the bank, your income and credit profile, so the lender decides it. We pull competitive partner-bank offers and never promise a fixed rate upfront.',
+            ),
+        );
+    }
+    return $out;
+}
+
+/** Business-loan city landing pages — unique content per city (SEO). */
+function loanpt_biz_city_defs() {
+    $bullets = array('Collateral-free options', 'Working capital & term loans', 'Flexible tenure', 'Quick disbursal', 'Minimal paperwork', 'For self-employed & businesses');
+    $cities = array(
+        'delhi'     => array('Delhi', 'Looking for a business loan in Delhi? From traders and MSMEs in the wholesale markets to growing companies across the city, LoanPt compares unsecured business-loan and working-capital offers from leading banks and NBFCs, matches you to the right lender, and handles the paperwork — free of charge.'),
+        'mumbai'    => array('Mumbai', 'Need a business loan in Mumbai? For businesses across BKC, Andheri and the wider metro, LoanPt compares working-capital and term-loan offers from top banks and NBFCs, finds a lender comfortable with your profile, and manages the process end to end — at zero cost to you.'),
+        'bangalore' => array('Bengaluru', 'Searching for a business loan in Bengaluru? Whether you run a startup, shop or growing firm, LoanPt compares unsecured business-loan offers from leading banks and NBFCs, matches you to the right lender, and handles the documentation — completely free.'),
+        'hyderabad' => array('Hyderabad', 'Looking for a business loan in Hyderabad? From HITEC City firms to traders across the city, LoanPt compares working-capital and business-loan offers from top banks and NBFCs, finds your best fit, and manages the paperwork — at no cost to you.'),
+        'pune'      => array('Pune', 'Need a business loan in Pune? For MSMEs and growing businesses across the city and PCMC, LoanPt compares unsecured business-loan offers from leading banks and NBFCs, matches you to the right lender, and handles everything — free of charge.'),
+        'ahmedabad' => array('Ahmedabad', 'Looking for a business loan in Ahmedabad? For traders and manufacturers across the city commercial hubs, LoanPt compares working-capital and term-loan offers from top banks and NBFCs, finds a lender for your profile, and manages the process — at zero cost to you.'),
+        'surat'     => array('Surat', 'Need a business loan in Surat? Whether you are in textiles, diamonds or trade, LoanPt compares unsecured business-loan and working-capital offers from leading banks and NBFCs, matches you to the right lender, and handles the paperwork — completely free.'),
+        'jaipur'    => array('Jaipur', 'Searching for a business loan in Jaipur? For businesses and traders across the city, LoanPt compares business-loan offers from top banks and NBFCs, finds your best fit, and manages the documentation — at no cost to you.'),
+    );
+    $out = array();
+    foreach ($cities as $cslug => $c) {
+        $name = $c[0];
+        $out['business-loan-' . $cslug] = array(
+            'title'   => 'Business Loan in ' . $name . ' — Compare & Apply, Collateral-Free Options',
+            'h1'      => 'Business Loan in <em>' . $name . '</em> — Fund Your Growth',
+            'meta'    => 'Compare business loan & working-capital offers in ' . $name . ' from leading banks & NBFCs. Collateral-free options, quick disbursal. Apply with LoanPt — free.',
+            'product' => 'Business Loan',
+            'city'    => $name,
+            'intro'   => $c[1],
+            'bullets' => $bullets,
+            'compare' => false,
+            'faq'     => array(
+                'Can I get a business loan in ' . $name . '?' => 'Yes — we work with banks and NBFCs that lend to businesses across ' . $name . ' and nearby areas. Share your details and our team finds your best option, free.',
+                'Who can get a business loan?' => 'Self-employed professionals, proprietors, partnerships and companies with a running business and reasonable financials. We match you to lenders comfortable with your profile.',
+                'What documents are needed?' => 'Usually KYC, business proof (GST / registration), bank statements and ITR. We tell you the exact list for the lender you qualify for.',
+                'Is collateral required?' => 'Many business loans are unsecured up to a limit based on your profile; larger amounts may need security. We find the best fit for you.',
             ),
         );
     }

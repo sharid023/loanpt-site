@@ -15,7 +15,7 @@ if (!$d) {
     get_footer();
     return;
 }
-$products = array('Personal Loan', 'Overdraft', 'Balance Transfer', 'Credit Card');
+$products = array('Personal Loan', 'Business Loan', 'Overdraft', 'Balance Transfer', 'Credit Card');
 ?>
 
 <!-- HERO -->
@@ -65,14 +65,17 @@ $products = array('Personal Loan', 'Overdraft', 'Balance Transfer', 'Credit Card
 </div></section>
 
 <?php
-$ncr = array('noida' => 'Noida', 'delhi' => 'Delhi', 'gurugram' => 'Gurugram', 'ghaziabad' => 'Ghaziabad', 'faridabad' => 'Faridabad', 'greater-noida' => 'Greater Noida');
-if ($d['product'] === 'Personal Loan'): ?>
-<!-- NCR CITY INTERLINKS -->
+// City interlinks for the current product (strong internal linking for SEO).
+$ctx = null;
+if ($d['product'] === 'Personal Loan') { $ctx = array('label' => 'Personal Loan', 'cities' => loanpt_city_defs()); }
+elseif ($d['product'] === 'Business Loan') { $ctx = array('label' => 'Business Loan', 'cities' => loanpt_biz_city_defs()); }
+if ($ctx): ?>
+<!-- CITY INTERLINKS -->
 <section style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="wrap">
-  <div class="sec-head"><div class="kicker">Local</div><h2>Personal Loan across NCR</h2><p>We help salaried &amp; self-employed applicants across the National Capital Region.</p></div>
+  <div class="sec-head"><div class="kicker">Local</div><h2><?php echo esc_html($ctx['label']); ?> — cities we serve</h2><p>Get your best offer with LoanPt in your city — free to compare and apply.</p></div>
   <div class="prods" style="grid-template-columns:repeat(3,1fr)">
-    <?php foreach ($ncr as $cs => $cn): if ($slug === 'personal-loan-' . $cs) continue; ?>
-      <a class="prod" style="text-decoration:none" href="<?php echo esc_url(home_url('/personal-loan-' . $cs . '/')); ?>"><h3 style="margin:0;font-size:18px"><?php echo esc_html('Personal Loan in ' . $cn); ?></h3><span class="go">Compare offers &rarr;</span></a>
+    <?php foreach ($ctx['cities'] as $cslug => $cdef): if ($cslug === $slug) continue; ?>
+      <a class="prod" style="text-decoration:none" href="<?php echo esc_url(home_url('/' . $cslug . '/')); ?>"><h3 style="margin:0;font-size:17px"><?php echo esc_html($ctx['label'] . ' in ' . $cdef['city']); ?></h3><span class="go">Compare offers &rarr;</span></a>
     <?php endforeach; ?>
   </div>
 </div></section>

@@ -12,6 +12,7 @@
         <a href="<?php echo esc_url(home_url('/personal-loan/')); ?>">Personal Loan</a>
         <a href="<?php echo esc_url(home_url('/overdraft/')); ?>">Overdraft</a>
         <a href="<?php echo esc_url(home_url('/balance-transfer/')); ?>">Balance Transfer</a>
+        <a href="<?php echo esc_url(home_url('/business-loan/')); ?>">Business Loan</a>
         <a href="<?php echo esc_url(home_url('/#apply')); ?>">Credit Card</a>
       </div>
       <div>

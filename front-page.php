@@ -92,7 +92,7 @@
       <a class="tile" href="<?php echo esc_url(home_url('/balance-transfer/')); ?>"><span class="tile-ico"><span class="tile-ic">&#128201;</span><span class="tile-badge">Save EMI</span></span><span class="tile-name">Balance Transfer</span></a>
       <a class="tile" href="<?php echo esc_url(home_url('/instant-loan/')); ?>"><span class="tile-ico"><span class="tile-ic">&#9889;</span><span class="tile-badge">Instant</span></span><span class="tile-name">Instant Loan</span></a>
       <a class="tile" href="<?php echo esc_url(home_url('/#apply')); ?>"><span class="tile-ico"><span class="tile-ic">&#128179;</span></span><span class="tile-name">Credit Card</span></a>
-      <a class="tile" href="<?php echo esc_url(home_url('/#apply')); ?>"><span class="tile-ico"><span class="tile-ic">&#127970;</span></span><span class="tile-name">Business Loan</span></a>
+      <a class="tile" href="<?php echo esc_url(home_url('/business-loan/')); ?>"><span class="tile-ico"><span class="tile-ic">&#127970;</span></span><span class="tile-name">Business Loan</span></a>
       <a class="tile" href="<?php echo esc_url(home_url('/loan-eligibility/')); ?>"><span class="tile-ico"><span class="tile-ic">&#9989;</span><span class="tile-badge">Free</span></span><span class="tile-name">Check Eligibility</span></a>
       <a class="tile" href="<?php echo esc_url(home_url('/#calc')); ?>"><span class="tile-ico"><span class="tile-ic">&#129518;</span></span><span class="tile-name">EMI Calculator</span></a>
       <a class="tile" href="<?php echo esc_url(home_url('/#compare')); ?>"><span class="tile-ico"><span class="tile-ic">&#127974;</span></span><span class="tile-name">Compare Banks</span></a>
