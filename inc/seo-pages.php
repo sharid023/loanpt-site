@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) exit;
  * use the "LoanPt Landing" template. Bump LOANPT_PAGES_VER to re-seed.
  */
 
-define('LOANPT_PAGES_VER', '6');
+define('LOANPT_PAGES_VER', '7');
 
 /** Content for each landing page, keyed by URL slug (base products + city pages). */
 function loanpt_landing_data() {
@@ -241,19 +241,24 @@ function loanpt_info_data() {
 add_action('init', function () {
     if (get_option('loanpt_pages_ver') === LOANPT_PAGES_VER) return;
     foreach (loanpt_landing_data() as $slug => $d) {
+        // Descriptive admin title ("Personal Loan in Mumbai"), not just the product.
+        $pt = isset($d['city']) ? ($d['product'] . ' in ' . $d['city']) : $d['product'];
         $existing = get_page_by_path($slug);
         if (!$existing) {
             wp_insert_post(array(
-                'post_title'   => $d['product'],
+                'post_title'   => $pt,
                 'post_name'    => $slug,
                 'post_status'  => 'publish',
                 'post_type'    => 'page',
-                'post_content' => 'LoanPt ' . $d['product'] . ' landing page.',
+                'post_content' => 'LoanPt ' . $pt . ' landing page.',
                 'page_template'=> 'tpl-landing.php',
                 'meta_input'   => array('_wp_page_template' => 'tpl-landing.php'),
             ));
         } else {
             update_post_meta($existing->ID, '_wp_page_template', 'tpl-landing.php');
+            if ($existing->post_title !== $pt) {
+                wp_update_post(array('ID' => $existing->ID, 'post_title' => $pt));
+            }
         }
     }
     // Info pages (Services/About/Contact) — point existing pages at the info template
