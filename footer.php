@@ -13,7 +13,8 @@
         <a href="<?php echo esc_url(home_url('/overdraft/')); ?>">Overdraft</a>
         <a href="<?php echo esc_url(home_url('/balance-transfer/')); ?>">Balance Transfer</a>
         <a href="<?php echo esc_url(home_url('/business-loan/')); ?>">Business Loan</a>
-        <a href="<?php echo esc_url(home_url('/#apply')); ?>">Credit Card</a>
+        <a href="<?php echo esc_url(home_url('/home-loan/')); ?>">Home Loan</a>
+        <a href="<?php echo esc_url(home_url('/credit-card/')); ?>">Credit Card</a>
       </div>
       <div>
         <h4>Company</h4>

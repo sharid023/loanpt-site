@@ -15,7 +15,7 @@ if (!$d) {
     get_footer();
     return;
 }
-$products = array('Personal Loan', 'Business Loan', 'Overdraft', 'Balance Transfer', 'Credit Card');
+$products = array('Personal Loan', 'Business Loan', 'Home Loan', 'Overdraft', 'Balance Transfer', 'Credit Card');
 ?>
 
 <!-- HERO -->

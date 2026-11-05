@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) exit;
  * use the "LoanPt Landing" template. Bump LOANPT_PAGES_VER to re-seed.
  */
 
-define('LOANPT_PAGES_VER', '5');
+define('LOANPT_PAGES_VER', '6');
 
 /** Content for each landing page, keyed by URL slug (base products + city pages). */
 function loanpt_landing_data() {
@@ -71,6 +71,51 @@ function loanpt_landing_data() {
                 'What documents are needed?' => 'Usually KYC, business proof (GST / registration), bank statements and ITR. We tell you the exact list for the lender you qualify for.',
                 'Is collateral required?' => 'Many business loans are unsecured (no collateral) up to a limit based on your profile; larger amounts may need security. We find the best fit for you.',
                 'Does LoanPt charge a fee?' => 'No — our service is free to you. The lender may charge its own processing fee, shown upfront.',
+            ),
+        ),
+        'home-loan' => array(
+            'title' => 'Home Loan — Compare & Apply at the Lowest Rate',
+            'h1'    => 'Home Loan — Buy Your Home at the <em>Lowest Rate</em>',
+            'meta'  => 'Compare home loan offers from leading banks & NBFCs — low rates, long tenure, balance transfer & top-up. Check eligibility free and apply with LoanPt.',
+            'product' => 'Home Loan',
+            'intro' => 'A home loan helps you buy, build or renovate your home with a long tenure and a comfortable EMI. LoanPt compares home-loan offers across leading banks and NBFCs, matches you to the lowest rate your profile qualifies for, and handles the paperwork — including balance transfer and top-up on an existing home loan. It is completely free for you.',
+            'bullets' => array('Low interest rates', 'Tenure up to 30 years', 'High loan amount', 'Balance transfer & top-up', 'Minimal paperwork', 'Fully managed process'),
+            'compare' => false,
+            'faq' => array(
+                'Who is eligible for a home loan?' => 'Salaried or self-employed applicants with a steady income, within the lender\'s age and property criteria. We check your profile across banks and find your best fit.',
+                'How much home loan can I get?' => 'It depends on your income, existing obligations and the property value (lenders typically fund up to 75–90% of the value). Share your details for an indicative amount — free.',
+                'What documents are needed?' => 'Usually KYC, income proof (salary slips / ITR), bank statements and property documents. We guide you through the exact list.',
+                'Can I transfer my existing home loan?' => 'Yes — a home-loan balance transfer can move your loan to a lower rate and cut your EMI, often with a top-up. We check if it saves you money.',
+            ),
+        ),
+        'credit-card' => array(
+            'title' => 'Credit Cards — Compare & Apply for the Right Card',
+            'h1'    => 'Credit Cards — Find the <em>Right Card</em> for You',
+            'meta'  => 'Compare credit cards and get matched to the right one for your profile — rewards, cashback, travel, lifetime-free and EMI options. Apply with LoanPt, free.',
+            'product' => 'Credit Card',
+            'intro' => 'The right credit card rewards your everyday spending — cashback, reward points, travel benefits, lounge access or lifetime-free options. LoanPt helps you compare cards from leading banks and get matched to the one that fits your profile and spending, then guides you through a quick application. It is completely free for you.',
+            'bullets' => array('Rewards & cashback cards', 'Travel & lounge benefits', 'Lifetime-free options', 'Low-interest & EMI cards', 'Matched to your profile', 'Quick, guided application'),
+            'compare' => false,
+            'faq' => array(
+                'Which credit card is best for me?' => 'It depends on how you spend — cashback for daily use, travel cards for flyers, rewards for shopping. We match you to the right card for your profile.',
+                'Who is eligible for a credit card?' => 'Salaried or self-employed applicants with a steady income and a reasonable credit score. We tell you the cards you are most likely to be approved for.',
+                'What documents do I need?' => 'Usually ID & address proof, PAN, and income proof (salary slips or bank statement). We guide you through the exact list.',
+                'Is LoanPt free?' => 'Yes — our service is free to you. The bank sets any card fees, shown transparently.',
+            ),
+        ),
+        'cibil-score' => array(
+            'title' => 'Check Your Credit Score (CIBIL) Free — Tips to Improve It',
+            'h1'    => 'Check & Improve Your <em>Credit Score</em>',
+            'meta'  => 'Understand your CIBIL / credit score, why it matters for loans, and how to improve it. LoanPt helps you check eligibility and get the best loan at the right rate — free.',
+            'product' => 'Credit Score',
+            'intro' => 'Your credit score (CIBIL, 300–900) is the first thing a lender checks — a higher score means easier approvals and a lower interest rate. LoanPt helps you understand where you stand, improve your score, and get matched to the lenders most likely to approve you. Share your details and our team guides you — completely free.',
+            'bullets' => array('Know what affects your score', '7 proven ways to improve it', 'Match to lenders for your profile', 'A better score = a lower rate', 'Free, honest guidance', 'Checking your own score is safe'),
+            'compare' => false,
+            'faq' => array(
+                'What is a good credit score?' => 'Generally 750 and above is considered good and gets the best loan offers. Between 650–750 you can still get a loan, often at a higher rate. Below 650 it is harder, but improvable.',
+                'How can I improve my credit score?' => 'Pay EMIs and card bills on time, keep card usage under 30% of the limit, avoid too many loan applications at once, and fix any errors on your report. Most people see improvement in 4–6 months.',
+                'Does checking my score lower it?' => 'No. Checking your own score is a soft enquiry and does not affect it. Only a lender\'s hard enquiry (when you apply) has a small, temporary effect.',
+                'Can I get a loan with a low score?' => 'Sometimes — some lenders consider a fair score with strong income proof. We check multiple banks to find who may approve you.',
             ),
         ),
     );

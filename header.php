@@ -24,6 +24,8 @@
             <a href="<?php echo esc_url(home_url('/overdraft/')); ?>">Overdraft (OD)</a>
             <a href="<?php echo esc_url(home_url('/balance-transfer/')); ?>">Balance Transfer</a>
             <a href="<?php echo esc_url(home_url('/business-loan/')); ?>">Business Loan</a>
+            <a href="<?php echo esc_url(home_url('/home-loan/')); ?>">Home Loan</a>
+            <a href="<?php echo esc_url(home_url('/credit-card/')); ?>">Credit Card</a>
             <a href="<?php echo esc_url(home_url('/instant-loan/')); ?>">Instant Loan</a>
           </div>
         </div>
@@ -31,6 +33,7 @@
           <button type="button" class="mi-top">Tools <span class="mi-car">&#9662;</span></button>
           <div class="mi-sub">
             <a href="<?php echo esc_url(home_url('/loan-eligibility/')); ?>">Check Eligibility</a>
+            <a href="<?php echo esc_url(home_url('/cibil-score/')); ?>">Credit Score (CIBIL)</a>
             <a href="<?php echo esc_url(home_url('/#calc')); ?>">EMI Calculator</a>
             <a href="<?php echo esc_url(home_url('/#compare')); ?>">Compare Banks</a>
           </div>
