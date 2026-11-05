@@ -16,19 +16,34 @@
     <?php endif; ?>
     <span class="sp"></span>
     <div class="navlinks" id="navdrop">
-      <?php if (has_nav_menu('primary')): ?>
-        <nav class="menu"><?php wp_nav_menu(array('theme_location' => 'primary', 'container' => false, 'items_wrap' => '%3$s', 'depth' => 1, 'fallback_cb' => false)); ?></nav>
-      <?php else: ?>
-        <nav class="menu">
-          <a href="<?php echo esc_url(home_url('/personal-loan/')); ?>">Personal Loan</a>
-          <a href="<?php echo esc_url(home_url('/overdraft/')); ?>">Overdraft</a>
-          <a href="<?php echo esc_url(home_url('/balance-transfer/')); ?>">Balance Transfer</a>
-          <a href="<?php echo esc_url(home_url('/loan-eligibility/')); ?>">Check Eligibility</a>
-          <a href="<?php echo esc_url(home_url('/blog/')); ?>">Blog</a>
-          <a href="<?php echo esc_url(home_url('/about/')); ?>">About</a>
-          <a href="<?php echo esc_url(home_url('/contact/')); ?>">Contact</a>
-        </nav>
-      <?php endif; ?>
+      <nav class="menu">
+        <div class="mi has-sub">
+          <button type="button" class="mi-top">Loans <span class="mi-car">&#9662;</span></button>
+          <div class="mi-sub">
+            <a href="<?php echo esc_url(home_url('/personal-loan/')); ?>">Personal Loan</a>
+            <a href="<?php echo esc_url(home_url('/overdraft/')); ?>">Overdraft (OD)</a>
+            <a href="<?php echo esc_url(home_url('/balance-transfer/')); ?>">Balance Transfer</a>
+            <a href="<?php echo esc_url(home_url('/instant-loan/')); ?>">Instant Loan</a>
+          </div>
+        </div>
+        <div class="mi has-sub">
+          <button type="button" class="mi-top">Tools <span class="mi-car">&#9662;</span></button>
+          <div class="mi-sub">
+            <a href="<?php echo esc_url(home_url('/loan-eligibility/')); ?>">Check Eligibility</a>
+            <a href="<?php echo esc_url(home_url('/#calc')); ?>">EMI Calculator</a>
+            <a href="<?php echo esc_url(home_url('/#compare')); ?>">Compare Banks</a>
+          </div>
+        </div>
+        <div class="mi"><a class="mi-top" href="<?php echo esc_url(home_url('/blog/')); ?>">Blog</a></div>
+        <div class="mi has-sub">
+          <button type="button" class="mi-top">Company <span class="mi-car">&#9662;</span></button>
+          <div class="mi-sub">
+            <a href="<?php echo esc_url(home_url('/about/')); ?>">About Us</a>
+            <a href="<?php echo esc_url(home_url('/services/')); ?>">Our Services</a>
+            <a href="<?php echo esc_url(home_url('/contact/')); ?>">Contact</a>
+          </div>
+        </div>
+      </nav>
       <a class="authlnk custlogin" id="custLoginLink" href="<?php echo esc_url(home_url('/customer/')); ?>">&#128100; Customer Login</a>
       <a class="authlnk" href="<?php echo esc_url(loanpt_opt('connector_url', LOANPT_CONNECTOR_URL)); ?>">&#128100; Connector Login</a>
       <a class="authlnk" href="<?php echo esc_url(loanpt_opt('team_url', LOANPT_TEAM_URL)); ?>">&#128274; Team Login</a>

@@ -579,3 +579,22 @@
     location.href = home;
   });
 })();
+
+/* ---------- Header category dropdowns ---------- */
+(function () {
+  var items = document.querySelectorAll('.nav .menu .mi.has-sub');
+  if (!items.length) return;
+  items.forEach(function (mi) {
+    var top = mi.querySelector('.mi-top');
+    if (!top) return;
+    top.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var wasOpen = mi.classList.contains('open');
+      items.forEach(function (x) { x.classList.remove('open'); });
+      if (!wasOpen) mi.classList.add('open');
+    });
+  });
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.mi')) items.forEach(function (x) { x.classList.remove('open'); });
+  });
+})();
