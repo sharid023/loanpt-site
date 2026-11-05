@@ -1,3 +1,9 @@
+/* Fire a lead conversion to GA4 + Meta Pixel (no-op until those are configured). */
+function loanptLead(src) {
+  try { if (window.gtag) gtag('event', 'generate_lead', { event_category: 'lead', event_label: src || 'website' }); } catch (e) {}
+  try { if (window.fbq) fbq('track', 'Lead'); } catch (e) {}
+}
+
 (function () {
   'use strict';
   var CFG = window.LOANPT || {};
@@ -47,7 +53,7 @@
     });
 
     function showErr(m) { if (errBox) { errBox.textContent = m; errBox.style.display = 'block'; } }
-    function done() { form.style.display = 'none'; if (okBox) okBox.style.display = 'block'; }
+    function done() { form.style.display = 'none'; if (okBox) okBox.style.display = 'block'; loanptLead('website'); }
     function reset() { btn.disabled = false; btn.innerHTML = 'Get my best offer &rarr;'; }
 
     form.addEventListener('submit', function (e) {
@@ -711,7 +717,7 @@
       var ref = ''; try { ref = localStorage.getItem('loanpt_ref') || ''; } catch (e2) {}
       fetch(CFG.leadUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: name, mobile: m, product: 'Personal Loan', tool: 'chatbot', ref: ref }) })
         .then(function () { done(name); }).catch(function () { done(name); });
-      function done(nm) { f.remove(); addMsg('Thanks ' + nm + '! ✅ Our team will call you shortly with your best offer.', 'bot'); waOffer(); }
+      function done(nm) { f.remove(); addMsg('Thanks ' + nm + '! ✅ Our team will call you shortly with your best offer.', 'bot'); waOffer(); loanptLead('chatbot'); }
     });
   }
   function waOffer() {

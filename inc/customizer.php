@@ -57,4 +57,11 @@ add_action('customize_register', function ($wp) {
         'section'     => 'loanpt_banks',
         'type'        => 'textarea',
     ));
+
+    /* ---- Analytics & Tracking ---- */
+    $wp->add_section('loanpt_analytics', array('title' => 'LoanPt — Analytics & Tracking', 'priority' => 33));
+    $wp->add_setting('loanpt_ga4_id', array('default' => '', 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'refresh'));
+    $wp->add_control('loanpt_ga4_id', array('label' => 'Google Analytics 4 ID', 'description' => 'e.g. G-XXXXXXXXXX', 'section' => 'loanpt_analytics', 'type' => 'text'));
+    $wp->add_setting('loanpt_pixel_id', array('default' => '', 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'refresh'));
+    $wp->add_control('loanpt_pixel_id', array('label' => 'Meta (Facebook) Pixel ID', 'description' => 'the numeric Pixel ID from Meta Events Manager', 'section' => 'loanpt_analytics', 'type' => 'text'));
 });

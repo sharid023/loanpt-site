@@ -37,7 +37,7 @@ add_action('after_setup_theme', 'loanpt_setup');
 function loanpt_assets() {
     wp_enqueue_style('loanpt-font', 'https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap', array(), null);
     wp_enqueue_style('loanpt-style', get_stylesheet_uri(), array(), '1.14.1');
-    wp_enqueue_script('loanpt-app', get_template_directory_uri() . '/assets/app.js', array(), '1.12.0', true);
+    wp_enqueue_script('loanpt-app', get_template_directory_uri() . '/assets/app.js', array(), '1.13.0', true);
     wp_localize_script('loanpt-app', 'LOANPT', array(
         'leadUrl' => esc_url_raw(rest_url('loanpt/v1/lead')),
         'home'    => esc_url_raw(home_url('/')),
@@ -68,6 +68,24 @@ function loanpt_head() {
     }
 }
 add_action('wp_head', 'loanpt_head', 5);
+
+/* Analytics: GA4 + Meta Pixel. IDs set in Customize → "LoanPt — Analytics & Tracking".
+   Nothing is output until an ID is provided. */
+function loanpt_analytics() {
+    $ga = preg_replace('/[^A-Za-z0-9\-]/', '', (string) loanpt_opt('ga4_id', ''));
+    $px = preg_replace('/[^0-9]/', '', (string) loanpt_opt('pixel_id', ''));
+    if ($ga) {
+        echo "\n<!-- Google Analytics (GA4) -->\n";
+        echo '<script async src="https://www.googletagmanager.com/gtag/js?id=' . esc_attr($ga) . '"></script>' . "\n";
+        echo '<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","' . esc_js($ga) . '");</script>' . "\n";
+    }
+    if ($px) {
+        echo "\n<!-- Meta Pixel -->\n";
+        echo '<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","' . esc_js($px) . '");fbq("track","PageView");</script>' . "\n";
+        echo '<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=' . esc_attr($px) . '&ev=PageView&noscript=1"/></noscript>' . "\n";
+    }
+}
+add_action('wp_head', 'loanpt_analytics', 1);
 
 /* Lead REST endpoint: receives the form (same-origin, no CORS) and forwards
    server-side to the CRM. Returns {ok:true} on success. */
