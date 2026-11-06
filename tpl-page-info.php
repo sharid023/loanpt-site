@@ -17,6 +17,7 @@ if (!$d) {
 $phone = loanpt_opt('phone', LOANPT_PHONE);
 $wa    = loanpt_opt('wa', LOANPT_WA);
 $email = loanpt_opt('email', LOANPT_EMAIL);
+$gromo = loanpt_opt('gromo_url', '');
 ?>
 
 <!-- HERO -->
@@ -113,9 +114,9 @@ $email = loanpt_opt('email', LOANPT_EMAIL);
 <!-- INSTANT LOAN: apply form + fast steps -->
 <section style="padding-top:36px"><div class="wrap" style="max-width:560px">
   <div class="formcard" id="apply" style="box-shadow:0 12px 34px rgba(20,63,41,.12)">
-    <h2>Apply in 60 seconds</h2><p class="fsub">Our team calls you right away with the fastest option.</p>
+    <h2>Apply in 60 seconds</h2><p class="fsub"><?php echo $gromo ? 'Share your details, then we take you to our partner for instant processing.' : 'Our team calls you right away with the fastest option.'; ?></p>
     <div class="err" id="err"></div>
-    <form id="leadForm" novalidate>
+    <form id="leadForm"<?php if ($gromo): ?> data-redirect="<?php echo esc_url($gromo); ?>"<?php endif; ?> novalidate>
       <div class="field"><label for="name">Full name</label><input id="name" name="name" type="text" autocomplete="name" placeholder="Your name" required></div>
       <div class="field"><label for="mobile">Mobile number</label><input id="mobile" name="mobile" type="tel" inputmode="numeric" autocomplete="tel" maxlength="10" placeholder="10-digit mobile" required></div>
       <div class="row2">

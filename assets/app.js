@@ -53,7 +53,20 @@ function loanptLead(src) {
     });
 
     function showErr(m) { if (errBox) { errBox.textContent = m; errBox.style.display = 'block'; } }
-    function done() { form.style.display = 'none'; if (okBox) okBox.style.display = 'block'; loanptLead('website'); }
+    function done() {
+      loanptLead('website');
+      var redir = form.getAttribute('data-redirect');
+      form.style.display = 'none';
+      if (okBox) {
+        if (redir) {
+          var h = okBox.querySelector('h3'), p = okBox.querySelector('p');
+          if (h) h.textContent = 'Thank you!';
+          if (p) p.textContent = 'Taking you to our partner for instant processing…';
+        }
+        okBox.style.display = 'block';
+      }
+      if (redir) setTimeout(function () { location.href = redir; }, 1800);
+    }
     function reset() { btn.disabled = false; btn.innerHTML = 'Get my best offer &rarr;'; }
 
     form.addEventListener('submit', function (e) {

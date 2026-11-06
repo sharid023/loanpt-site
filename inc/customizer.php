@@ -30,6 +30,7 @@ add_action('customize_register', function ($wp) {
         'connector_url' => array('Connector login URL', LOANPT_CONNECTOR_URL, 'esc_url_raw'),
         'team_url'      => array('Team login URL', LOANPT_TEAM_URL, 'esc_url_raw'),
         'google_client_id' => array('Google Login Client ID (Customer Login)', '', 'sanitize_text_field'),
+        'gromo_url'        => array('GroMo Instant Loan link (redirect after lead is captured)', '', 'esc_url_raw'),
     );
     foreach ($contact as $k => $f) {
         $wp->add_setting('loanpt_' . $k, array('default' => $f[1], 'sanitize_callback' => $f[2], 'transport' => 'refresh'));
