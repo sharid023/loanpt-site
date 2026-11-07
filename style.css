@@ -99,6 +99,8 @@ section{padding:52px 0}
 .calc .result .emi{font-size:40px;font-weight:800;color:var(--mint)}
 .calc .result .lbl{font-size:13px;color:#bff0da;letter-spacing:.08em;text-transform:uppercase}
 .calc .result .meta{margin-top:14px;font-size:13.5px;color:#cfe9db;line-height:1.7}
+.calc .ctrl .calc-words{font-size:11.5px;color:var(--muted);margin-top:5px;font-weight:500;line-height:1.3}
+.calc .result .calc-words-main{font-size:12.5px;color:#bff0da;margin-top:6px;line-height:1.35;font-weight:600}
 .calc .result .btn{margin-top:16px;justify-content:center}
 /* comparison */
 .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 4px 16px rgba(20,63,41,.05)}

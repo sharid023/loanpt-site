@@ -753,6 +753,29 @@ function loanptLead(src) {
     if (f === 'months') return v + ' months';
     return num(v);
   }
+  // Indian-system number to words
+  var ONES = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
+  var TENS = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+  function tw2(n) { if (n === 0) return ''; if (n < 20) return ONES[n]; var t = Math.floor(n / 10), o = n % 10; return TENS[t] + (o ? '-' + ONES[o] : ''); }
+  function tw3(n) { var h = Math.floor(n / 100), r = n % 100, s = ''; if (h) s += ONES[h] + ' hundred'; if (r) s += (s ? ' ' : '') + tw2(r); return s; }
+  function inWords(n) {
+    n = Math.round(n);
+    if (n === 0) return 'zero';
+    if (n < 0) return 'minus ' + inWords(-n);
+    var cr = Math.floor(n / 10000000); n %= 10000000;
+    var la = Math.floor(n / 100000); n %= 100000;
+    var th = Math.floor(n / 1000); n %= 1000;
+    var parts = [];
+    if (cr) parts.push((cr > 999 ? inWords(cr) : tw3(cr)) + ' crore');
+    if (la) parts.push(tw2(la) + ' lakh');
+    if (th) parts.push(tw2(th) + ' thousand');
+    if (n) parts.push(tw3(n));
+    return parts.join(' ');
+  }
+  function rupeesWords(n) {
+    var r = Math.round(n), w = inWords(r);
+    return w.charAt(0).toUpperCase() + w.slice(1) + ' rupee' + (r === 1 ? '' : 's');
+  }
   function emiOf(P, annualRate, nMonths) {
     var r = annualRate / 12 / 100;
     return r === 0 ? P / nMonths : (P * r * Math.pow(1 + r, nMonths)) / (Math.pow(1 + r, nMonths) - 1);
@@ -760,7 +783,7 @@ function loanptLead(src) {
   var engines = {
     emi: function (v) {
       var P = v.amount, emi = emiOf(P, v.rate, v.tenure), total = emi * v.tenure, interest = total - P;
-      return { mainLabel: 'Your monthly EMI', main: money(emi), rows: [
+      return { mainLabel: 'Your monthly EMI', main: money(emi), mainNum: emi, rows: [
         'Total payable: ' + money(total),
         'Total interest: ' + money(interest) ] };
     },
@@ -773,7 +796,7 @@ function loanptLead(src) {
       else if (r === 0) { newN = Pn / emi; newInt = 0; }
       else { var ratio = 1 - (Pn * r) / emi; newN = ratio <= 0 ? N : -Math.log(ratio) / Math.log(1 + r); newInt = emi * newN - Pn; }
       var saved = Math.max(0, totalInt0 - newInt), monthsSaved = Math.max(0, Math.round(N - newN));
-      return { mainLabel: 'Interest you save', main: money(saved), rows: [
+      return { mainLabel: 'Interest you save', main: money(saved), mainNum: saved, rows: [
         'New tenure: ' + Math.ceil(newN) + ' months (' + monthsSaved + ' months shorter)',
         'Interest without prepayment: ' + money(totalInt0),
         'Interest after prepayment: ' + money(newInt) ] };
@@ -781,7 +804,7 @@ function loanptLead(src) {
     bt: function (v) {
       var O = v.amount, emiCur = emiOf(O, v.crate, v.tenure), emiNew = emiOf(O, v.nrate, v.tenure);
       var monthlySave = emiCur - emiNew, totalSave = monthlySave * v.tenure;
-      return { mainLabel: totalSave >= 0 ? 'You could save' : 'Extra cost', main: money(Math.abs(totalSave)), rows: [
+      return { mainLabel: totalSave >= 0 ? 'You could save' : 'Extra cost', main: money(Math.abs(totalSave)), mainNum: Math.abs(totalSave), rows: [
         'New EMI: ' + money(emiNew) + ' (' + (monthlySave >= 0 ? 'down ' : 'up ') + money(Math.abs(monthlySave)) + '/month)',
         'Current EMI: ' + money(emiCur),
         'Over ' + v.tenure + ' months remaining' ] };
@@ -790,7 +813,7 @@ function loanptLead(src) {
       var foir = (cfg && cfg.foir) || 0.5;
       var capacity = Math.max(0, v.income * foir - v.emi), r = v.rate / 12 / 100, N = v.tenure;
       var loan = r === 0 ? capacity * N : capacity * (Math.pow(1 + r, N) - 1) / (r * Math.pow(1 + r, N));
-      return { mainLabel: 'You may be eligible for', main: money(loan), rows: [
+      return { mainLabel: 'You may be eligible for', main: money(loan), mainNum: loan, rows: [
         'Max affordable EMI: ' + money(capacity),
         'At ' + v.rate + '% for ' + N + ' months',
         'Based on ~' + Math.round(foir * 100) + '% of income (FOIR)' ] };
@@ -798,21 +821,21 @@ function loanptLead(src) {
     sip: function (v) {
       var M = v.monthly, i = v.rate / 12 / 100, n = v.years * 12;
       var mat = i === 0 ? M * n : M * (Math.pow(1 + i, n) - 1) / i * (1 + i), invested = M * n;
-      return { mainLabel: 'Estimated maturity value', main: money(mat), rows: [
+      return { mainLabel: 'Estimated maturity value', main: money(mat), mainNum: mat, rows: [
         'You invest: ' + money(invested),
         'Est. returns: ' + money(mat - invested),
         'Over ' + v.years + ' years' ] };
     },
     fd: function (v) {
       var A = v.amount * Math.pow(1 + (v.rate / 400), 4 * v.years);
-      return { mainLabel: 'Maturity value', main: money(A), rows: [
+      return { mainLabel: 'Maturity value', main: money(A), mainNum: A, rows: [
         'Principal: ' + money(v.amount),
         'Interest earned: ' + money(A - v.amount),
         'Over ' + v.years + ' years (quarterly compounding)' ] };
     },
     gst: function (v) {
       var tax = v.amount * v.gst / 100;
-      return { mainLabel: 'Total (incl. GST)', main: money(v.amount + tax), rows: [
+      return { mainLabel: 'Total (incl. GST)', main: money(v.amount + tax), mainNum: v.amount + tax, rows: [
         'GST (' + v.gst + '%): ' + money(tax),
         'Base amount: ' + money(v.amount) ] };
     }
@@ -823,23 +846,37 @@ function loanptLead(src) {
     var cfg = {}; try { cfg = JSON.parse(box.getAttribute('data-cfg') || '{}'); } catch (e) {}
     var sliders = box.querySelectorAll('input[data-role]');
     var mainLabelEl = box.querySelector('[data-main-label]'), mainEl = box.querySelector('[data-main]'), rowsEl = box.querySelector('[data-rows]');
-    function run(skipRole) {
-      var v = {};
-      sliders.forEach(function (el) {
-        var role = el.getAttribute('data-role');
-        v[role] = parseFloat(el.value);
+    var vals = {};
+    sliders.forEach(function (sl) { vals[sl.getAttribute('data-role')] = parseFloat(sl.value); });
+    function wordsEl(sl) {
+      var ctrl = sl.closest ? sl.closest('.ctrl') : null; if (!ctrl) return null;
+      var w = ctrl.querySelector('.calc-words');
+      if (!w) { w = document.createElement('div'); w.className = 'calc-words'; ctrl.appendChild(w); }
+      return w;
+    }
+    function render(skipRole) {
+      sliders.forEach(function (sl) {
+        var role = sl.getAttribute('data-role'), f = sl.getAttribute('data-fmt');
         var disp = box.querySelector('.val[data-val="' + role + '"]');
         if (disp && role !== skipRole && document.activeElement !== disp) {
-          if ('value' in disp) disp.value = fmt(el.value, el.getAttribute('data-fmt')); else disp.textContent = fmt(el.value, el.getAttribute('data-fmt'));
+          if ('value' in disp) disp.value = fmt(vals[role], f); else disp.textContent = fmt(vals[role], f);
         }
+        if (f === 'money') { var w = wordsEl(sl); if (w) w.textContent = vals[role] > 0 ? rupeesWords(vals[role]) : ''; }
       });
-      var out = engine(v, cfg);
+      var out = engine(vals, cfg);
       if (mainLabelEl) mainLabelEl.textContent = out.mainLabel;
-      if (mainEl) mainEl.textContent = out.main;
+      if (mainEl) {
+        mainEl.textContent = out.main;
+        var mw = box.querySelector('[data-main-words]');
+        if (!mw) { mw = document.createElement('div'); mw.className = 'calc-words-main'; mw.setAttribute('data-main-words', ''); mainEl.insertAdjacentElement('afterend', mw); }
+        mw.textContent = (typeof out.mainNum === 'number' && isFinite(out.mainNum)) ? rupeesWords(out.mainNum) : '';
+      }
       if (rowsEl) rowsEl.innerHTML = out.rows.map(function (r) { return '<span>' + r + '</span>'; }).join('<br>');
     }
-    sliders.forEach(function (el) { el.addEventListener('input', function () { run(); }); });
-    // Free-hand typing: click a value and type it (two-way bound to the slider).
+    sliders.forEach(function (sl) {
+      sl.addEventListener('input', function () { vals[sl.getAttribute('data-role')] = parseFloat(sl.value); render(); });
+    });
+    // Free-hand typing: no upper limit — type any amount; slider tracks (capped visually).
     box.querySelectorAll('input.val[data-val]').forEach(function (inp) {
       var role = inp.getAttribute('data-val'), sl = box.querySelector('input[data-role="' + role + '"]');
       if (!sl) return;
@@ -848,16 +885,16 @@ function loanptLead(src) {
         if (raw === '' || raw === '.') return;
         var numv = parseFloat(raw);
         if (isNaN(numv)) return;
-        var mn = parseFloat(sl.min), mx = parseFloat(sl.max);
-        if (numv < mn) numv = mn; if (numv > mx) numv = mx;
-        sl.value = numv;
-        run(role);
+        var mn = parseFloat(sl.min); if (numv < mn) numv = mn;
+        vals[role] = numv;
+        var mx = parseFloat(sl.max); sl.value = numv > mx ? mx : numv;
+        render(role);
       });
-      inp.addEventListener('blur', function () { run(); });
-      inp.addEventListener('change', function () { run(); });
+      inp.addEventListener('blur', function () { render(); });
+      inp.addEventListener('change', function () { render(); });
       inp.addEventListener('focus', function () { inp.select(); });
     });
-    run();
+    render();
   });
 })();
 
