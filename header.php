@@ -53,6 +53,10 @@
             <a href="<?php echo esc_url(home_url('/loan-against-property-emi-calculator/')); ?>">Loan Against Property EMI</a>
             <a href="<?php echo esc_url(home_url('/car-loan-emi-calculator/')); ?>">Car Loan EMI</a>
             <a href="<?php echo esc_url(home_url('/gold-loan-emi-calculator/')); ?>">Gold Loan EMI</a>
+            <a href="<?php echo esc_url(home_url('/personal-loan-eligibility-calculator/')); ?>">Loan Eligibility</a>
+            <a href="<?php echo esc_url(home_url('/loan-prepayment-calculator/')); ?>">Prepayment Calculator</a>
+            <a href="<?php echo esc_url(home_url('/balance-transfer-savings-calculator/')); ?>">Balance Transfer Savings</a>
+            <a href="<?php echo esc_url(home_url('/sip-calculator/')); ?>">SIP Calculator</a>
             <a href="<?php echo esc_url(home_url('/calculators/')); ?>">All calculators &rarr;</a>
           </div>
         </div>

@@ -3,6 +3,7 @@
 if (!defined('ABSPATH')) exit;
 get_header();
 $calc = loanpt_calc_defs();
+$tools = loanpt_tool_defs();
 ?>
 
 <section class="hero"><div class="wrap" style="grid-template-columns:1fr;max-width:820px;text-align:center">
@@ -27,6 +28,19 @@ $calc = loanpt_calc_defs();
 </div></section>
 
 <section style="background:#fff;border-top:1px solid var(--line)"><div class="wrap">
+  <div class="sec-head"><div class="kicker">Plan, save &amp; more</div><h2>Eligibility, prepayment &amp; money tools</h2><p>Check how much you can borrow, how much you save, and plan your money.</p></div>
+  <div class="prods" style="grid-template-columns:repeat(3,1fr)">
+    <?php foreach ($tools as $ts => $td): ?>
+      <a class="prod" style="text-decoration:none" href="<?php echo esc_url(home_url('/' . $ts . '/')); ?>">
+        <div class="ic">&#129518;</div>
+        <h3 style="margin:0;font-size:17px"><?php echo esc_html($td['heading']); ?></h3>
+        <span class="go">Open calculator &rarr;</span>
+      </a>
+    <?php endforeach; ?>
+  </div>
+</div></section>
+
+<section><div class="wrap">
   <div class="sec-head"><div class="kicker">Eligibility &amp; score</div><h2>Check what you can get</h2></div>
   <div class="prods" style="grid-template-columns:repeat(2,1fr)">
     <a class="prod" style="text-decoration:none" href="<?php echo esc_url(home_url('/loan-eligibility/')); ?>"><div class="ic">&#9989;</div><h3 style="margin:0;font-size:17px">Loan Eligibility Calculator</h3><span class="go">Check in 60 seconds &rarr;</span></a>

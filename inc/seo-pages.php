@@ -911,7 +911,7 @@ add_filter('document_title_parts', function ($parts) {
 });
 
 /* ---------- Loan calculators (EMI tools) — lead magnets ---------- */
-define('LOANPT_CALC_VER', '1');
+define('LOANPT_CALC_VER', '2');
 
 /** EMI calculator pages, keyed by slug. amt/rate/ten = [min, max, default, step]. */
 function loanpt_calc_defs() {
@@ -1012,6 +1012,176 @@ function loanpt_calc_hub_meta() {
     );
 }
 
+/** Non-EMI tool calculators (prepayment, balance transfer, eligibility, SIP, FD, GST). */
+function loanpt_tool_defs() {
+    return array(
+        'loan-prepayment-calculator' => array(
+            'type' => 'prepay', 'product' => 'Personal Loan', 'short' => 'Prepayment',
+            'title' => 'Loan Prepayment Calculator — See Interest Saved & Tenure Cut',
+            'h1'    => 'Loan Prepayment <em>Calculator</em>',
+            'heading' => 'Loan Prepayment Calculator',
+            'meta'  => 'Free loan prepayment / part-payment calculator — see how much interest you save and how many months you cut by paying extra. Then get a lower rate with LoanPt.',
+            'intro' => 'Thinking of prepaying your loan? See exactly how much interest you save and how many months you shave off — just enter your loan and the amount you want to prepay. A lower interest rate saves you even more; let LoanPt find you one. Free.',
+            'cta' => 'Get a lower rate',
+            'disc' => 'This is an indicative estimate assuming your EMI stays the same and the prepayment is made now. Actual savings depend on your lender\'s terms. LoanPt is a loan facilitator, not a lender.',
+            'inputs' => array(
+                array('amount', 'Loan amount', 50000, 10000000, 1000000, 50000, 'money'),
+                array('rate', 'Interest rate (p.a.)', 8, 24, 12, 0.25, 'pct'),
+                array('tenure', 'Tenure', 6, 360, 60, 6, 'months'),
+                array('prepay', 'Prepayment amount', 10000, 5000000, 200000, 10000, 'money'),
+            ),
+            'faq' => array(
+                'How does prepaying a loan save me money?' => 'Prepaying reduces your outstanding principal, so less interest builds up on the remaining balance. If you keep the EMI the same, the loan closes sooner and you save on total interest — this calculator shows exactly how much.',
+                'Should I reduce my EMI or my tenure when I prepay?' => 'Reducing the tenure (keeping the EMI the same) usually saves more total interest, which is what this calculator shows. Reducing the EMI eases monthly cash-flow instead. We can help you decide.',
+                'Are there prepayment charges?' => 'Floating-rate personal and home loans to individuals usually have no prepayment charge, but some loans do. Check your loan agreement — and we can help you move to a loan with better terms, free.',
+            ),
+        ),
+        'balance-transfer-savings-calculator' => array(
+            'type' => 'bt', 'product' => 'Balance Transfer', 'short' => 'Balance Transfer',
+            'title' => 'Balance Transfer Savings Calculator — See How Much You Save',
+            'h1'    => 'Balance Transfer <em>Savings Calculator</em>',
+            'heading' => 'Balance Transfer Savings Calculator',
+            'meta'  => 'Free balance transfer calculator — see how much you save by moving your loan to a lower rate: a lower EMI and total interest saved. Then transfer with LoanPt, free.',
+            'intro' => 'Paying a high rate on your loan? See how much a balance transfer to a lower rate saves you — both your monthly EMI and the total interest over the remaining tenure. Enter your numbers, then let LoanPt find you the lowest rate and manage the switch. Free.',
+            'cta' => 'Transfer & save',
+            'disc' => 'This is an indicative estimate assuming the same remaining tenure. Actual savings depend on the lender, any processing fee and your profile. LoanPt is a loan facilitator, not a lender.',
+            'inputs' => array(
+                array('amount', 'Outstanding loan amount', 50000, 10000000, 800000, 50000, 'money'),
+                array('crate', 'Current interest rate', 10, 30, 16, 0.25, 'pct'),
+                array('nrate', 'New interest rate', 8, 24, 11, 0.25, 'pct'),
+                array('tenure', 'Remaining tenure', 6, 300, 48, 6, 'months'),
+            ),
+            'faq' => array(
+                'What is a loan balance transfer?' => 'It means moving your existing loan\'s outstanding balance to a new lender offering a lower interest rate, so your EMI and total interest come down. This calculator shows your likely saving.',
+                'Is a balance transfer always worth it?' => 'Usually when the new rate is meaningfully lower and you still have a good chunk of tenure left. Factor in any processing fee on the new loan — we help you check if it truly saves you money.',
+                'Can I get extra funds during a transfer?' => 'Often yes — many lenders offer a top-up over the transferred amount, subject to eligibility. We arrange both the transfer and the top-up, free.',
+            ),
+        ),
+        'personal-loan-eligibility-calculator' => array(
+            'type' => 'eligibility', 'product' => 'Personal Loan', 'short' => 'PL Eligibility', 'cfg' => array('foir' => 0.5),
+            'title' => 'Personal Loan Eligibility Calculator — Check Your Limit Free',
+            'h1'    => 'Personal Loan <em>Eligibility Calculator</em>',
+            'heading' => 'Personal Loan Eligibility Calculator',
+            'meta'  => 'Free personal loan eligibility calculator — estimate how much personal loan you can get from your income and existing EMIs. Then get the lowest rate with LoanPt.',
+            'intro' => 'See how much personal loan you may be eligible for in seconds. Enter your monthly income, existing EMIs, rate and tenure for an indicative amount — then let LoanPt find you the lowest rate across every bank. Free, with no impact on your credit score.',
+            'cta' => 'Get this loan',
+            'inputs' => array(
+                array('income', 'Monthly income', 15000, 1000000, 50000, 5000, 'money'),
+                array('emi', 'Existing monthly EMIs', 0, 500000, 0, 1000, 'money'),
+                array('rate', 'Interest rate (p.a.)', 9, 24, 13, 0.25, 'pct'),
+                array('tenure', 'Tenure', 6, 84, 48, 6, 'months'),
+            ),
+            'faq' => array(
+                'How is personal loan eligibility calculated?' => 'Lenders cap your total EMIs at a share of your income (the FOIR, often around 50%). Your eligible loan is what the remaining EMI capacity can support at the given rate and tenure — which is what this calculator estimates.',
+                'How can I increase my loan eligibility?' => 'A higher income, fewer existing EMIs, a longer tenure and a better credit score all raise your eligibility. We check multiple banks to find who offers you the most.',
+                'Does checking eligibility affect my credit score?' => 'No — using this calculator and checking your options with us does not affect your score. Only a lender\'s hard enquiry, when you formally apply, has a small, temporary effect.',
+            ),
+        ),
+        'home-loan-eligibility-calculator' => array(
+            'type' => 'eligibility', 'product' => 'Home Loan', 'short' => 'Home Eligibility', 'cfg' => array('foir' => 0.55),
+            'title' => 'Home Loan Eligibility Calculator — How Much Can You Borrow?',
+            'h1'    => 'Home Loan <em>Eligibility Calculator</em>',
+            'heading' => 'Home Loan Eligibility Calculator',
+            'meta'  => 'Free home loan eligibility calculator — estimate how much home loan you can get from your income, existing EMIs, rate and tenure. Then get the lowest rate with LoanPt.',
+            'intro' => 'Wondering how big a home loan you can get? Enter your monthly income, any existing EMIs, the rate and tenure to see an indicative eligible amount — then let LoanPt find you the lowest rate across every bank. Free, with no impact on your credit score.',
+            'cta' => 'Get this loan',
+            'inputs' => array(
+                array('income', 'Monthly income', 20000, 2000000, 80000, 5000, 'money'),
+                array('emi', 'Existing monthly EMIs', 0, 1000000, 0, 1000, 'money'),
+                array('rate', 'Interest rate (p.a.)', 7.5, 12, 8.5, 0.1, 'pct'),
+                array('tenure', 'Tenure', 12, 360, 240, 12, 'months'),
+            ),
+            'faq' => array(
+                'How much home loan am I eligible for?' => 'It depends mainly on your income and existing EMIs (lenders cap EMIs at a share of income), plus the property value — lenders fund up to 75-90% of it. This calculator estimates the income-based amount; share details for a precise figure.',
+                'What raises my home loan eligibility?' => 'Higher income, fewer existing EMIs, a longer tenure (up to 30 years), adding a co-applicant, and a better credit score all increase it. We help you structure the strongest application.',
+                'Is this the final sanctioned amount?' => 'No — it is an indicative estimate. The lender decides the final amount after assessing your income, the property and your credit profile. We find you the lender who offers the most at the lowest rate.',
+            ),
+        ),
+        'business-loan-eligibility-calculator' => array(
+            'type' => 'eligibility', 'product' => 'Business Loan', 'short' => 'Business Eligibility', 'cfg' => array('foir' => 0.5),
+            'title' => 'Business Loan Eligibility Calculator — How Much Can You Get?',
+            'h1'    => 'Business Loan <em>Eligibility Calculator</em>',
+            'heading' => 'Business Loan Eligibility Calculator',
+            'meta'  => 'Free business loan eligibility calculator — estimate how much business loan you can get from your income and existing EMIs. Then get the best offer with LoanPt.',
+            'intro' => 'See how much business loan you may qualify for. Enter your monthly business income, existing EMIs, rate and tenure for an indicative amount — then let LoanPt match you to the right lender at a competitive rate. Free.',
+            'cta' => 'Get this loan',
+            'inputs' => array(
+                array('income', 'Monthly business income', 30000, 2000000, 150000, 10000, 'money'),
+                array('emi', 'Existing monthly EMIs', 0, 1000000, 0, 5000, 'money'),
+                array('rate', 'Interest rate (p.a.)', 11, 26, 16, 0.25, 'pct'),
+                array('tenure', 'Tenure', 6, 60, 36, 6, 'months'),
+            ),
+            'faq' => array(
+                'How is business loan eligibility decided?' => 'Lenders look at your business income and stability, bank-statement inflows, ITR, existing obligations and credit profile. This calculator gives an income-based estimate; the lender decides the final amount.',
+                'What documents improve my chances?' => 'Clean bank statements, up-to-date ITR, GST filings and business proof all help. We match you to lenders comfortable with your profile and tell you the exact list.',
+                'Can a new business get a loan?' => 'Lenders usually want a running business with some vintage (often 1-3 years) and reasonable financials. We find who is most likely to approve your profile, free.',
+            ),
+        ),
+        'sip-calculator' => array(
+            'type' => 'sip', 'product' => 'Personal Loan', 'short' => 'SIP',
+            'title' => 'SIP Calculator — Estimate Your Mutual Fund Returns',
+            'h1'    => 'SIP <em>Calculator</em>',
+            'heading' => 'SIP Calculator',
+            'meta'  => 'Free SIP calculator — estimate the maturity value of your monthly mutual fund SIP by amount, expected return and duration. Plan your money with LoanPt.',
+            'intro' => 'Planning a monthly SIP? See the estimated maturity value of your investment — enter your monthly amount, expected annual return and how many years you will invest. A simple way to plan your wealth.',
+            'lead_head' => 'Need funds for a goal? Get a loan at the best rate',
+            'cta' => 'Explore a loan',
+            'disc' => 'This is an indicative projection using a constant assumed return. Mutual fund returns are market-linked and not guaranteed — actual returns will vary. LoanPt is a loan facilitator, not an investment advisor.',
+            'inputs' => array(
+                array('monthly', 'Monthly investment', 500, 200000, 10000, 500, 'money'),
+                array('rate', 'Expected return (p.a.)', 1, 30, 12, 0.5, 'pct'),
+                array('years', 'Investment period', 1, 40, 10, 1, 'years'),
+            ),
+            'faq' => array(
+                'What is a SIP?' => 'A Systematic Investment Plan (SIP) is investing a fixed amount in a mutual fund every month. Over time, compounding and rupee-cost averaging can build real wealth. This calculator projects the maturity value.',
+                'Are SIP returns guaranteed?' => 'No — mutual funds are market-linked, so returns vary and are not guaranteed. The calculator uses an assumed return to give an estimate, not a promise.',
+                'What return should I assume?' => 'Equity mutual funds have historically delivered around 10-14% p.a. over the long term, though past performance does not guarantee future returns. Use a conservative figure to plan.',
+            ),
+        ),
+        'fd-calculator' => array(
+            'type' => 'fd', 'product' => 'Personal Loan', 'short' => 'FD',
+            'title' => 'FD Calculator — Fixed Deposit Maturity & Interest',
+            'h1'    => 'FD <em>Calculator</em>',
+            'heading' => 'Fixed Deposit (FD) Calculator',
+            'meta'  => 'Free fixed deposit (FD) calculator — see your FD maturity value and interest earned by principal, rate and tenure (quarterly compounding). Plan your savings with LoanPt.',
+            'intro' => 'See what your fixed deposit grows to. Enter your deposit amount, interest rate and tenure to get the maturity value and total interest earned, with quarterly compounding. A quick way to plan your savings.',
+            'lead_head' => 'Need funds now? Get a loan at the best rate',
+            'cta' => 'Explore a loan',
+            'disc' => 'This is an indicative estimate using quarterly compounding. Actual FD returns depend on the bank and are subject to TDS. LoanPt is a loan facilitator, not a deposit-taking institution.',
+            'inputs' => array(
+                array('amount', 'Deposit amount', 1000, 10000000, 100000, 1000, 'money'),
+                array('rate', 'Interest rate (p.a.)', 1, 12, 7, 0.1, 'pct'),
+                array('years', 'Tenure', 1, 20, 5, 1, 'years'),
+            ),
+            'faq' => array(
+                'How is FD maturity calculated?' => 'Most banks compound FD interest quarterly. The maturity value is the principal grown at the quarterly rate over the tenure — this calculator does it for you.',
+                'Is FD interest taxable?' => 'Yes — FD interest is taxable as per your income slab, and banks deduct TDS above a threshold. The calculator shows the gross interest before tax.',
+                'FD or a loan — which suits me?' => 'An FD grows your savings; a loan funds a need now. If you need funds, breaking an FD may cost you — a loan at a good rate can be smarter. We help you compare, free.',
+            ),
+        ),
+        'gst-calculator' => array(
+            'type' => 'gst', 'product' => 'Business Loan', 'short' => 'GST',
+            'title' => 'GST Calculator — Add & Work Out GST Instantly',
+            'h1'    => 'GST <em>Calculator</em>',
+            'heading' => 'GST Calculator',
+            'meta'  => 'Free GST calculator — add GST to an amount and see the GST value and total. Quick for invoices and pricing. For business funding, LoanPt finds your best loan.',
+            'intro' => 'Quickly work out GST on any amount. Enter the base amount and the GST rate to see the GST value and the total including GST — handy for invoices and pricing. Running a business? LoanPt can fund your growth too.',
+            'lead_head' => 'Growing your business? Get funding at the best rate',
+            'cta' => 'Explore business funding',
+            'disc' => 'This adds GST to the amount you enter. GST slabs in India are 0%, 5%, 12%, 18% and 28%. LoanPt is a loan facilitator, not a tax advisor.',
+            'inputs' => array(
+                array('amount', 'Amount (before GST)', 100, 10000000, 10000, 100, 'money'),
+                array('gst', 'GST rate', 0, 28, 18, 1, 'pct'),
+            ),
+            'faq' => array(
+                'How do I calculate GST on an amount?' => 'GST = amount x rate / 100, and the total is the amount plus the GST. For example, 18% GST on 10,000 is 1,800, for a total of 11,800. This calculator does it instantly.',
+                'What are the GST slabs in India?' => 'The main GST rates are 0%, 5%, 12%, 18% and 28%, depending on the goods or service. Pick the rate that applies to yours.',
+                'Can LoanPt help fund my business?' => 'Yes — we arrange business loans, working capital and loan against property for business owners from leading banks and NBFCs at competitive rates. It is free to you.',
+            ),
+        ),
+    );
+}
+
 /** Auto-create the calculator pages + hub (idempotent, version-guarded). */
 add_action('init', function () {
     if (get_option('loanpt_calc_ver') === LOANPT_CALC_VER) return;
@@ -1029,6 +1199,22 @@ add_action('init', function () {
             ));
         } else {
             update_post_meta($existing->ID, '_wp_page_template', 'tpl-calc.php');
+        }
+    }
+    foreach (loanpt_tool_defs() as $slug => $d) {
+        $existing = get_page_by_path($slug);
+        if (!$existing) {
+            wp_insert_post(array(
+                'post_title'    => $d['heading'],
+                'post_name'     => $slug,
+                'post_status'   => 'publish',
+                'post_type'     => 'page',
+                'post_content'  => 'LoanPt ' . $d['heading'] . '.',
+                'page_template'  => 'tpl-tool.php',
+                'meta_input'    => array('_wp_page_template' => 'tpl-tool.php'),
+            ));
+        } else {
+            update_post_meta($existing->ID, '_wp_page_template', 'tpl-tool.php');
         }
     }
     $hub = get_page_by_path('calculators');
@@ -1057,7 +1243,7 @@ add_action('wp_head', function () {
         echo '<meta name="description" content="' . esc_attr($h['meta']) . '">' . "\n";
         return;
     }
-    $calc = loanpt_calc_defs();
+    $calc = array_merge(loanpt_calc_defs(), loanpt_tool_defs());
     if (isset($calc[$slug])) {
         $d = $calc[$slug];
         echo '<meta name="description" content="' . esc_attr($d['meta']) . '">' . "\n";
@@ -1079,7 +1265,7 @@ add_filter('document_title_parts', function ($parts) {
         unset($parts['tagline']);
         return $parts;
     }
-    $calc = loanpt_calc_defs();
+    $calc = array_merge(loanpt_calc_defs(), loanpt_tool_defs());
     if (isset($calc[$slug])) {
         $parts['title'] = $calc[$slug]['title'];
         unset($parts['tagline']);

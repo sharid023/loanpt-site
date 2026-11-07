@@ -738,3 +738,98 @@ function loanptLead(src) {
     setQuick(['back']);
   }
 })();
+
+/* ---------- Generic tool calculators (prepay / BT / eligibility / SIP / FD / GST) ---------- */
+(function () {
+  var nodes = document.querySelectorAll('.calc[data-calc]');
+  if (!nodes.length) return;
+  var money = function (n) { return '₹' + Math.round(n).toLocaleString('en-IN'); };
+  var num = function (n) { return (+n).toLocaleString('en-IN'); };
+  function fmt(v, f) {
+    v = +v;
+    if (f === 'money') return money(v);
+    if (f === 'pct') return v + '%';
+    if (f === 'years') return v + (v === 1 ? ' year' : ' years');
+    if (f === 'months') return v + ' months';
+    return num(v);
+  }
+  function emiOf(P, annualRate, nMonths) {
+    var r = annualRate / 12 / 100;
+    return r === 0 ? P / nMonths : (P * r * Math.pow(1 + r, nMonths)) / (Math.pow(1 + r, nMonths) - 1);
+  }
+  var engines = {
+    prepay: function (v) {
+      var P = v.amount, rate = v.rate, N = v.tenure, L = v.prepay;
+      var emi = emiOf(P, rate, N), r = rate / 12 / 100;
+      var totalInt0 = emi * N - P;
+      var Pn = Math.max(0, P - L), newN, newInt;
+      if (Pn <= 0) { newN = 0; newInt = 0; }
+      else if (r === 0) { newN = Pn / emi; newInt = 0; }
+      else { var ratio = 1 - (Pn * r) / emi; newN = ratio <= 0 ? N : -Math.log(ratio) / Math.log(1 + r); newInt = emi * newN - Pn; }
+      var saved = Math.max(0, totalInt0 - newInt), monthsSaved = Math.max(0, Math.round(N - newN));
+      return { mainLabel: 'Interest you save', main: money(saved), rows: [
+        'New tenure: ' + Math.ceil(newN) + ' months (' + monthsSaved + ' months shorter)',
+        'Interest without prepayment: ' + money(totalInt0),
+        'Interest after prepayment: ' + money(newInt) ] };
+    },
+    bt: function (v) {
+      var O = v.amount, emiCur = emiOf(O, v.crate, v.tenure), emiNew = emiOf(O, v.nrate, v.tenure);
+      var monthlySave = emiCur - emiNew, totalSave = monthlySave * v.tenure;
+      return { mainLabel: totalSave >= 0 ? 'You could save' : 'Extra cost', main: money(Math.abs(totalSave)), rows: [
+        'New EMI: ' + money(emiNew) + ' (' + (monthlySave >= 0 ? 'down ' : 'up ') + money(Math.abs(monthlySave)) + '/month)',
+        'Current EMI: ' + money(emiCur),
+        'Over ' + v.tenure + ' months remaining' ] };
+    },
+    eligibility: function (v, cfg) {
+      var foir = (cfg && cfg.foir) || 0.5;
+      var capacity = Math.max(0, v.income * foir - v.emi), r = v.rate / 12 / 100, N = v.tenure;
+      var loan = r === 0 ? capacity * N : capacity * (Math.pow(1 + r, N) - 1) / (r * Math.pow(1 + r, N));
+      return { mainLabel: 'You may be eligible for', main: money(loan), rows: [
+        'Max affordable EMI: ' + money(capacity),
+        'At ' + v.rate + '% for ' + N + ' months',
+        'Based on ~' + Math.round(foir * 100) + '% of income (FOIR)' ] };
+    },
+    sip: function (v) {
+      var M = v.monthly, i = v.rate / 12 / 100, n = v.years * 12;
+      var mat = i === 0 ? M * n : M * (Math.pow(1 + i, n) - 1) / i * (1 + i), invested = M * n;
+      return { mainLabel: 'Estimated maturity value', main: money(mat), rows: [
+        'You invest: ' + money(invested),
+        'Est. returns: ' + money(mat - invested),
+        'Over ' + v.years + ' years' ] };
+    },
+    fd: function (v) {
+      var A = v.amount * Math.pow(1 + (v.rate / 400), 4 * v.years);
+      return { mainLabel: 'Maturity value', main: money(A), rows: [
+        'Principal: ' + money(v.amount),
+        'Interest earned: ' + money(A - v.amount),
+        'Over ' + v.years + ' years (quarterly compounding)' ] };
+    },
+    gst: function (v) {
+      var tax = v.amount * v.gst / 100;
+      return { mainLabel: 'Total (incl. GST)', main: money(v.amount + tax), rows: [
+        'GST (' + v.gst + '%): ' + money(tax),
+        'Base amount: ' + money(v.amount) ] };
+    }
+  };
+  nodes.forEach(function (box) {
+    var engine = engines[box.getAttribute('data-calc')];
+    if (!engine) return;
+    var cfg = {}; try { cfg = JSON.parse(box.getAttribute('data-cfg') || '{}'); } catch (e) {}
+    var inputs = box.querySelectorAll('input[data-role]');
+    var mainLabelEl = box.querySelector('[data-main-label]'), mainEl = box.querySelector('[data-main]'), rowsEl = box.querySelector('[data-rows]');
+    function run() {
+      var v = {};
+      inputs.forEach(function (el) {
+        v[el.getAttribute('data-role')] = parseFloat(el.value);
+        var disp = box.querySelector('[data-val="' + el.getAttribute('data-role') + '"]');
+        if (disp) disp.textContent = fmt(el.value, el.getAttribute('data-fmt'));
+      });
+      var out = engine(v, cfg);
+      if (mainLabelEl) mainLabelEl.textContent = out.mainLabel;
+      if (mainEl) mainEl.textContent = out.main;
+      if (rowsEl) rowsEl.innerHTML = out.rows.map(function (r) { return '<span>' + r + '</span>'; }).join('<br>');
+    }
+    inputs.forEach(function (el) { el.addEventListener('input', run); });
+    run();
+  });
+})();
