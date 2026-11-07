@@ -80,6 +80,36 @@
   </div>
 </div>
 
+<!-- Sticky mobile CTA bar -->
+<div class="lp-sticky" id="lpSticky">
+  <a class="lp-sticky-call" href="tel:+91<?php echo esc_attr(loanpt_opt('phone', LOANPT_PHONE)); ?>">&#128222; Call</a>
+  <button class="lp-sticky-cta" id="lpStickyCta" type="button">Get my best rate &rarr;</button>
+</div>
+
+<!-- Lead popup (exit-intent + sticky CTA) -->
+<div class="lp-modal" id="lpModal" hidden>
+  <div class="lp-modal-ov" id="lpModalOv"></div>
+  <div class="lp-modal-box" role="dialog" aria-modal="true" aria-label="Get your best loan rate">
+    <button class="lp-modal-x" id="lpModalX" type="button" aria-label="Close">&times;</button>
+    <span class="lp-modal-badge">100% FREE</span>
+    <h3>Get your lowest loan rate</h3>
+    <p class="lp-modal-sub">Leave your number — our team compares every bank &amp; NBFC and calls you with your best offer.</p>
+    <div class="lp-modal-err" id="lpModalErr"></div>
+    <form id="lpModalForm" novalidate>
+      <input id="lpmName" type="text" autocomplete="name" placeholder="Your name" required>
+      <input id="lpmMobile" type="tel" inputmode="numeric" autocomplete="tel" maxlength="10" placeholder="10-digit mobile number" required>
+      <select id="lpmProduct" aria-label="Loan type">
+        <option>Personal Loan</option><option>Home Loan</option><option>Business Loan</option>
+        <option>Loan Against Property</option><option>Car Loan</option><option>Gold Loan</option>
+        <option>Credit Card</option><option>Other</option>
+      </select>
+      <button type="submit" class="btn btn-pri" id="lpmSubmit">Get my best offer &rarr;</button>
+      <p class="lp-modal-note">We never ask for OTP, card or account details.</p>
+    </form>
+    <div class="lp-modal-ok" id="lpModalOk" hidden><div class="lp-modal-big">&#127881;</div><strong>Thank you!</strong><p>Our team will call you shortly with your best bank option.</p></div>
+  </div>
+</div>
+
 <?php wp_footer(); ?>
 </body>
 </html>

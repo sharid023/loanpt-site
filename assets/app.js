@@ -860,3 +860,67 @@ function loanptLead(src) {
     run();
   });
 })();
+
+/* ---------- Sticky CTA + exit-intent lead popup ---------- */
+(function () {
+  var modal = document.getElementById('lpModal');
+  if (!modal) return;
+  var CFG = window.LOANPT || {};
+  function ls(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+  var src = 'exit_popup';
+  function open(from) {
+    if (document.body.getAttribute('data-lpmodal') === 'open') return;
+    src = from || 'exit_popup';
+    document.body.setAttribute('data-lpmodal', 'open');
+    modal.hidden = false;
+    var n = document.getElementById('lpmName'); if (n) { try { n.focus(); } catch (e) {} }
+  }
+  function close() { modal.hidden = true; document.body.removeAttribute('data-lpmodal'); }
+  var x = document.getElementById('lpModalX'); if (x) x.addEventListener('click', close);
+  var ov = document.getElementById('lpModalOv'); if (ov) ov.addEventListener('click', close);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  var sc = document.getElementById('lpStickyCta'); if (sc) sc.addEventListener('click', function () { open('sticky_cta'); });
+
+  function canExit() { return ls('loanpt_lead_done') !== '1' && ls('loanpt_exit_shown') !== '1'; }
+  if (canExit()) {
+    var armed = false;
+    setTimeout(function () { armed = true; }, 4000);
+    document.addEventListener('mouseout', function (e) {
+      if (!armed || !canExit()) return;
+      if (e.clientY <= 0 && !e.relatedTarget) { ls('loanpt_exit_shown', '1'); open('exit_popup'); }
+    });
+    var mobileFired = false;
+    function mobileTry() {
+      if (mobileFired || !armed || !canExit() || window.innerWidth > 760) return;
+      mobileFired = true; ls('loanpt_exit_shown', '1'); open('exit_popup');
+    }
+    window.addEventListener('scroll', function () {
+      var sp = (window.scrollY + window.innerHeight) / (document.body.scrollHeight || 1);
+      if (sp > 0.55) mobileTry();
+    }, { passive: true });
+    setTimeout(mobileTry, 32000);
+  }
+
+  var f = document.getElementById('lpModalForm');
+  if (f) f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var errBox = document.getElementById('lpModalErr');
+    if (errBox) errBox.style.display = 'none';
+    var name = document.getElementById('lpmName').value.trim();
+    var mobile = document.getElementById('lpmMobile').value.replace(/\D/g, '');
+    var product = document.getElementById('lpmProduct').value;
+    function err(m) { if (errBox) { errBox.textContent = m; errBox.style.display = 'block'; } }
+    if (name.length < 2) { err('Please enter your name.'); return; }
+    if (mobile.length !== 10) { err('Please enter a valid 10-digit mobile number.'); return; }
+    var btn = document.getElementById('lpmSubmit'); btn.disabled = true; btn.textContent = 'Sending…';
+    var ref = ''; try { ref = localStorage.getItem('loanpt_ref') || ''; } catch (e2) {}
+    fetch(CFG.leadUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: name, mobile: mobile, product: product, tool: src, ref: ref }) })
+      .then(done).catch(done);
+    function done() {
+      ls('loanpt_lead_done', '1');
+      f.hidden = true;
+      var ok = document.getElementById('lpModalOk'); if (ok) ok.hidden = false;
+      if (typeof loanptLead === 'function') loanptLead(src);
+    }
+  });
+})();

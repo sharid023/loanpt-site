@@ -309,6 +309,40 @@ section{padding:64px 0}
 .wa-float::before{content:"";position:absolute;inset:0;border-radius:50%;animation:wapulse 2.2s infinite}
 @keyframes wapulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.5)}70%{box-shadow:0 0 0 16px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
 @media(max-width:560px){.wa-float{width:54px;height:54px;left:16px;bottom:16px}.wa-float svg{width:30px;height:30px}}
+
+/* Sticky mobile CTA bar */
+.lp-sticky{display:none}
+@media(max-width:760px){
+  .lp-sticky{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;gap:10px;align-items:center;
+    padding:10px max(12px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));
+    background:rgba(255,255,255,.97);backdrop-filter:blur(8px);border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(20,63,41,.12)}
+  .lp-sticky-call{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;padding:12px 16px;border-radius:11px;border:1.5px solid var(--mint2);color:var(--mint2);font-weight:800;text-decoration:none;background:var(--mint-soft)}
+  .lp-sticky-cta{flex:1;border:none;border-radius:11px;background:linear-gradient(135deg,var(--mint),var(--mint2));color:#06281a;font-weight:800;font-size:15px;padding:13px;cursor:pointer;font-family:inherit;box-shadow:0 6px 16px rgba(43,191,134,.34)}
+  .wa-float{bottom:calc(74px + env(safe-area-inset-bottom,0px))!important}
+  .lpchat{bottom:calc(74px + env(safe-area-inset-bottom,0px))!important}
+  body{padding-bottom:66px}
+}
+/* Lead popup modal */
+.lp-modal{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:18px}
+.lp-modal[hidden]{display:none}
+.lp-modal-ov{position:absolute;inset:0;background:rgba(10,27,20,.62);backdrop-filter:blur(2px)}
+.lp-modal-box{position:relative;z-index:1;width:100%;max-width:400px;background:#fff;border-radius:18px;padding:26px 24px 20px;box-shadow:0 30px 70px rgba(0,0,0,.35);animation:lpPop .3s cubic-bezier(.34,1.56,.64,1)}
+@keyframes lpPop{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:none}}
+.lp-modal-x{position:absolute;top:8px;right:12px;border:none;background:transparent;font-size:28px;line-height:1;color:var(--muted);cursor:pointer;font-family:inherit}
+.lp-modal-badge{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.1em;color:#0f7a4f;background:#d9f5e7;border:1px solid #bdebd3;padding:3px 10px;border-radius:999px;margin-bottom:10px}
+.lp-modal-box h3{font-size:23px;color:var(--green);margin:0 0 6px;line-height:1.2}
+.lp-modal-sub{font-size:14.5px;color:var(--muted);line-height:1.55;margin:0 0 16px}
+.lp-modal-err{display:none;background:#fde8e8;color:#9b1c1c;border-radius:9px;padding:9px 12px;font-size:13.5px;margin-bottom:10px}
+#lpModalForm input,#lpModalForm select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:11px;font-size:15px;font-family:inherit;margin-bottom:10px;background:#fff;color:var(--ink,#13241b)}
+#lpModalForm input:focus,#lpModalForm select:focus{outline:none;border-color:var(--mint2);box-shadow:0 0 0 3px rgba(43,191,134,.15)}
+#lpModalForm .btn-pri{width:100%;justify-content:center;padding:13px;font-size:16px}
+.lp-modal-note{font-size:12px;color:var(--muted);text-align:center;margin:8px 0 0}
+.lp-modal-ok{text-align:center;padding:12px 0 6px}
+.lp-modal-ok[hidden]{display:none}
+.lp-modal-big{font-size:42px}
+.lp-modal-ok strong{display:block;font-size:20px;color:var(--green);margin-top:6px}
+.lp-modal-ok p{color:var(--muted);font-size:14.5px;margin-top:4px}
+body[data-lpmodal="open"]{overflow:hidden}
 /* ---------- Eligibility quiz ---------- */
 .quizcard{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px 26px;box-shadow:0 18px 50px rgba(20,63,41,.09)}
 .qprogress{height:7px;background:var(--mint-soft);border-radius:999px;overflow:hidden;margin-bottom:26px}
