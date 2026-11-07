@@ -909,3 +909,180 @@ add_filter('document_title_parts', function ($parts) {
     }
     return $parts;
 });
+
+/* ---------- Loan calculators (EMI tools) — lead magnets ---------- */
+define('LOANPT_CALC_VER', '1');
+
+/** EMI calculator pages, keyed by slug. amt/rate/ten = [min, max, default, step]. */
+function loanpt_calc_defs() {
+    $faq_common = function ($p) {
+        return array(
+            'How is the ' . $p . ' EMI calculated?' => 'EMI depends on three things — the loan amount, the interest rate and the tenure — using the standard formula EMI = P x r x (1+r)^n / ((1+r)^n - 1), where r is the monthly rate and n is the number of months. Our calculator works it out instantly as you move the sliders.',
+            'Does a longer tenure reduce my EMI?' => 'Yes — a longer tenure lowers the monthly EMI, but you pay more total interest over the life of the loan. A shorter tenure means a higher EMI but less interest overall. Try both on the calculator to find your balance.',
+            'Is the calculated EMI final?' => 'No — it is an indicative figure based on the rate you enter. Your actual rate, amount and EMI are decided by the lender after approval. Share your details and our team finds you the lowest rate across every bank — free.',
+        );
+    };
+    return array(
+        'personal-loan-emi-calculator' => array(
+            'title' => 'Personal Loan EMI Calculator — Calculate Your Monthly EMI Free',
+            'h1'    => 'Personal Loan <em>EMI Calculator</em>',
+            'meta'  => 'Free personal loan EMI calculator — work out your monthly EMI by loan amount, interest rate and tenure, instantly. Then get the lowest rate across every bank with LoanPt.',
+            'product' => 'Personal Loan',
+            'intro' => 'Work out your personal loan EMI in seconds. Move the sliders for your loan amount, interest rate and tenure to see your monthly EMI, total interest and total payable — then let LoanPt find you the lowest rate across every bank. Free, with no sign-up.',
+            'amt' => array(50000, 5000000, 500000, 10000),
+            'rate' => array(9, 24, 11, 0.25),
+            'ten' => array(6, 84, 36, 6),
+            'faq' => $faq_common('personal loan') + array(
+                'What interest rate should I use?' => 'Personal loan rates typically start around 10-11% p.a. and vary by lender and profile. Use a rate near that to estimate, then let us find you the lowest actual rate — free.',
+            ),
+        ),
+        'home-loan-emi-calculator' => array(
+            'title' => 'Home Loan EMI Calculator — Calculate Your Monthly EMI Free',
+            'h1'    => 'Home Loan <em>EMI Calculator</em>',
+            'meta'  => 'Free home loan EMI calculator — see your monthly EMI by loan amount, interest rate and tenure (up to 30 years). Then get the lowest home loan rate with LoanPt.',
+            'product' => 'Home Loan',
+            'intro' => 'Planning a home loan? Move the sliders for your loan amount, interest rate and tenure to see your monthly EMI instantly — home loans offer tenures up to 30 years to keep the EMI comfortable. Then let LoanPt find you the lowest rate across every bank. Free.',
+            'amt' => array(500000, 50000000, 5000000, 100000),
+            'rate' => array(7.5, 12, 8.5, 0.1),
+            'ten' => array(12, 360, 240, 12),
+            'faq' => $faq_common('home loan') + array(
+                'How long can a home loan tenure be?' => 'Home loans offer long tenures — up to 30 years — which keeps the EMI low. A longer tenure reduces your EMI but increases total interest; we help you pick the right balance.',
+            ),
+        ),
+        'business-loan-emi-calculator' => array(
+            'title' => 'Business Loan EMI Calculator — Calculate Your Monthly EMI Free',
+            'h1'    => 'Business Loan <em>EMI Calculator</em>',
+            'meta'  => 'Free business loan EMI calculator — work out your monthly EMI by amount, rate and tenure. Then get the best working-capital or term-loan offer with LoanPt.',
+            'product' => 'Business Loan',
+            'intro' => 'See what your business loan will cost each month. Move the sliders for amount, interest rate and tenure to get your EMI, total interest and total payable — then let LoanPt match you to the right lender at a competitive rate. Free.',
+            'amt' => array(100000, 10000000, 1000000, 50000),
+            'rate' => array(11, 26, 16, 0.25),
+            'ten' => array(6, 60, 36, 6),
+            'faq' => $faq_common('business loan') + array(
+                'What rate applies to a business loan?' => 'Unsecured business loan rates usually start around 14-16% p.a. and depend on your business profile and lender. Use a rate near that to estimate, then we find your best actual offer — free.',
+            ),
+        ),
+        'loan-against-property-emi-calculator' => array(
+            'title' => 'Loan Against Property EMI Calculator — Free LAP EMI Calc',
+            'h1'    => 'Loan Against Property <em>EMI Calculator</em>',
+            'meta'  => 'Free loan against property (LAP) EMI calculator — see your monthly EMI by amount, rate and tenure. Then get the lowest LAP rate across every bank with LoanPt.',
+            'product' => 'Loan Against Property',
+            'intro' => 'Work out your loan against property (LAP) EMI in seconds. Because a LAP is secured by your property, it usually comes at a lower rate and a longer tenure — move the sliders to see your EMI, then let LoanPt find you the lowest rate. Free.',
+            'amt' => array(500000, 50000000, 3000000, 100000),
+            'rate' => array(8.5, 14, 10.5, 0.1),
+            'ten' => array(12, 240, 120, 12),
+            'faq' => $faq_common('loan against property') + array(
+                'Why is a LAP EMI lower than a personal loan?' => 'Because a loan against property is secured by your property, it usually carries a lower interest rate and a longer tenure than an unsecured personal loan — so the EMI is lower for the same amount. We find you the best LAP rate, free.',
+            ),
+        ),
+        'car-loan-emi-calculator' => array(
+            'title' => 'Car Loan EMI Calculator — Calculate Your Monthly EMI Free',
+            'h1'    => 'Car Loan <em>EMI Calculator</em>',
+            'meta'  => 'Free car loan EMI calculator — work out your monthly EMI by loan amount, interest rate and tenure. Then get the lowest car loan rate with LoanPt.',
+            'product' => 'Car Loan',
+            'intro' => 'Buying a car? Move the sliders for your loan amount, interest rate and tenure to see your monthly EMI, total interest and total payable — then let LoanPt find you the lowest car loan rate across every bank. Free.',
+            'amt' => array(100000, 5000000, 800000, 25000),
+            'rate' => array(8.5, 16, 9.5, 0.25),
+            'ten' => array(12, 84, 60, 6),
+            'faq' => $faq_common('car loan') + array(
+                'How much of the car price can I finance?' => 'Many lenders finance up to 90-100% of the on-road price. Enter your loan amount and rate to see the EMI, then we find you the lowest car loan rate — free.',
+            ),
+        ),
+        'gold-loan-emi-calculator' => array(
+            'title' => 'Gold Loan EMI Calculator — Calculate Your Monthly EMI Free',
+            'h1'    => 'Gold Loan <em>EMI Calculator</em>',
+            'meta'  => 'Free gold loan EMI calculator — see your monthly EMI by loan amount, rate and tenure. Then get the best value per gram and lowest rate with LoanPt.',
+            'product' => 'Gold Loan',
+            'intro' => 'Borrowing against gold? Move the sliders for your loan amount, interest rate and tenure to see your monthly EMI instantly — then let LoanPt get you the most value per gram at a competitive rate, with same-day disbursal. Free.',
+            'amt' => array(20000, 2500000, 200000, 10000),
+            'rate' => array(8.5, 24, 12, 0.5),
+            'ten' => array(3, 36, 12, 3),
+            'faq' => $faq_common('gold loan') + array(
+                'How is a gold loan EMI different?' => 'Gold loans are short-tenure and secured by your gold, so the EMI covers a smaller amount over a shorter period. Some gold loans also allow interest-only or bullet repayment — we explain the options and find your best rate, free.',
+            ),
+        ),
+    );
+}
+
+/** SEO meta for the /calculators/ hub page. */
+function loanpt_calc_hub_meta() {
+    return array(
+        'title' => 'Loan Calculators — Free EMI & Eligibility Tools',
+        'meta'  => 'Free loan calculators from LoanPt — personal loan, home loan, business loan, loan against property, car and gold loan EMI calculators, plus eligibility. Plan your loan and get the best rate.',
+    );
+}
+
+/** Auto-create the calculator pages + hub (idempotent, version-guarded). */
+add_action('init', function () {
+    if (get_option('loanpt_calc_ver') === LOANPT_CALC_VER) return;
+    foreach (loanpt_calc_defs() as $slug => $d) {
+        $existing = get_page_by_path($slug);
+        if (!$existing) {
+            wp_insert_post(array(
+                'post_title'    => $d['product'] . ' EMI Calculator',
+                'post_name'     => $slug,
+                'post_status'   => 'publish',
+                'post_type'     => 'page',
+                'post_content'  => 'LoanPt ' . $d['product'] . ' EMI Calculator.',
+                'page_template'  => 'tpl-calc.php',
+                'meta_input'    => array('_wp_page_template' => 'tpl-calc.php'),
+            ));
+        } else {
+            update_post_meta($existing->ID, '_wp_page_template', 'tpl-calc.php');
+        }
+    }
+    $hub = get_page_by_path('calculators');
+    if (!$hub) {
+        wp_insert_post(array(
+            'post_title'    => 'Loan Calculators',
+            'post_name'     => 'calculators',
+            'post_status'   => 'publish',
+            'post_type'     => 'page',
+            'post_content'  => 'LoanPt loan calculators.',
+            'page_template'  => 'tpl-calc-hub.php',
+            'meta_input'    => array('_wp_page_template' => 'tpl-calc-hub.php'),
+        ));
+    } else {
+        update_post_meta($hub->ID, '_wp_page_template', 'tpl-calc-hub.php');
+    }
+    update_option('loanpt_calc_ver', LOANPT_CALC_VER);
+}, 23);
+
+/** Per-page SEO for calculators: meta description + FAQ schema. */
+add_action('wp_head', function () {
+    if (!is_page()) return;
+    $slug = get_post_field('post_name', get_queried_object_id());
+    if ($slug === 'calculators') {
+        $h = loanpt_calc_hub_meta();
+        echo '<meta name="description" content="' . esc_attr($h['meta']) . '">' . "\n";
+        return;
+    }
+    $calc = loanpt_calc_defs();
+    if (isset($calc[$slug])) {
+        $d = $calc[$slug];
+        echo '<meta name="description" content="' . esc_attr($d['meta']) . '">' . "\n";
+        $items = array();
+        foreach ($d['faq'] as $q => $a) {
+            $items[] = array('@type' => 'Question', 'name' => $q, 'acceptedAnswer' => array('@type' => 'Answer', 'text' => $a));
+        }
+        echo '<script type="application/ld+json">' . wp_json_encode(array('@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => $items)) . '</script>' . "\n";
+    }
+}, 6);
+
+/** Unique <title> for calculator pages + hub. */
+add_filter('document_title_parts', function ($parts) {
+    if (!is_page()) return $parts;
+    $slug = get_post_field('post_name', get_queried_object_id());
+    if ($slug === 'calculators') {
+        $h = loanpt_calc_hub_meta();
+        $parts['title'] = $h['title'];
+        unset($parts['tagline']);
+        return $parts;
+    }
+    $calc = loanpt_calc_defs();
+    if (isset($calc[$slug])) {
+        $parts['title'] = $calc[$slug]['title'];
+        unset($parts['tagline']);
+    }
+    return $parts;
+});

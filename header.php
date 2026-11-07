@@ -44,6 +44,18 @@
             <a href="<?php echo esc_url(home_url('/#compare')); ?>">Compare Banks</a>
           </div>
         </div>
+        <div class="mi has-sub">
+          <button type="button" class="mi-top">Calculators <span class="mi-car">&#9662;</span></button>
+          <div class="mi-sub">
+            <a href="<?php echo esc_url(home_url('/personal-loan-emi-calculator/')); ?>">Personal Loan EMI</a>
+            <a href="<?php echo esc_url(home_url('/home-loan-emi-calculator/')); ?>">Home Loan EMI</a>
+            <a href="<?php echo esc_url(home_url('/business-loan-emi-calculator/')); ?>">Business Loan EMI</a>
+            <a href="<?php echo esc_url(home_url('/loan-against-property-emi-calculator/')); ?>">Loan Against Property EMI</a>
+            <a href="<?php echo esc_url(home_url('/car-loan-emi-calculator/')); ?>">Car Loan EMI</a>
+            <a href="<?php echo esc_url(home_url('/gold-loan-emi-calculator/')); ?>">Gold Loan EMI</a>
+            <a href="<?php echo esc_url(home_url('/calculators/')); ?>">All calculators &rarr;</a>
+          </div>
+        </div>
         <div class="mi"><a class="mi-top" href="<?php echo esc_url(home_url('/blog/')); ?>">Blog</a></div>
         <div class="mi has-sub">
           <button type="button" class="mi-top">Company <span class="mi-car">&#9662;</span></button>

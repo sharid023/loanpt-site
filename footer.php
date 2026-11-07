@@ -31,6 +31,8 @@
         <a href="<?php echo esc_url(home_url('/personal-loan-for-salaried/')); ?>">Personal Loan for Salaried</a>
         <a href="<?php echo esc_url(home_url('/personal-loan-for-self-employed/')); ?>">Personal Loan (Self-Employed)</a>
         <a href="<?php echo esc_url(home_url('/personal-loan-delhi-ncr/')); ?>">Personal Loan in Delhi NCR</a>
+        <a href="<?php echo esc_url(home_url('/personal-loan-emi-calculator/')); ?>">EMI Calculator</a>
+        <a href="<?php echo esc_url(home_url('/calculators/')); ?>">Loan Calculators</a>
       </div>
       <div>
         <h4>Company</h4>
