@@ -15,6 +15,11 @@
         <a href="<?php echo esc_url(home_url('/business-loan/')); ?>">Business Loan</a>
         <a href="<?php echo esc_url(home_url('/home-loan/')); ?>">Home Loan</a>
         <a href="<?php echo esc_url(home_url('/loan-against-property/')); ?>">Loan Against Property</a>
+        <a href="<?php echo esc_url(home_url('/car-loan/')); ?>">Car Loan</a>
+        <a href="<?php echo esc_url(home_url('/used-car-loan/')); ?>">Used Car Loan</a>
+        <a href="<?php echo esc_url(home_url('/two-wheeler-loan/')); ?>">Two-Wheeler Loan</a>
+        <a href="<?php echo esc_url(home_url('/gold-loan/')); ?>">Gold Loan</a>
+        <a href="<?php echo esc_url(home_url('/education-loan/')); ?>">Education Loan</a>
         <a href="<?php echo esc_url(home_url('/credit-card/')); ?>">Credit Card</a>
       </div>
       <div>

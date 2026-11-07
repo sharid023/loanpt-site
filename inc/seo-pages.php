@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) exit;
  * use the "LoanPt Landing" template. Bump LOANPT_PAGES_VER to re-seed.
  */
 
-define('LOANPT_PAGES_VER', '9');
+define('LOANPT_PAGES_VER', '10');
 
 /** Content for each landing page, keyed by URL slug (base products + city pages). */
 function loanpt_landing_data() {
@@ -133,8 +133,83 @@ function loanpt_landing_data() {
                 'Can I get a loan with a low score?' => 'Sometimes — some lenders consider a fair score with strong income proof. We check multiple banks to find who may approve you.',
             ),
         ),
+        'car-loan' => array(
+            'title' => 'Car Loan — New Car Finance at the Lowest Rate',
+            'h1'    => 'Car Loan — Drive Home Your <em>New Car</em>',
+            'meta'  => 'Compare new car loan offers from leading banks & NBFCs — up to 100% on-road finance, low interest and quick approval. Check eligibility free and apply with LoanPt.',
+            'product' => 'Car Loan',
+            'intro' => 'A car loan helps you buy your new car now and pay for it over comfortable EMIs, with banks often financing up to 90–100% of the on-road price. LoanPt compares new car loan offers across leading banks and NBFCs, matches you to the lowest rate your profile qualifies for, and handles the paperwork so you drive home faster. It is completely free for you.',
+            'bullets' => array('Up to 100% on-road finance', 'Low interest rates', 'Tenure up to 7 years', 'Quick approval & disbursal', 'Minimal paperwork', 'New & electric cars'),
+            'compare' => false,
+            'faq' => array(
+                'How much car loan can I get?' => 'Many lenders finance up to 90–100% of the on-road price, depending on the car, your income and credit profile. Share your details for an indicative amount — free.',
+                'What is the tenure for a car loan?' => 'Car loans typically run up to 7 years. A longer tenure lowers your EMI but increases total interest; we help you pick the right balance.',
+                'What documents are needed for a car loan?' => 'Usually KYC, income proof (salary slips or ITR), bank statements and the car quotation. We guide you through the exact list for the lender you qualify for.',
+                'Is LoanPt free?' => 'Yes — our service is free to you. Lenders may charge their own processing fee, shown transparently.',
+            ),
+        ),
+        'used-car-loan' => array(
+            'title' => 'Used Car Loan — Finance a Pre-Owned Car at a Low Rate',
+            'h1'    => 'Used Car Loan — Finance Your <em>Pre-Owned Car</em>',
+            'meta'  => 'Compare used car loan (pre-owned car finance) offers from leading banks & NBFCs — competitive rates, quick approval and minimal paperwork. Check eligibility free with LoanPt.',
+            'product' => 'Used Car Loan',
+            'intro' => 'Buying a pre-owned car? A used car loan finances your second-hand vehicle with an easy EMI, so you keep your savings intact. LoanPt compares used car loan offers across leading banks and NBFCs, matches you to a competitive rate based on the car and your profile, and handles the paperwork end to end. It is completely free for you.',
+            'bullets' => array('Finance pre-owned cars', 'Competitive interest rates', 'Quick approval', 'Flexible tenure', 'Minimal paperwork', 'Dealer or private seller'),
+            'compare' => false,
+            'faq' => array(
+                'Can I get a loan for a used car?' => 'Yes — many banks and NBFCs finance pre-owned cars, from a dealer or a private seller, based on the car\'s age, valuation and your profile. We find who offers you the best deal.',
+                'How much of the used car price is financed?' => 'Typically a large share of the car\'s valuation, depending on its age and condition and your profile. Share details for an indicative amount — free.',
+                'What interest rate will I get on a used car loan?' => 'It is usually a little higher than a new car loan because the vehicle is older, and depends on the lender and your profile. We pull competitive offers and never promise a fixed rate upfront.',
+                'What documents are needed?' => 'Usually KYC, income proof, bank statements and the vehicle documents and valuation. We guide you through the exact list.',
+            ),
+        ),
+        'two-wheeler-loan' => array(
+            'title' => 'Two-Wheeler Loan — Bike & Scooter Finance, Low EMI',
+            'h1'    => 'Two-Wheeler Loan — Ride Your <em>New Bike</em> Home',
+            'meta'  => 'Compare two-wheeler loan offers for bikes & scooters from leading banks & NBFCs — up to 100% finance, low EMI and quick approval. Check eligibility free with LoanPt.',
+            'product' => 'Two-Wheeler Loan',
+            'intro' => 'A two-wheeler loan helps you buy your new bike or scooter now and pay in easy EMIs, often with up to 100% of the on-road price financed. LoanPt compares two-wheeler loan offers across leading banks and NBFCs, matches you to a competitive rate, and keeps the paperwork minimal so you ride home faster. It is completely free for you.',
+            'bullets' => array('Up to 100% finance', 'Low, easy EMI', 'Quick approval', 'Minimal paperwork', 'Bikes, scooters & EVs', 'Flexible tenure'),
+            'compare' => false,
+            'faq' => array(
+                'How much two-wheeler loan can I get?' => 'Many lenders finance up to 85–100% of the on-road price, depending on the vehicle and your profile. Share details for an indicative amount — free.',
+                'Who is eligible for a two-wheeler loan?' => 'Salaried and self-employed applicants with a steady income can qualify, often with simple documentation. We match you to the right lender.',
+                'What documents are needed?' => 'Usually KYC, income proof and the vehicle quotation. We guide you through the exact list for the lender you qualify for.',
+                'Is LoanPt free?' => 'Yes — our service is free to you. Lenders may charge their own processing fee, shown transparently.',
+            ),
+        ),
+        'gold-loan' => array(
+            'title' => 'Gold Loan — Instant Funds Against Your Gold, Low Rate',
+            'h1'    => 'Gold Loan — Instant Funds Against Your <em>Gold</em>',
+            'meta'  => 'Compare gold loan offers from leading banks & NBFCs — high value per gram, low interest and same-day disbursal with minimal paperwork. Check with LoanPt — free.',
+            'product' => 'Gold Loan',
+            'intro' => 'A gold loan lets you borrow against your gold jewellery or coins and get funds quickly — often the same day — while your gold stays safely stored with the lender and comes back to you on repayment. Because it is secured, the rate is low and the paperwork minimal. LoanPt compares gold loan offers across leading banks and NBFCs so you get the most value per gram at a competitive rate. It is completely free for you.',
+            'bullets' => array('Funds the same day', 'High value per gram', 'Low interest (secured)', 'Minimal paperwork', 'Flexible repayment', 'Gold stored safely'),
+            'compare' => false,
+            'faq' => array(
+                'How much can I borrow against my gold?' => 'Lenders fund a large share of your gold\'s value (per RBI norms, usually up to 75% of the value), based on its purity and weight. Share details for an indicative amount — free.',
+                'How fast is a gold loan disbursed?' => 'Gold loans are among the fastest — often disbursed the same day, with minimal paperwork, since the loan is secured by your gold.',
+                'Is my gold safe?' => 'Yes — your gold is stored securely by the lender in a sealed, insured vault and returned to you once the loan is repaid.',
+                'What documents are needed?' => 'Usually just KYC (ID and address proof). We guide you through the exact list for the lender you qualify for.',
+            ),
+        ),
+        'education-loan' => array(
+            'title' => 'Education Loan — Fund Studies in India & Abroad',
+            'h1'    => 'Education Loan — Fund Your <em>Studies</em>, India or Abroad',
+            'meta'  => 'Compare education loan offers for studies in India and abroad from leading banks & NBFCs — high amount, long tenure and repayment after your course. Check eligibility free with LoanPt.',
+            'product' => 'Education Loan',
+            'intro' => 'An education loan funds tuition and living costs for higher studies in India or abroad, with repayment that usually starts after your course (a moratorium period). LoanPt compares education loan offers across leading banks and NBFCs, matches you to a lender comfortable with your course and institute, and handles the paperwork end to end. It is completely free for you.',
+            'bullets' => array('Studies in India & abroad', 'Covers tuition & living costs', 'Long repayment tenure', 'Repayment after course', 'Secured & unsecured options', 'Tax benefit (Sec 80E)'),
+            'compare' => false,
+            'faq' => array(
+                'What does an education loan cover?' => 'Tuition fees plus related costs — exam and library fees, books, equipment, and often living expenses and travel for studies abroad. We help you find a lender that covers your needs.',
+                'When do I start repaying an education loan?' => 'Most have a moratorium — you start full EMIs after your course ends (plus a short grace period), though simple interest may apply during study. We explain the exact terms.',
+                'Do I need collateral for an education loan?' => 'Smaller loans are often unsecured; larger amounts (especially for studying abroad) may need collateral or a co-applicant. We find the best fit for your case.',
+                'Is there a tax benefit on education loans?' => 'Yes — the interest paid is deductible under Section 80E of the Income Tax Act for up to 8 years. We can point you to the details.',
+            ),
+        ),
     );
-    return array_merge($base, loanpt_city_defs(), loanpt_biz_city_defs());
+    return array_merge($base, loanpt_city_defs(), loanpt_biz_city_defs(), loanpt_lap_city_defs());
 }
 
 /** Personal-loan city landing pages across NCR — unique content per city (SEO). */
@@ -216,6 +291,52 @@ function loanpt_biz_city_defs() {
                 'Who can get a business loan?' => 'Self-employed professionals, proprietors, partnerships and companies with a running business and reasonable financials. We match you to lenders comfortable with your profile.',
                 'What documents are needed?' => 'Usually KYC, business proof (GST / registration), bank statements and ITR. We tell you the exact list for the lender you qualify for.',
                 'Is collateral required?' => 'Many business loans are unsecured up to a limit based on your profile; larger amounts may need security. We find the best fit for you.',
+            ),
+        );
+    }
+    return $out;
+}
+
+/** Loan-against-property city landing pages — unique content per city (SEO). */
+function loanpt_lap_city_defs() {
+    $bullets = array('Loan up to ₹5 Crore+', 'Lower rate (secured)', 'Tenure up to 15–20 years', 'Residential, commercial or plot', 'Funds for any purpose', 'Balance transfer & top-up');
+    $cities = array(
+        'delhi'      => array('Delhi', 'Need a loan against property in Delhi? Whether you own a home in South Delhi, a shop in a commercial hub or a plot on the outskirts, LoanPt compares LAP offers from leading banks and NBFCs, matches you to the lowest rate your property and profile qualify for, and handles the paperwork end to end — at zero cost to you.'),
+        'mumbai'     => array('Mumbai', 'Looking for a loan against property in Mumbai? From flats across the suburbs to commercial space in BKC and Andheri, LoanPt helps you unlock your property\'s value — comparing LAP offers across top banks and NBFCs, securing a competitive rate and managing the process end to end, free of charge.'),
+        'noida'      => array('Noida', 'Need a loan against property in Noida? Whether you own residential property in the city sectors or commercial space along the Expressway, LoanPt compares LAP offers from leading banks and NBFCs, finds you a competitive rate, and handles the documentation — at zero cost to you.'),
+        'gurugram'   => array('Gurugram', 'Searching for a loan against property in Gurugram (Gurgaon)? From homes in the condominium belt to commercial units in Cyber City and Udyog Vihar, LoanPt compares LAP offers from top banks and NBFCs, matches you to the lowest rate you qualify for, and manages the paperwork — free of charge.'),
+        'bangalore'  => array('Bengaluru', 'Need a loan against property in Bengaluru? Whether you own a home in Whitefield or Electronic City or commercial space along the Outer Ring Road, LoanPt compares LAP offers from leading banks and NBFCs, finds your best rate, and handles the process end to end — completely free.'),
+        'hyderabad'  => array('Hyderabad', 'Looking for a loan against property in Hyderabad? From residential property across the metro to commercial space in HITEC City and Gachibowli, LoanPt compares LAP offers from top banks and NBFCs, secures you a competitive rate, and manages the documentation — at no cost to you.'),
+        'chennai'    => array('Chennai', 'Need a loan against property in Chennai? Whether you own a home in the suburbs or commercial property along the OMR IT corridor, LoanPt compares LAP offers from leading banks and NBFCs, matches you to the lowest rate you qualify for, and handles everything — free of charge.'),
+        'pune'       => array('Pune', 'Looking for a loan against property in Pune? From homes across the city and PCMC to commercial units in Hinjewadi and Kharadi, LoanPt compares LAP offers from leading banks and NBFCs, finds your best rate, and manages the paperwork — at zero cost to you.'),
+        'kolkata'    => array('Kolkata', 'Need a loan against property in Kolkata? Whether you own residential property in Salt Lake and New Town or commercial space across the city, LoanPt compares LAP offers from top banks and NBFCs, secures a competitive rate, and handles the documentation — completely free.'),
+        'ahmedabad'  => array('Ahmedabad', 'Searching for a loan against property in Ahmedabad? From homes along SG Highway to commercial units across the city, LoanPt compares LAP offers from leading banks and NBFCs, matches you to a competitive rate, and manages the process — at no cost to you.'),
+        'jaipur'     => array('Jaipur', 'Need a loan against property in Jaipur? Whether you own a home in Malviya Nagar or commercial property across the Pink City, LoanPt compares LAP offers from top banks and NBFCs, finds your best rate, and handles the documentation — free of charge.'),
+        'lucknow'    => array('Lucknow', 'Looking for a loan against property in Lucknow? From residential property in Gomti Nagar to shops and commercial space across the city, LoanPt compares LAP offers from leading banks and NBFCs, secures a competitive rate, and manages the paperwork — at zero cost to you.'),
+        'indore'     => array('Indore', 'Need a loan against property in Indore? Whether you own a home or commercial property around the Vijay Nagar belt, LoanPt compares LAP offers from top banks and NBFCs, matches you to a competitive rate, and handles the process end to end — at no cost to you.'),
+        'kanpur'     => array('Kanpur', 'Searching for a loan against property in Kanpur? From residential property across the city to commercial and industrial units, LoanPt compares LAP offers from leading banks and NBFCs, finds your best rate, and manages the documentation — completely free.'),
+        'varanasi'   => array('Varanasi', 'Need a loan against property in Varanasi? Whether you own a home or a shop in the city, LoanPt compares LAP offers from banks and NBFCs that lend across Varanasi, secures you a competitive rate, and handles the paperwork — free of charge.'),
+        'patna'      => array('Patna', 'Looking for a loan against property in Patna? From homes in Boring Road and Kankarbagh to commercial space across the city, LoanPt compares LAP offers from leading banks and NBFCs, matches you to a competitive rate, and manages the process — at zero cost to you.'),
+        'nagpur'     => array('Nagpur', 'Need a loan against property in Nagpur? Whether you own residential or commercial property across the city, LoanPt compares LAP offers from top banks and NBFCs, finds your best rate, and handles the documentation — at no cost to you.'),
+        'chandigarh' => array('Chandigarh', 'Searching for a loan against property in Chandigarh? For homeowners and businesses across the city and the wider Tricity (Mohali, Panchkula), LoanPt compares LAP offers from leading banks and NBFCs, secures your best rate, and manages the paperwork — completely free.'),
+    );
+    $out = array();
+    foreach ($cities as $cslug => $c) {
+        $name = $c[0];
+        $out['loan-against-property-' . $cslug] = array(
+            'title'   => 'Loan Against Property in ' . $name . ' (LAP) — Compare at the Lowest Rate',
+            'h1'      => 'Loan Against Property in <em>' . $name . '</em> — Big Funds, Lower Rate',
+            'meta'    => 'Compare loan against property (LAP) offers in ' . $name . ' from leading banks & NBFCs — high amount, low rate and long tenure against your residential or commercial property. Apply with LoanPt — free.',
+            'product' => 'Loan Against Property',
+            'city'    => $name,
+            'intro'   => $c[1],
+            'bullets' => $bullets,
+            'compare' => false,
+            'faq'     => array(
+                'Can I get a loan against property in ' . $name . '?' => 'Yes — we work with banks and NBFCs that offer LAP across ' . $name . ' and nearby areas, for residential, commercial and industrial property. Share your details and our team finds your best option, free.',
+                'How much loan can I get against my property?' => 'Typically up to 60–70% of the property\'s market value, depending on the property type, your income and the lender. Share your details for an indicative amount — free.',
+                'Is a loan against property cheaper than a personal loan?' => 'Usually yes. Because it is backed by your property, a LAP generally carries a lower interest rate and a longer tenure than an unsecured personal loan — though the final rate depends on the property and your profile.',
+                'What documents are needed for a LAP?' => 'Usually KYC, income proof (salary slips or ITR), bank statements and the property documents. We guide you through the exact list for the lender you qualify for.',
             ),
         );
     }
