@@ -25,6 +25,7 @@
             <a href="<?php echo esc_url(home_url('/balance-transfer/')); ?>">Balance Transfer</a>
             <a href="<?php echo esc_url(home_url('/business-loan/')); ?>">Business Loan</a>
             <a href="<?php echo esc_url(home_url('/home-loan/')); ?>">Home Loan</a>
+            <a href="<?php echo esc_url(home_url('/loan-against-property/')); ?>">Loan Against Property</a>
             <a href="<?php echo esc_url(home_url('/credit-card/')); ?>">Credit Card</a>
             <a href="<?php echo esc_url(home_url('/instant-loan/')); ?>">Instant Loan</a>
           </div>

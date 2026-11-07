@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) exit;
  * use the "LoanPt Landing" template. Bump LOANPT_PAGES_VER to re-seed.
  */
 
-define('LOANPT_PAGES_VER', '8');
+define('LOANPT_PAGES_VER', '9');
 
 /** Content for each landing page, keyed by URL slug (base products + city pages). */
 function loanpt_landing_data() {
@@ -86,6 +86,21 @@ function loanpt_landing_data() {
                 'How much home loan can I get?' => 'It depends on your income, existing obligations and the property value (lenders typically fund up to 75–90% of the value). Share your details for an indicative amount — free.',
                 'What documents are needed?' => 'Usually KYC, income proof (salary slips / ITR), bank statements and property documents. We guide you through the exact list.',
                 'Can I transfer my existing home loan?' => 'Yes — a home-loan balance transfer can move your loan to a lower rate and cut your EMI, often with a top-up. We check if it saves you money.',
+            ),
+        ),
+        'loan-against-property' => array(
+            'title' => 'Loan Against Property (LAP) — Compare & Apply at the Lowest Rate',
+            'h1'    => 'Loan Against Property — Big Funds at a <em>Lower Rate</em>',
+            'meta'  => 'Compare loan against property (LAP) offers from leading banks & NBFCs — high loan amount, low interest and long tenure against your residential or commercial property. Apply with LoanPt — free.',
+            'product' => 'Loan Against Property',
+            'intro' => 'A loan against property (LAP) lets you unlock the value of a property you already own — residential, commercial or a plot — by mortgaging it to raise funds, while you continue to use the property. Because it is secured, a LAP usually comes at a lower interest rate and a longer tenure than an unsecured personal loan, and the amount can be large. The funds can be used for almost any purpose — business expansion, a wedding, education, a medical need or consolidating costly debt. LoanPt compares LAP offers across leading banks and NBFCs, matches you to the lowest rate your profile and property qualify for, and handles the paperwork end to end. It is completely free for you.',
+            'bullets' => array('Loan up to ₹5 Crore+', 'Lower rate (secured)', 'Tenure up to 15–20 years', 'Residential, commercial or plot', 'Funds for any purpose', 'Balance transfer & top-up'),
+            'compare' => false,
+            'faq' => array(
+                'What is a loan against property (LAP)?' => 'It is a secured loan where you mortgage a property you own — residential, commercial or industrial — and borrow against its value. You keep using the property, and because the loan is secured, the rate is usually lower than an unsecured loan.',
+                'How much loan can I get against my property?' => 'Typically up to 60–70% of the property\'s market value, depending on the property type, your income and the lender. Share your details for an indicative amount — free.',
+                'Is a loan against property cheaper than a personal loan?' => 'Usually yes. Because it is backed by your property, a LAP generally carries a lower interest rate and a longer tenure than an unsecured personal loan — though the final rate depends on the property and your profile.',
+                'What documents are needed for a LAP?' => 'Usually KYC, income proof (salary slips or ITR), bank statements and the property documents. We guide you through the exact list for the lender you qualify for.',
             ),
         ),
         'credit-card' => array(
