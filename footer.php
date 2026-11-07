@@ -23,6 +23,16 @@
         <a href="<?php echo esc_url(home_url('/credit-card/')); ?>">Credit Card</a>
       </div>
       <div>
+        <h4>Popular</h4>
+        <a href="<?php echo esc_url(home_url('/urgent-personal-loan/')); ?>">Urgent Personal Loan</a>
+        <a href="<?php echo esc_url(home_url('/instant-personal-loan/')); ?>">Instant Personal Loan</a>
+        <a href="<?php echo esc_url(home_url('/zero-processing-fee-personal-loan/')); ?>">Zero-Fee Personal Loan</a>
+        <a href="<?php echo esc_url(home_url('/low-interest-personal-loan/')); ?>">Low Interest Personal Loan</a>
+        <a href="<?php echo esc_url(home_url('/personal-loan-for-salaried/')); ?>">Personal Loan for Salaried</a>
+        <a href="<?php echo esc_url(home_url('/personal-loan-for-self-employed/')); ?>">Personal Loan (Self-Employed)</a>
+        <a href="<?php echo esc_url(home_url('/personal-loan-delhi-ncr/')); ?>">Personal Loan in Delhi NCR</a>
+      </div>
+      <div>
         <h4>Company</h4>
         <a href="#how">How it works</a>
         <a href="#faq">FAQ</a>

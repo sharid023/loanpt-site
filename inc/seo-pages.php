@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) exit;
  * use the "LoanPt Landing" template. Bump LOANPT_PAGES_VER to re-seed.
  */
 
-define('LOANPT_PAGES_VER', '11');
+define('LOANPT_PAGES_VER', '12');
 
 /** Content for each landing page, keyed by URL slug (base products + city pages). */
 function loanpt_landing_data() {
@@ -209,7 +209,7 @@ function loanpt_landing_data() {
             ),
         ),
     );
-    return array_merge($base, loanpt_city_defs(), loanpt_biz_city_defs(), loanpt_lap_city_defs(), loanpt_car_city_defs(), loanpt_gold_city_defs());
+    return array_merge($base, loanpt_city_defs(), loanpt_biz_city_defs(), loanpt_lap_city_defs(), loanpt_car_city_defs(), loanpt_gold_city_defs(), loanpt_keyword_defs());
 }
 
 /** Personal-loan city landing pages across NCR — unique content per city (SEO). */
@@ -429,6 +429,147 @@ function loanpt_gold_city_defs() {
         );
     }
     return $out;
+}
+
+/** High-intent keyword landing pages (search-intent modifiers) — unique content per page (SEO). */
+function loanpt_keyword_defs() {
+    return array(
+        'urgent-personal-loan' => array(
+            'title' => 'Urgent Personal Loan — Get Funds Fast, Same-Day Options',
+            'h1'    => 'Urgent Personal Loan — Funds When You <em>Need Them Fast</em>',
+            'meta'  => 'Need an urgent personal loan? Compare quick, same-day personal loan offers from leading banks & NBFCs with fast approval and minimal documents. Check eligibility free — LoanPt.',
+            'product' => 'Personal Loan',
+            'intro' => 'When an emergency hits — a hospital bill, an urgent repair or a sudden expense — you need funds fast, not a long wait. LoanPt connects you with the banks and NBFCs that offer the quickest personal loan journeys, with an instant eligibility check, minimal documents, and same-day to 24–48 hour disbursal for eligible applicants. Share your details and our team moves on it right away. It is completely free for you.',
+            'bullets' => array('Quick eligibility check', 'Same-day / 24–48 hr disbursal*', 'Minimal documents', 'Collateral-free', 'Apply online', 'Fixed EMI'),
+            'compare' => true,
+            'faq' => array(
+                'How fast can I get an urgent personal loan?' => 'For eligible applicants with clean documents, some lenders disburse the same day or within 24–48 hours. We match you to the fastest option for your profile.',
+                'What helps me get a quick approval?' => 'Keep your PAN, address proof, latest salary slips and bank statement ready, and make sure your name and details match across them. Clean, matching paperwork speeds things up the most.',
+                'Can I get an urgent loan with an average credit score?' => 'Sometimes — a few lenders consider a fair score with strong income proof, though it may take a little longer. We check several banks to find who can approve you quickly.',
+                'Is LoanPt free?' => 'Yes — our service is free to you. Lenders may charge their own processing fee, shown transparently.',
+            ),
+        ),
+        'instant-personal-loan' => array(
+            'title' => 'Instant Personal Loan — Quick Online Approval & Disbursal',
+            'h1'    => 'Instant Personal Loan — <em>Quick Approval</em>, Fast Disbursal',
+            'meta'  => 'Apply for an instant personal loan online — quick digital approval, minimal paperwork and fast disbursal from leading banks & NBFCs. Check eligibility free with LoanPt.',
+            'product' => 'Personal Loan',
+            'intro' => 'An instant personal loan uses a bank\'s digital journey to approve and disburse funds fast — often with just a few documents and a fully online application. LoanPt compares the banks and NBFCs with the quickest instant-loan processes, matches you to the best rate your profile qualifies for, and guides you from application to disbursal. It is completely free for you.',
+            'bullets' => array('Fully online application', 'Quick digital approval', 'Minimal documents', 'Fast disbursal', 'Collateral-free', 'Fixed, predictable EMI'),
+            'compare' => true,
+            'faq' => array(
+                'What is an instant personal loan?' => 'It is a personal loan with a fast, mostly digital approval and disbursal process — you apply online, share a few documents, and eligible applicants receive funds quickly.',
+                'Who is eligible for an instant personal loan?' => 'Typically salaried or self-employed applicants with a steady income and a reasonable credit score. We check your profile across multiple banks and tell you the best fit — free.',
+                'How much can I get through an instant loan?' => 'It depends on your income, credit profile and the lender. Share your details for an indicative amount — free, with no impact on your credit score.',
+                'Is LoanPt free?' => 'Yes — our service is free to you. Lenders may charge their own processing fee, shown transparently.',
+            ),
+        ),
+        'zero-processing-fee-personal-loan' => array(
+            'title' => 'Zero / Low Processing Fee Personal Loan — Save on Charges',
+            'h1'    => 'Zero &amp; Low Processing Fee <em>Personal Loan</em>',
+            'meta'  => 'Looking for a zero or low processing fee personal loan? Compare offers with minimal charges from leading banks & NBFCs and keep more of your loan. All fees shown upfront — free with LoanPt.',
+            'product' => 'Personal Loan',
+            'intro' => 'The processing fee on a personal loan can quietly add thousands to your cost. LoanPt helps you compare offers with zero or low processing fees from leading banks and NBFCs, and shows every charge transparently so there are no surprises. We weigh the fee against the interest rate to find the option that costs you the least overall, and handle the paperwork. It is completely free for you.',
+            'bullets' => array('Zero / low processing-fee offers*', 'Every charge shown upfront', 'Lowest effective cost', 'No hidden fees', 'Compare every bank', 'Collateral-free'),
+            'compare' => true,
+            'faq' => array(
+                'Can I really get a personal loan with zero processing fee?' => 'Some banks and NBFCs run zero or reduced processing-fee offers from time to time, often for select profiles or amounts. We check who has the best offer right now and show every charge transparently — we never hide a fee.',
+                'What charges should I watch for on a personal loan?' => 'Mainly the processing fee, plus any GST on it, documentation charges and prepayment or foreclosure charges. We lay out the full cost so you compare the true, effective rate — not just the headline number.',
+                'Does a zero fee mean a higher interest rate?' => 'Not always, but sometimes a zero-fee offer carries a slightly higher rate, or the other way round. We compare the total cost so you pick what is genuinely cheapest for you.',
+                'Is LoanPt free?' => 'Yes — our service is free to you. Any lender fees are shown transparently before you proceed.',
+            ),
+        ),
+        'personal-loan-delhi-ncr' => array(
+            'title' => 'Personal Loan in Delhi NCR — Compare & Apply at the Lowest Rate',
+            'h1'    => 'Personal Loan in <em>Delhi NCR</em> — Compare Every Bank',
+            'meta'  => 'Compare personal loan offers across Delhi NCR — Delhi, Noida, Gurugram, Ghaziabad, Faridabad & Greater Noida — from HDFC, ICICI, Axis, Bajaj & more. Check eligibility free with LoanPt.',
+            'product' => 'Personal Loan',
+            'intro' => 'Looking for a personal loan anywhere in Delhi NCR? Whether you are in Delhi, Noida, Gurugram, Ghaziabad, Faridabad or Greater Noida, LoanPt compares personal loan offers from every major bank and NBFC and matches you to the lowest rate your profile qualifies for — with minimal paperwork and at zero cost to you. Use the city links below to get offers specific to where you are.',
+            'bullets' => array('Loan up to ₹50 Lakh+', 'Tenure up to 84 months', 'Minimal documents', 'Quick disbursal', 'Fixed EMI', 'No collateral needed'),
+            'compare' => true,
+            'faq' => array(
+                'Can I get a personal loan anywhere in Delhi NCR?' => 'Yes — we work with banks and NBFCs that lend across all of NCR, including Delhi, Noida, Gurugram, Ghaziabad, Faridabad and Greater Noida. Share your details and our team finds your best option, free.',
+                'Who is eligible for a personal loan in NCR?' => 'Typically salaried or self-employed applicants with a steady income and a reasonable credit score. We check your profile against multiple banks and tell you the best fit.',
+                'What documents do I need?' => 'Usually ID & address proof, PAN, and recent salary slips or bank statements. We guide you through the exact list for the bank you qualify for.',
+                'What interest rate will I get?' => 'It depends on the bank, your income and credit profile, so the lender decides it. We pull competitive partner-bank offers and never promise a fixed rate upfront.',
+            ),
+        ),
+        'low-interest-personal-loan' => array(
+            'title' => 'Low Interest Personal Loan — Compare the Lowest Rates',
+            'h1'    => 'Low Interest <em>Personal Loan</em> — the Lowest Rates',
+            'meta'  => 'Compare low interest personal loan offers from leading banks & NBFCs and get the lowest rate your profile qualifies for. Check eligibility free with LoanPt — zero cost.',
+            'product' => 'Personal Loan',
+            'intro' => 'Even a slightly lower interest rate can save you thousands over your loan tenure. LoanPt compares personal loan rates across leading banks and NBFCs and matches you to the lowest rate your income and credit profile qualify for — then shows the full cost, including fees, so you compare the true rate rather than just the headline number. It is completely free for you.',
+            'bullets' => array('Lowest rate for your profile', 'Compare every bank & NBFC', 'Full cost, including fees', 'A better CIBIL = a lower rate', 'Minimal paperwork', 'Collateral-free'),
+            'compare' => true,
+            'faq' => array(
+                'How do I get the lowest interest rate on a personal loan?' => 'A higher credit score (ideally 750+), stable income, a lower existing EMI burden and a clean repayment history all help you qualify for a lower rate. We compare banks to find your best one.',
+                'What is a good personal loan interest rate?' => 'Rates vary by lender, product and profile, so there is no single number — the best rate is the lowest one you personally qualify for. We pull competitive partner-bank offers and never promise a fixed rate upfront.',
+                'Does checking offers affect my credit score?' => 'Comparing offers and checking your eligibility with us does not affect your score. Only a lender\'s hard enquiry, when you formally apply, has a small, temporary effect.',
+                'Is LoanPt free?' => 'Yes — our service is free to you. Lenders may charge their own processing fee, shown transparently.',
+            ),
+        ),
+        'personal-loan-for-salaried' => array(
+            'title' => 'Personal Loan for Salaried Employees — Lowest Rate, Quick Approval',
+            'h1'    => 'Personal Loan for <em>Salaried</em> Employees',
+            'meta'  => 'Compare personal loan offers for salaried employees from leading banks & NBFCs — the lowest rate, quick approval and minimal documents. Check eligibility free with LoanPt.',
+            'product' => 'Personal Loan',
+            'intro' => 'If you are salaried, lenders can often approve your personal loan quickly on the strength of your salary slips and bank statement. LoanPt compares personal loan offers for salaried professionals across leading banks and NBFCs, matches you to the lowest rate your profile qualifies for, and handles the paperwork end to end. It is completely free for you.',
+            'bullets' => array('For salaried professionals', 'Lowest rate for your profile', 'Approval on salary slips', 'Quick disbursal', 'Minimal documents', 'Collateral-free'),
+            'compare' => true,
+            'faq' => array(
+                'What is the eligibility for a salaried personal loan?' => 'Lenders look at your monthly salary, employer, total experience, credit score and existing EMIs. A steady job and a score around 750+ get the best offers. We check your fit across banks — free.',
+                'What documents do salaried applicants need?' => 'Usually ID & address proof, PAN, the last 3 months\' salary slips and 3–6 months\' bank statements. We guide you through the exact list for the bank you qualify for.',
+                'How much personal loan can a salaried person get?' => 'Often several times your monthly salary, depending on your income, existing obligations and the lender. Share your details for an indicative amount — free.',
+                'Is LoanPt free?' => 'Yes — our service is free to you. Lenders may charge their own processing fee, shown transparently.',
+            ),
+        ),
+        'personal-loan-for-self-employed' => array(
+            'title' => 'Personal Loan for Self-Employed — Compare Offers & Apply',
+            'h1'    => 'Personal Loan for the <em>Self-Employed</em>',
+            'meta'  => 'Compare personal loan offers for self-employed professionals and business owners from leading banks & NBFCs — competitive rates and flexible documents. Check free with LoanPt.',
+            'product' => 'Personal Loan',
+            'intro' => 'Self-employed? Lenders assess your personal loan on your business income, bank statements and ITR rather than a salary slip. LoanPt compares personal loan offers for self-employed professionals, proprietors and business owners across leading banks and NBFCs, matches you to a lender comfortable with your profile, and handles the paperwork. It is completely free for you.',
+            'bullets' => array('For self-employed & business owners', 'Assessed on ITR & bank statements', 'Competitive rates', 'Flexible documentation', 'Quick disbursal', 'Collateral-free options'),
+            'compare' => true,
+            'faq' => array(
+                'Can a self-employed person get a personal loan?' => 'Yes — with a running business, reasonable financials and a decent credit score, self-employed applicants qualify with many banks and NBFCs. We match you to lenders comfortable with your profile.',
+                'What documents does a self-employed applicant need?' => 'Usually KYC, the last 2 years\' ITR with computation, 6–12 months\' bank statements, and business proof (GST / registration). We tell you the exact list for your lender.',
+                'How is eligibility decided for the self-employed?' => 'Lenders look at your business income and stability, bank-statement inflows, ITR, existing obligations and credit score. We help you present the strongest profile.',
+                'Is LoanPt free?' => 'Yes — our service is free to you. Lenders may charge their own processing fee, shown transparently.',
+            ),
+        ),
+        'personal-loan-minimal-documents' => array(
+            'title' => 'Personal Loan with Minimal Documents — Quick & Paperless',
+            'h1'    => 'Personal Loan with <em>Minimal Documents</em>',
+            'meta'  => 'Get a personal loan with minimal documents — a quick, mostly paperless journey from leading banks & NBFCs for eligible applicants. Check eligibility free with LoanPt.',
+            'product' => 'Personal Loan',
+            'intro' => 'Dreading the paperwork? Many banks and NBFCs now offer a near-paperless personal loan — a quick digital journey where eligible applicants submit just a few documents, often a PAN, address proof and a bank statement. LoanPt matches you to the lenders with the simplest document requirements for your profile and guides you through a fast application. It is completely free for you.',
+            'bullets' => array('Few documents needed', 'Mostly paperless journey', 'Quick approval', 'For eligible applicants*', 'Collateral-free', 'Fixed EMI'),
+            'compare' => true,
+            'faq' => array(
+                'Can I get a personal loan with minimal documents?' => 'Yes — for eligible applicants, many lenders keep it to a few essentials like PAN, address proof and a bank statement, with a mostly digital process. We match you to the simplest option for your profile.',
+                'Is a completely no-document personal loan possible?' => 'No genuine lender gives a loan with zero documents — at least KYC and some income evidence are always required. Be cautious of anyone promising a loan with no documents at all; it is usually a scam. We only work with legitimate banks and NBFCs.',
+                'What are the minimum documents usually required?' => 'Typically PAN and address proof (KYC), plus a recent salary slip or bank statement as income proof. We guide you through the exact short list for your lender.',
+                'Is LoanPt free?' => 'Yes — our service is free to you. Lenders may charge their own processing fee, shown transparently.',
+            ),
+        ),
+        'personal-loan-low-cibil' => array(
+            'title' => 'Personal Loan for Low CIBIL Score — Options & How to Qualify',
+            'h1'    => 'Personal Loan for a <em>Low CIBIL Score</em>',
+            'meta'  => 'Have a low CIBIL score? See your personal loan options, how lenders decide, and practical steps to qualify and improve your score. Honest guidance from LoanPt — free.',
+            'product' => 'Personal Loan',
+            'intro' => 'A low credit score makes a personal loan harder — but not always impossible. Some lenders consider a fair score when your income is steady and your other obligations are low, though usually at a higher rate. LoanPt checks multiple banks and NBFCs to see who may approve you, gives you honest guidance, and shows simple steps to improve your score for a better rate. It is completely free for you.',
+            'bullets' => array('Options for a fair / low score', 'Multiple lenders checked for you', 'Honest, no false promises', 'Steps to improve your score', 'Strong income can help', 'No cost to check'),
+            'compare' => false,
+            'faq' => array(
+                'Can I get a personal loan with a low CIBIL score?' => 'Sometimes — some lenders consider a fair score (around 650–750) when your income is steady and existing EMIs are low, usually at a higher rate. Below 650 it is harder, but we check who may still approve you.',
+                'How can I improve my chances of approval?' => 'Show stable income, keep existing EMIs and card usage low, add a co-applicant if possible, and apply only where you realistically qualify — each rejected application hurts your score. We help you apply smartly.',
+                'How do I raise a low CIBIL score?' => 'Pay every EMI and card bill on time, keep card usage under 30% of the limit, fix any errors on your report, and avoid multiple applications at once. Most people see improvement in 4–6 months.',
+                'Is LoanPt free?' => 'Yes — our service is free to you. We give honest guidance and never charge you for it.',
+            ),
+        ),
+    );
 }
 
 /** Informational pages (Services, About, Contact) — clean content that overrides any broken legacy content. */
