@@ -81,6 +81,24 @@ if ($ctx): ?>
 </div></section>
 <?php endif; ?>
 
+<?php
+// Bank interlinks for the current product (strong internal linking for SEO).
+$bankmap = array('Personal Loan' => 'personal-loan', 'Home Loan' => 'home-loan', 'Business Loan' => 'business-loan');
+if (isset($bankmap[$d['product']])):
+  $psl = $bankmap[$d['product']];
+  $banklist = array('hdfc' => 'HDFC Bank', 'sbi' => 'SBI', 'icici' => 'ICICI Bank', 'axis' => 'Axis Bank', 'kotak' => 'Kotak Mahindra Bank', 'bajaj' => 'Bajaj Finserv', 'idfc' => 'IDFC First Bank');
+?>
+<!-- BANK INTERLINKS -->
+<section style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="wrap">
+  <div class="sec-head"><div class="kicker">By bank</div><h2><?php echo esc_html($d['product']); ?> by bank</h2><p>Compare and apply for a <?php echo esc_html(strtolower($d['product'])); ?> from a specific bank &mdash; we match you to the best rate across all of them.</p></div>
+  <div class="prods" style="grid-template-columns:repeat(4,1fr)">
+    <?php foreach ($banklist as $bs => $bn): if (($bs . '-' . $psl) === $slug) continue; ?>
+      <a class="prod" style="text-decoration:none" href="<?php echo esc_url(home_url('/' . $bs . '-' . $psl . '/')); ?>"><h3 style="margin:0;font-size:16px"><?php echo esc_html($bn . ' ' . $d['product']); ?></h3><span class="go">Compare &rarr;</span></a>
+    <?php endforeach; ?>
+  </div>
+</div></section>
+<?php endif; ?>
+
 <?php if (!empty($d['compare'])): ?>
 <!-- COMPARISON -->
 <section id="compare" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="wrap">

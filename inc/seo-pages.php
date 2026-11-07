@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) exit;
  * use the "LoanPt Landing" template. Bump LOANPT_PAGES_VER to re-seed.
  */
 
-define('LOANPT_PAGES_VER', '12');
+define('LOANPT_PAGES_VER', '13');
 
 /** Content for each landing page, keyed by URL slug (base products + city pages). */
 function loanpt_landing_data() {
@@ -209,7 +209,7 @@ function loanpt_landing_data() {
             ),
         ),
     );
-    return array_merge($base, loanpt_city_defs(), loanpt_biz_city_defs(), loanpt_lap_city_defs(), loanpt_car_city_defs(), loanpt_gold_city_defs(), loanpt_keyword_defs());
+    return array_merge($base, loanpt_city_defs(), loanpt_biz_city_defs(), loanpt_lap_city_defs(), loanpt_car_city_defs(), loanpt_gold_city_defs(), loanpt_keyword_defs(), loanpt_bank_defs());
 }
 
 /** Personal-loan city landing pages across NCR — unique content per city (SEO). */
@@ -570,6 +570,54 @@ function loanpt_keyword_defs() {
             ),
         ),
     );
+}
+
+/** Bank-wise landing pages (bank x product) — high-intent SEO, honest DSA framing. */
+function loanpt_bank_defs() {
+    $banks = array(
+        'hdfc'  => array('HDFC Bank', 'one of India\'s largest private banks, known for quick processing and competitive rates'),
+        'sbi'   => array('SBI', 'India\'s largest public-sector bank (State Bank of India), known for among the lowest rates and nationwide reach'),
+        'icici' => array('ICICI Bank', 'a leading private bank with fast, largely digital loan journeys'),
+        'axis'  => array('Axis Bank', 'a major private bank with flexible loan options'),
+        'kotak' => array('Kotak Mahindra Bank', 'a private bank known for competitive rates and quick approvals'),
+        'bajaj' => array('Bajaj Finserv', 'a leading NBFC known for high loan amounts and fast disbursal'),
+        'idfc'  => array('IDFC First Bank', 'a new-age private bank with competitive loan rates'),
+    );
+    $products = array(
+        'personal-loan' => array('Personal Loan', 'Personal Loan', true,
+            array('Loan up to ₹40 Lakh+', 'Competitive interest rate', 'Minimal documents', 'Quick disbursal', 'Fixed EMI', 'No collateral'),
+            'ID & address proof, PAN, and recent salary slips or bank statements'),
+        'home-loan' => array('Home Loan', 'Home Loan', false,
+            array('Low interest rate', 'Tenure up to 30 years', 'High loan amount', 'Balance transfer & top-up', 'Minimal paperwork', 'Fully managed'),
+            'KYC, income proof (salary slips or ITR), bank statements and property documents'),
+        'business-loan' => array('Business Loan', 'Business Loan', false,
+            array('Collateral-free options', 'Working capital & term loans', 'Flexible tenure', 'Quick disbursal', 'Minimal paperwork', 'For self-employed & businesses'),
+            'KYC, business proof (GST / registration), bank statements and ITR'),
+    );
+    $out = array();
+    foreach ($banks as $bslug => $b) {
+        $name = $b[0]; $blurb = $b[1];
+        foreach ($products as $pslug => $p) {
+            $plabel = $p[0]; $prod = $p[1]; $cmp = $p[2]; $bullets = $p[3]; $docs = $p[4];
+            $pl = strtolower($plabel);
+            $out[$bslug . '-' . $pslug] = array(
+                'title'   => $name . ' ' . $plabel . ' — Compare Rate & Apply via LoanPt',
+                'h1'      => $name . ' <em>' . $plabel . '</em>',
+                'meta'    => 'Compare ' . $name . ' ' . $plabel . ' offers with every other bank & NBFC and get the best rate your profile qualifies for. Apply free with LoanPt — a loan facilitator, not the bank.',
+                'product' => $prod,
+                'intro'   => 'Planning to take a ' . $pl . ' from ' . $name . '? ' . $name . ' is ' . $blurb . '. LoanPt helps you compare ' . $name . '\'s ' . $pl . ' offer against every other major bank and NBFC, finds the best rate your profile qualifies for, and handles the paperwork — completely free. We are a loan facilitator (DSA), not the bank.',
+                'bullets' => $bullets,
+                'compare' => $cmp,
+                'faq'     => array(
+                    'Can LoanPt help me get a ' . $plabel . ' from ' . $name . '?' => 'Yes — LoanPt is a loan facilitator that helps you apply for a ' . $pl . ' from ' . $name . ' and other leading lenders. We compare offers and match you to the best rate your profile qualifies for, free. Final approval and terms are decided by the bank.',
+                    'What is the interest rate on a ' . $name . ' ' . $plabel . '?' => 'It depends on your income, credit profile and the bank\'s current offers, so ' . $name . ' decides the final rate. We pull competitive partner offers and never promise a fixed rate upfront.',
+                    'What documents does ' . $name . ' need?' => 'Usually ' . $docs . '. We guide you through the exact list for your profile.',
+                    'Is LoanPt free to use?' => 'Yes — our service is free to you. Lenders may charge their own processing fee, shown transparently.',
+                ),
+            );
+        }
+    }
+    return $out;
 }
 
 /** Informational pages (Services, About, Contact) — clean content that overrides any broken legacy content. */
