@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) exit;
  * use the "LoanPt Landing" template. Bump LOANPT_PAGES_VER to re-seed.
  */
 
-define('LOANPT_PAGES_VER', '10');
+define('LOANPT_PAGES_VER', '11');
 
 /** Content for each landing page, keyed by URL slug (base products + city pages). */
 function loanpt_landing_data() {
@@ -209,7 +209,7 @@ function loanpt_landing_data() {
             ),
         ),
     );
-    return array_merge($base, loanpt_city_defs(), loanpt_biz_city_defs(), loanpt_lap_city_defs());
+    return array_merge($base, loanpt_city_defs(), loanpt_biz_city_defs(), loanpt_lap_city_defs(), loanpt_car_city_defs(), loanpt_gold_city_defs());
 }
 
 /** Personal-loan city landing pages across NCR — unique content per city (SEO). */
@@ -337,6 +337,94 @@ function loanpt_lap_city_defs() {
                 'How much loan can I get against my property?' => 'Typically up to 60–70% of the property\'s market value, depending on the property type, your income and the lender. Share your details for an indicative amount — free.',
                 'Is a loan against property cheaper than a personal loan?' => 'Usually yes. Because it is backed by your property, a LAP generally carries a lower interest rate and a longer tenure than an unsecured personal loan — though the final rate depends on the property and your profile.',
                 'What documents are needed for a LAP?' => 'Usually KYC, income proof (salary slips or ITR), bank statements and the property documents. We guide you through the exact list for the lender you qualify for.',
+            ),
+        );
+    }
+    return $out;
+}
+
+/** Car-loan city landing pages — unique content per city (SEO). */
+function loanpt_car_city_defs() {
+    $bullets = array('Up to 100% on-road finance', 'Low interest rates', 'Tenure up to 7 years', 'Quick approval & disbursal', 'Minimal paperwork', 'New & electric cars');
+    $cities = array(
+        'delhi'      => array('Delhi', 'Looking for a car loan in Delhi? Whether you are buying from a showroom in South Delhi or anywhere across the NCR, LoanPt compares new car loan offers from leading banks and NBFCs, finances up to 100% of the on-road price, and matches you to the lowest rate you qualify for — at zero cost to you.'),
+        'mumbai'     => array('Mumbai', 'Need a car loan in Mumbai? From the suburbs to South Mumbai, LoanPt compares new car loan offers from top banks and NBFCs, finds you a competitive rate with up to 100% on-road finance, and handles the paperwork so you drive home faster — free of charge.'),
+        'noida'      => array('Noida', 'Searching for a car loan in Noida? LoanPt compares new car loan offers from leading banks and NBFCs for buyers across the city and Greater Noida, finances up to 100% of the on-road price, and matches you to your best rate — at zero cost to you.'),
+        'gurugram'   => array('Gurugram', 'Looking for a car loan in Gurugram (Gurgaon)? LoanPt compares new car loan offers from top banks and NBFCs for buyers across the city, secures up to 100% on-road finance at a competitive rate, and keeps the paperwork minimal — free of charge.'),
+        'bangalore'  => array('Bengaluru', 'Need a car loan in Bengaluru? Whether you buy in Whitefield, Electronic City or anywhere across the city, LoanPt compares new car loan offers from leading banks and NBFCs, finds your best rate with up to 100% finance, and handles everything — completely free.'),
+        'hyderabad'  => array('Hyderabad', 'Looking for a car loan in Hyderabad? LoanPt compares new car loan offers from top banks and NBFCs for buyers across HITEC City, Gachibowli and the wider metro, finances up to 100% of the on-road price, and matches you to a competitive rate — at no cost to you.'),
+        'chennai'    => array('Chennai', 'Need a car loan in Chennai? From the OMR corridor to anywhere across the city, LoanPt compares new car loan offers from leading banks and NBFCs, finds your best rate with up to 100% finance, and manages the paperwork — free of charge.'),
+        'pune'       => array('Pune', 'Searching for a car loan in Pune? LoanPt compares new car loan offers from top banks and NBFCs for buyers across the city and PCMC, secures up to 100% on-road finance at a competitive rate, and handles everything — at zero cost to you.'),
+        'kolkata'    => array('Kolkata', 'Looking for a car loan in Kolkata? LoanPt compares new car loan offers from leading banks and NBFCs for buyers across the city, finances up to 100% of the on-road price, and matches you to your best rate — completely free.'),
+        'ahmedabad'  => array('Ahmedabad', 'Need a car loan in Ahmedabad? LoanPt compares new car loan offers from top banks and NBFCs for buyers along SG Highway and across the city, finds a competitive rate with up to 100% finance, and manages the paperwork — at no cost to you.'),
+        'jaipur'     => array('Jaipur', 'Looking for a car loan in Jaipur? LoanPt compares new car loan offers from leading banks and NBFCs for buyers across the Pink City, finances up to 100% of the on-road price, and matches you to your best rate — free of charge.'),
+        'lucknow'    => array('Lucknow', 'Need a car loan in Lucknow? From Gomti Nagar to anywhere across the city, LoanPt compares new car loan offers from top banks and NBFCs, secures up to 100% on-road finance at a competitive rate, and handles the paperwork — at zero cost to you.'),
+        'indore'     => array('Indore', 'Searching for a car loan in Indore? LoanPt compares new car loan offers from leading banks and NBFCs for buyers across the city, finances up to 100% of the on-road price, and matches you to your best rate — completely free.'),
+        'chandigarh' => array('Chandigarh', 'Looking for a car loan in Chandigarh? For buyers across the city and the wider Tricity (Mohali, Panchkula), LoanPt compares new car loan offers from top banks and NBFCs, finds a competitive rate with up to 100% finance, and manages everything — free of charge.'),
+        'nagpur'     => array('Nagpur', 'Need a car loan in Nagpur? LoanPt compares new car loan offers from leading banks and NBFCs for buyers across the city, finances up to 100% of the on-road price, and matches you to your best rate — at no cost to you.'),
+        'ghaziabad'  => array('Ghaziabad', 'Looking for a car loan in Ghaziabad? LoanPt compares new car loan offers from top banks and NBFCs for buyers across Indirapuram, Vaishali and the wider city, secures up to 100% on-road finance at a competitive rate, and keeps the paperwork minimal — at zero cost to you.'),
+    );
+    $out = array();
+    foreach ($cities as $cslug => $c) {
+        $name = $c[0];
+        $out['car-loan-' . $cslug] = array(
+            'title'   => 'Car Loan in ' . $name . ' — New Car Finance at the Lowest Rate',
+            'h1'      => 'Car Loan in <em>' . $name . '</em> — Drive Home Your New Car',
+            'meta'    => 'Compare new car loan offers in ' . $name . ' from leading banks & NBFCs — up to 100% on-road finance, low interest and quick approval. Check eligibility free with LoanPt.',
+            'product' => 'Car Loan',
+            'city'    => $name,
+            'intro'   => $c[1],
+            'bullets' => $bullets,
+            'compare' => false,
+            'faq'     => array(
+                'Can I get a car loan in ' . $name . '?' => 'Yes — we work with banks and NBFCs that finance new cars across ' . $name . ' and nearby areas. Share your details and our team finds your best option, free.',
+                'How much car loan can I get?' => 'Many lenders finance up to 90–100% of the on-road price, depending on the car, your income and credit profile. Share your details for an indicative amount — free.',
+                'What is the tenure for a car loan?' => 'Car loans typically run up to 7 years. A longer tenure lowers your EMI but increases total interest; we help you pick the right balance.',
+                'What documents are needed for a car loan?' => 'Usually KYC, income proof (salary slips or ITR), bank statements and the car quotation. We guide you through the exact list for the lender you qualify for.',
+            ),
+        );
+    }
+    return $out;
+}
+
+/** Gold-loan city landing pages — unique content per city (SEO). */
+function loanpt_gold_city_defs() {
+    $bullets = array('Funds the same day', 'High value per gram', 'Low interest (secured)', 'Minimal paperwork', 'Flexible repayment', 'Gold stored safely');
+    $cities = array(
+        'delhi'         => array('Delhi', 'Need a gold loan in Delhi? LoanPt compares gold loan offers from leading banks and NBFCs across the city, so you get the most value per gram at a low rate with same-day disbursal — your gold stays safely stored and comes back on repayment. It is completely free for you.'),
+        'mumbai'        => array('Mumbai', 'Looking for a gold loan in Mumbai? From the suburbs to South Mumbai, LoanPt compares gold loan offers from top banks and NBFCs, gets you a high value per gram at a competitive rate with same-day funds, and keeps your gold stored securely — free of charge.'),
+        'bangalore'     => array('Bengaluru', 'Need a gold loan in Bengaluru? LoanPt compares gold loan offers from leading banks and NBFCs across the city, so you get quick, same-day funds against your gold at a low rate — safely stored and returned on repayment, at zero cost to you.'),
+        'hyderabad'     => array('Hyderabad', 'Looking for a gold loan in Hyderabad? LoanPt compares gold loan offers from top banks and NBFCs across the metro, getting you a high value per gram at a competitive rate with same-day disbursal — your gold stored securely, free of charge.'),
+        'chennai'       => array('Chennai', 'Need a gold loan in Chennai? LoanPt compares gold loan offers from leading banks and NBFCs across the city, so you get the most per gram at a low rate with same-day funds — gold stored safely and returned on repayment, at no cost to you.'),
+        'pune'          => array('Pune', 'Looking for a gold loan in Pune? LoanPt compares gold loan offers from top banks and NBFCs across the city and PCMC, getting you quick same-day funds against your gold at a competitive rate — safely stored, free of charge.'),
+        'kolkata'       => array('Kolkata', 'Need a gold loan in Kolkata? LoanPt compares gold loan offers from leading banks and NBFCs across the city, so you get a high value per gram at a low rate with same-day disbursal — your gold stored securely, completely free.'),
+        'ahmedabad'     => array('Ahmedabad', 'Looking for a gold loan in Ahmedabad? LoanPt compares gold loan offers from top banks and NBFCs across the city, getting you the most per gram at a competitive rate with same-day funds — gold stored safely, at no cost to you.'),
+        'jaipur'        => array('Jaipur', 'Need a gold loan in Jaipur? LoanPt compares gold loan offers from leading banks and NBFCs across the Pink City, so you get quick same-day funds against your gold at a low rate — safely stored and returned on repayment, free of charge.'),
+        'lucknow'       => array('Lucknow', 'Looking for a gold loan in Lucknow? LoanPt compares gold loan offers from top banks and NBFCs across the city, getting you a high value per gram at a competitive rate with same-day disbursal — your gold stored securely, at zero cost to you.'),
+        'coimbatore'    => array('Coimbatore', 'Need a gold loan in Coimbatore? LoanPt compares gold loan offers from leading banks and NBFCs across the city, so you get the most value per gram at a low rate with same-day funds — gold stored safely and returned on repayment, completely free.'),
+        'kochi'         => array('Kochi', 'Looking for a gold loan in Kochi? LoanPt compares gold loan offers from top banks and NBFCs across the city, getting you quick same-day funds against your gold at a competitive rate — safely stored, free of charge.'),
+        'madurai'       => array('Madurai', 'Need a gold loan in Madurai? LoanPt compares gold loan offers from leading banks and NBFCs across the city, so you get a high value per gram at a low rate with same-day disbursal — your gold stored securely, at no cost to you.'),
+        'vijayawada'    => array('Vijayawada', 'Looking for a gold loan in Vijayawada? LoanPt compares gold loan offers from top banks and NBFCs across the city, getting you the most per gram at a competitive rate with same-day funds — gold stored safely, free of charge.'),
+        'visakhapatnam' => array('Visakhapatnam', 'Need a gold loan in Visakhapatnam? LoanPt compares gold loan offers from leading banks and NBFCs across the city, so you get quick same-day funds against your gold at a low rate — safely stored and returned on repayment, at zero cost to you.'),
+        'nagpur'        => array('Nagpur', 'Looking for a gold loan in Nagpur? LoanPt compares gold loan offers from top banks and NBFCs across the city, getting you a high value per gram at a competitive rate with same-day disbursal — your gold stored securely, completely free.'),
+    );
+    $out = array();
+    foreach ($cities as $cslug => $c) {
+        $name = $c[0];
+        $out['gold-loan-' . $cslug] = array(
+            'title'   => 'Gold Loan in ' . $name . ' — Instant Funds Against Your Gold',
+            'h1'      => 'Gold Loan in <em>' . $name . '</em> — Instant Funds Against Gold',
+            'meta'    => 'Compare gold loan offers in ' . $name . ' from leading banks & NBFCs — high value per gram, low interest and same-day disbursal with minimal paperwork. Check with LoanPt — free.',
+            'product' => 'Gold Loan',
+            'city'    => $name,
+            'intro'   => $c[1],
+            'bullets' => $bullets,
+            'compare' => false,
+            'faq'     => array(
+                'Can I get a gold loan in ' . $name . '?' => 'Yes — we work with banks and NBFCs that offer gold loans across ' . $name . ' and nearby areas, with quick same-day disbursal. Share your details and our team finds your best option, free.',
+                'How much can I borrow against my gold?' => 'Lenders fund a large share of your gold\'s value (per RBI norms, usually up to 75% of the value), based on its purity and weight. Share details for an indicative amount — free.',
+                'How fast is a gold loan disbursed?' => 'Gold loans are among the fastest — often disbursed the same day, with minimal paperwork, since the loan is secured by your gold.',
+                'Is my gold safe?' => 'Yes — your gold is stored securely by the lender in a sealed, insured vault and returned to you once the loan is repaid.',
             ),
         );
     }
