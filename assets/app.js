@@ -758,6 +758,12 @@ function loanptLead(src) {
     return r === 0 ? P / nMonths : (P * r * Math.pow(1 + r, nMonths)) / (Math.pow(1 + r, nMonths) - 1);
   }
   var engines = {
+    emi: function (v) {
+      var P = v.amount, emi = emiOf(P, v.rate, v.tenure), total = emi * v.tenure, interest = total - P;
+      return { mainLabel: 'Your monthly EMI', main: money(emi), rows: [
+        'Total payable: ' + money(total),
+        'Total interest: ' + money(interest) ] };
+    },
     prepay: function (v) {
       var P = v.amount, rate = v.rate, N = v.tenure, L = v.prepay;
       var emi = emiOf(P, rate, N), r = rate / 12 / 100;
@@ -815,21 +821,42 @@ function loanptLead(src) {
     var engine = engines[box.getAttribute('data-calc')];
     if (!engine) return;
     var cfg = {}; try { cfg = JSON.parse(box.getAttribute('data-cfg') || '{}'); } catch (e) {}
-    var inputs = box.querySelectorAll('input[data-role]');
+    var sliders = box.querySelectorAll('input[data-role]');
     var mainLabelEl = box.querySelector('[data-main-label]'), mainEl = box.querySelector('[data-main]'), rowsEl = box.querySelector('[data-rows]');
-    function run() {
+    function run(skipRole) {
       var v = {};
-      inputs.forEach(function (el) {
-        v[el.getAttribute('data-role')] = parseFloat(el.value);
-        var disp = box.querySelector('[data-val="' + el.getAttribute('data-role') + '"]');
-        if (disp) disp.textContent = fmt(el.value, el.getAttribute('data-fmt'));
+      sliders.forEach(function (el) {
+        var role = el.getAttribute('data-role');
+        v[role] = parseFloat(el.value);
+        var disp = box.querySelector('.val[data-val="' + role + '"]');
+        if (disp && role !== skipRole && document.activeElement !== disp) {
+          if ('value' in disp) disp.value = fmt(el.value, el.getAttribute('data-fmt')); else disp.textContent = fmt(el.value, el.getAttribute('data-fmt'));
+        }
       });
       var out = engine(v, cfg);
       if (mainLabelEl) mainLabelEl.textContent = out.mainLabel;
       if (mainEl) mainEl.textContent = out.main;
       if (rowsEl) rowsEl.innerHTML = out.rows.map(function (r) { return '<span>' + r + '</span>'; }).join('<br>');
     }
-    inputs.forEach(function (el) { el.addEventListener('input', run); });
+    sliders.forEach(function (el) { el.addEventListener('input', function () { run(); }); });
+    // Free-hand typing: click a value and type it (two-way bound to the slider).
+    box.querySelectorAll('input.val[data-val]').forEach(function (inp) {
+      var role = inp.getAttribute('data-val'), sl = box.querySelector('input[data-role="' + role + '"]');
+      if (!sl) return;
+      inp.addEventListener('input', function () {
+        var raw = inp.value.replace(/[^0-9.]/g, '');
+        if (raw === '' || raw === '.') return;
+        var numv = parseFloat(raw);
+        if (isNaN(numv)) return;
+        var mn = parseFloat(sl.min), mx = parseFloat(sl.max);
+        if (numv < mn) numv = mn; if (numv > mx) numv = mx;
+        sl.value = numv;
+        run(role);
+      });
+      inp.addEventListener('blur', function () { run(); });
+      inp.addEventListener('change', function () { run(); });
+      inp.addEventListener('focus', function () { inp.select(); });
+    });
     run();
   });
 })();

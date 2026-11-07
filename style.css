@@ -90,6 +90,10 @@ section{padding:52px 0}
 .calc .ctrl{margin-bottom:20px}
 .calc .ctrl .top{display:flex;justify-content:space-between;font-weight:700;font-size:14.5px;margin-bottom:8px}
 .calc .ctrl .val{color:var(--mint2)}
+.calc .ctrl .top input.val{font:inherit;font-weight:800;color:var(--mint2);text-align:right;border:none;background:transparent;border-bottom:1px dashed rgba(43,191,134,.5);width:48%;max-width:170px;padding:0 2px 1px;border-radius:0;-moz-appearance:textfield;cursor:text}
+.calc .ctrl .top input.val:hover{border-bottom-color:var(--mint2)}
+.calc .ctrl .top input.val:focus{outline:none;border-bottom:1px solid var(--mint);background:rgba(43,191,134,.08)}
+.calc .ctrl .top input.val::-webkit-inner-spin-button,.calc .ctrl .top input.val::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 .calc input[type=range]{width:100%;accent-color:var(--mint2);height:6px}
 .calc .result{background:linear-gradient(160deg,#0d2c1e,#143f29);color:#fff;border-radius:14px;padding:24px;text-align:center;display:flex;flex-direction:column;justify-content:center}
 .calc .result .emi{font-size:40px;font-weight:800;color:var(--mint)}

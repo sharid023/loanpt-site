@@ -63,7 +63,7 @@ $disc     = isset($d['disc']) ? $d['disc'] : 'This is an indicative estimate. Yo
   <div class="calc" data-calc="<?php echo esc_attr($d['type']); ?>" data-cfg="<?php echo esc_attr(wp_json_encode($cfg)); ?>">
     <div>
       <?php foreach ($d['inputs'] as $in): list($role, $label, $min, $max, $def, $step, $ifmt) = $in; ?>
-        <div class="ctrl"><div class="top"><span><?php echo esc_html($label); ?></span><span class="val" data-val="<?php echo esc_attr($role); ?>"></span></div>
+        <div class="ctrl"><div class="top"><span><?php echo esc_html($label); ?></span><input type="text" inputmode="decimal" class="val" data-val="<?php echo esc_attr($role); ?>" data-fmt="<?php echo esc_attr($ifmt); ?>" aria-label="<?php echo esc_attr($label); ?>"></div>
           <input type="range" data-role="<?php echo esc_attr($role); ?>" data-fmt="<?php echo esc_attr($ifmt); ?>" min="<?php echo esc_attr($min); ?>" max="<?php echo esc_attr($max); ?>" step="<?php echo esc_attr($step); ?>" value="<?php echo esc_attr($def); ?>"></div>
       <?php endforeach; ?>
     </div>

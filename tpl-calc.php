@@ -57,19 +57,19 @@ $products = array('Personal Loan', 'Home Loan', 'Business Loan', 'Loan Against P
 <!-- CALCULATOR -->
 <section id="calc"><div class="wrap">
   <div class="sec-head"><div class="kicker">Plan your loan</div><h2><?php echo esc_html($d['product']); ?> EMI Calculator</h2><p>Move the sliders to see your monthly EMI instantly, then get the best rate for it.</p></div>
-  <div class="calc">
+  <div class="calc" data-calc="emi" data-cfg="{}">
     <div>
-      <div class="ctrl"><div class="top"><span>Loan amount</span><span class="val" id="amtOut">&#8377;<?php echo number_format($a[2]); ?></span></div>
-        <input type="range" id="amt" min="<?php echo esc_attr($a[0]); ?>" max="<?php echo esc_attr($a[1]); ?>" step="<?php echo esc_attr($a[3]); ?>" value="<?php echo esc_attr($a[2]); ?>"></div>
-      <div class="ctrl"><div class="top"><span>Interest rate (p.a.)</span><span class="val" id="rateOut"><?php echo esc_html($r[2]); ?>%</span></div>
-        <input type="range" id="rate" min="<?php echo esc_attr($r[0]); ?>" max="<?php echo esc_attr($r[1]); ?>" step="<?php echo esc_attr($r[3]); ?>" value="<?php echo esc_attr($r[2]); ?>"></div>
-      <div class="ctrl"><div class="top"><span>Tenure</span><span class="val" id="tenOut"><?php echo esc_html($t[2]); ?> months</span></div>
-        <input type="range" id="ten" min="<?php echo esc_attr($t[0]); ?>" max="<?php echo esc_attr($t[1]); ?>" step="<?php echo esc_attr($t[3]); ?>" value="<?php echo esc_attr($t[2]); ?>"></div>
+      <div class="ctrl"><div class="top"><span>Loan amount</span><input type="text" inputmode="numeric" class="val" data-val="amount" data-fmt="money" aria-label="Loan amount"></div>
+        <input type="range" data-role="amount" data-fmt="money" min="<?php echo esc_attr($a[0]); ?>" max="<?php echo esc_attr($a[1]); ?>" step="<?php echo esc_attr($a[3]); ?>" value="<?php echo esc_attr($a[2]); ?>"></div>
+      <div class="ctrl"><div class="top"><span>Interest rate (p.a.)</span><input type="text" inputmode="decimal" class="val" data-val="rate" data-fmt="pct" aria-label="Interest rate"></div>
+        <input type="range" data-role="rate" data-fmt="pct" min="<?php echo esc_attr($r[0]); ?>" max="<?php echo esc_attr($r[1]); ?>" step="<?php echo esc_attr($r[3]); ?>" value="<?php echo esc_attr($r[2]); ?>"></div>
+      <div class="ctrl"><div class="top"><span>Tenure</span><input type="text" inputmode="numeric" class="val" data-val="tenure" data-fmt="months" aria-label="Tenure"></div>
+        <input type="range" data-role="tenure" data-fmt="months" min="<?php echo esc_attr($t[0]); ?>" max="<?php echo esc_attr($t[1]); ?>" step="<?php echo esc_attr($t[3]); ?>" value="<?php echo esc_attr($t[2]); ?>"></div>
     </div>
     <div class="result">
-      <div class="lbl">Your monthly EMI</div>
-      <div class="emi" id="emiOut">&#8377;0</div>
-      <div class="meta"><span id="totOut"></span><br><span id="intOut"></span></div>
+      <div class="lbl" data-main-label>Your monthly EMI</div>
+      <div class="emi" data-main>&#8377;0</div>
+      <div class="meta" data-rows></div>
       <a class="btn btn-pri" href="#apply">Get this at the best rate &rarr;</a>
     </div>
   </div>
