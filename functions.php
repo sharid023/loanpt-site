@@ -72,6 +72,11 @@ add_action('wp_head', 'loanpt_head', 5);
 /* Analytics: GA4 + Meta Pixel. IDs set in Customize → "LoanPt — Analytics & Tracking".
    Nothing is output until an ID is provided. */
 function loanpt_analytics() {
+    // Google Search Console site-verification (paste just the token in Customizer).
+    $gv = preg_replace('/[^A-Za-z0-9_\-]/', '', (string) loanpt_opt('google_verify', ''));
+    if ($gv) {
+        echo '<meta name="google-site-verification" content="' . esc_attr($gv) . '">' . "\n";
+    }
     $ga = preg_replace('/[^A-Za-z0-9\-]/', '', (string) loanpt_opt('ga4_id', ''));
     $px = preg_replace('/[^0-9]/', '', (string) loanpt_opt('pixel_id', ''));
     if ($ga) {

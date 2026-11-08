@@ -65,4 +65,6 @@ add_action('customize_register', function ($wp) {
     $wp->add_control('loanpt_ga4_id', array('label' => 'Google Analytics 4 ID', 'description' => 'e.g. G-XXXXXXXXXX', 'section' => 'loanpt_analytics', 'type' => 'text'));
     $wp->add_setting('loanpt_pixel_id', array('default' => '', 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'refresh'));
     $wp->add_control('loanpt_pixel_id', array('label' => 'Meta (Facebook) Pixel ID', 'description' => 'the numeric Pixel ID from Meta Events Manager', 'section' => 'loanpt_analytics', 'type' => 'text'));
+    $wp->add_setting('loanpt_google_verify', array('default' => '', 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'refresh'));
+    $wp->add_control('loanpt_google_verify', array('label' => 'Google Search Console verification', 'description' => 'Paste ONLY the content value of the google-site-verification tag (the long code), not the whole tag.', 'section' => 'loanpt_analytics', 'type' => 'text'));
 });
