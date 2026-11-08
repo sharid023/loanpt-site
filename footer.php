@@ -80,13 +80,7 @@
   </div>
 </div>
 
-<!-- Sticky mobile CTA bar -->
-<div class="lp-sticky" id="lpSticky">
-  <a class="lp-sticky-call" href="tel:+91<?php echo esc_attr(loanpt_opt('phone', LOANPT_PHONE)); ?>">&#128222; Call</a>
-  <button class="lp-sticky-cta" id="lpStickyCta" type="button">Get my best rate &rarr;</button>
-</div>
-
-<!-- Lead popup (exit-intent + sticky CTA) -->
+<!-- Lead popup (exit-intent) -->
 <div class="lp-modal" id="lpModal" hidden>
   <div class="lp-modal-ov" id="lpModalOv"></div>
   <div class="lp-modal-box" role="dialog" aria-modal="true" aria-label="Get your best loan rate">
