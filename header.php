@@ -76,6 +76,21 @@
     </div>
     <a class="btn btn-elig" href="<?php echo esc_url(home_url('/loan-eligibility/')); ?>">&#9989; Check Eligibility</a>
     <a class="btn btn-call" href="tel:+91<?php echo esc_attr(loanpt_opt('phone', LOANPT_PHONE)); ?>">&#128222; <?php echo esc_html(loanpt_opt('phone', LOANPT_PHONE)); ?></a>
+    <div class="hdr-mobicons">
+      <div class="hdr-support">
+        <button type="button" class="hdr-ic" id="hdrSupportBtn" aria-label="Call or email support" aria-expanded="false" aria-controls="hdrSupportPop">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+        </button>
+        <div class="hdr-support-pop" id="hdrSupportPop" hidden>
+          <span class="hdr-sup-title">We're here to help &mdash; free</span>
+          <a href="tel:+91<?php echo esc_attr(loanpt_opt('phone', LOANPT_PHONE)); ?>"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span><strong><?php echo esc_html(loanpt_opt('phone', LOANPT_PHONE)); ?></strong><em>Call us &middot; Mon&ndash;Sat</em></span></a>
+          <a href="mailto:<?php echo esc_attr(loanpt_opt('email', LOANPT_EMAIL)); ?>"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span><strong><?php echo esc_html(loanpt_opt('email', LOANPT_EMAIL)); ?></strong><em>Email us anytime</em></span></a>
+        </div>
+      </div>
+      <a class="hdr-ic" href="<?php echo esc_url(home_url('/customer/')); ?>" aria-label="Customer login">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+    </div>
     <button class="navtoggle" id="navtoggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navdrop"><span></span><span></span><span></span></button>
   </div>
 </header>

@@ -151,6 +151,20 @@ details .a{padding:0 18px 16px;color:#3a4a41;font-size:15px}
 .site-footer h4{color:#fff;font-size:15px;margin-bottom:10px}
 .site-footer a{display:block;color:#9fc7b2;padding:3px 0}.site-footer a:hover{color:var(--mint)}
 .legal{border-top:1px solid #1d3b2b;padding-top:18px;font-size:12px;color:#7ba792;line-height:1.6}
+/* Mobile header quick-actions (support + login icons) — hidden on desktop */
+.hdr-mobicons{display:none;align-items:center;gap:2px;position:relative}
+.hdr-ic{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:10px;color:var(--ink);background:transparent;border:none;cursor:pointer;padding:0;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.hdr-ic svg{width:23px;height:23px}
+.hdr-ic:hover,.hdr-ic:focus-visible{background:var(--mint-soft);color:var(--mint2)}
+.hdr-support-pop{position:absolute;top:calc(100% + 10px);right:0;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 40px rgba(20,63,41,.18);padding:10px;min-width:252px;z-index:70;display:flex;flex-direction:column;gap:2px}
+.hdr-support-pop[hidden]{display:none}
+.hdr-sup-title{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;padding:6px 10px 8px}
+.hdr-support-pop a{display:flex;align-items:center;gap:12px;padding:10px;border-radius:10px;color:var(--ink);text-decoration:none}
+.hdr-support-pop a svg{width:19px;height:19px;color:var(--mint2);flex:none}
+.hdr-support-pop a span{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+.hdr-support-pop a strong{font-size:14.5px;font-weight:700;overflow:hidden;text-overflow:ellipsis}
+.hdr-support-pop a em{font-size:12px;color:var(--muted);font-style:normal}
+.hdr-support-pop a:hover{background:var(--mint-soft)}
 @media(max-width:860px){
   .hero .wrap{grid-template-columns:1fr;gap:28px;padding-top:34px}
   .hero h1{font-size:32px}.calc{grid-template-columns:1fr}
@@ -169,7 +183,13 @@ details .a{padding:0 18px 16px;color:#3a4a41;font-size:15px}
   .navlinks .mi-sub{position:static;display:none;flex-direction:column;box-shadow:none;border:none;border-radius:0;padding:0 0 10px 10px;min-width:0}
   .navlinks .mi.open .mi-sub{display:flex}
   .navlinks .menu .mi-sub a{padding:9px 6px;font-size:15px;color:var(--muted);border:none}
-  .navlinks .authlnk{display:flex;align-items:center;justify-content:center;width:100%;margin-top:10px;padding:12px;font-size:15px}
+  .navlinks .authlnk{display:none}
+  /* mobile header: hamburger left, logo next, support + login icons right */
+  .hdr-mobicons{display:flex;order:3}
+  .nav .navtoggle{order:-2;margin-right:4px}
+  .nav .logo{order:-1}
+  .nav .sp{order:0}
+  .acctmenu{display:none}
 }
 @media(max-width:600px){.nav .btn-call{display:none}}
 @media(max-width:520px){.site-footer .cols{gap:16px 18px;font-size:13.5px}.site-footer a{padding:4px 0}}

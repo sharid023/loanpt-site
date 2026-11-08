@@ -516,6 +516,17 @@ function loanptLead(src) {
   window.addEventListener('resize', function () { if (window.innerWidth > 860) set(false); });
 })();
 
+/* ---------- Header support popup (phone + email) ---------- */
+(function () {
+  var btn = document.getElementById('hdrSupportBtn');
+  var pop = document.getElementById('hdrSupportPop');
+  if (!btn || !pop) return;
+  function set(open) { pop.hidden = !open; btn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+  btn.addEventListener('click', function (e) { e.stopPropagation(); set(pop.hidden); });
+  document.addEventListener('click', function (e) { if (!pop.contains(e.target) && !btn.contains(e.target)) set(false); });
+  window.addEventListener('resize', function () { if (window.innerWidth > 860) set(false); });
+})();
+
 /* ---------- Eligibility quiz ---------- */
 (function () {
   var quiz = document.getElementById('lpquiz');
