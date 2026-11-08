@@ -155,7 +155,8 @@ details .a{padding:0 18px 16px;color:#3a4a41;font-size:15px}
   .hero .wrap{grid-template-columns:1fr;gap:28px;padding-top:34px}
   .hero h1{font-size:32px}.calc{grid-template-columns:1fr}
   .prods,.steps,.tcards,.why .grid{grid-template-columns:1fr}
-  .site-footer .cols{grid-template-columns:1fr 1fr}
+  .site-footer .cols{grid-template-columns:1fr 1fr;gap:20px 22px}
+  .site-footer .cols>div:first-child{grid-column:1/-1}
   .sec-head h2{font-size:25px}section{padding:40px 0}
   /* mobile nav dropdown */
   .navtoggle{display:inline-flex}
@@ -170,7 +171,8 @@ details .a{padding:0 18px 16px;color:#3a4a41;font-size:15px}
   .navlinks .menu .mi-sub a{padding:9px 6px;font-size:15px;color:var(--muted);border:none}
   .navlinks .authlnk{display:flex;align-items:center;justify-content:center;width:100%;margin-top:10px;padding:12px;font-size:15px}
 }
-@media(max-width:520px){.site-footer .cols{grid-template-columns:1fr}}
+@media(max-width:600px){.nav .btn-call{display:none}}
+@media(max-width:520px){.site-footer .cols{gap:16px 18px;font-size:13.5px}.site-footer a{padding:4px 0}}
 @media(min-width:861px){.nav .menu{display:flex}}
 
 /* ===================== DESIGN UPGRADE ===================== */
