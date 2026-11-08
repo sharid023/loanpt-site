@@ -181,7 +181,8 @@ details .a{padding:0 18px 16px;color:#3a4a41;font-size:15px}
 @media(max-width:860px){
   .hero .wrap{grid-template-columns:1fr;gap:28px;padding-top:34px}
   .hero h1{font-size:32px}.calc{grid-template-columns:1fr}
-  .prods,.steps,.tcards,.why .grid{grid-template-columns:1fr}
+  .steps,.tcards{grid-template-columns:1fr}
+  .prods,.why .grid{grid-template-columns:1fr 1fr;gap:14px}
   .site-footer .cols{grid-template-columns:1fr 1fr;gap:20px 22px}
   .site-footer .cols>div:first-child{grid-column:1/-1}
   .sec-head h2{font-size:25px}section{padding:40px 0}
@@ -204,7 +205,20 @@ details .a{padding:0 18px 16px;color:#3a4a41;font-size:15px}
   .nav .sp{order:0}
   .acctmenu{display:none}
 }
-@media(max-width:600px){.nav .btn-call{display:none}}
+@media(max-width:600px){
+  .nav .btn-call{display:none}
+  /* compact 2-up cards for products + why on phones */
+  .prods,.why .grid{gap:12px}
+  .prod{padding:16px 14px}
+  .prod .ic{font-size:29px}
+  .prod h3{font-size:16.5px;margin:8px 0 5px}
+  .prod p{font-size:13px;line-height:1.45}
+  .prod .go{font-size:13px;margin-top:9px}
+  .why .grid{gap:20px 12px}
+  .why .ic{font-size:27px}
+  .why h3{font-size:15.5px}
+  .why p{font-size:12.5px}
+}
 @media(max-width:520px){.site-footer .cols{gap:16px 18px;font-size:13.5px}.site-footer a{padding:4px 0}}
 @media(min-width:861px){.nav .menu{display:flex}}
 
