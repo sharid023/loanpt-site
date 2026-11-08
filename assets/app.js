@@ -124,15 +124,24 @@ function loanptLead(src) {
   if (!fab) return;
   var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
   var w = 60, h = 60, x = 0, y = 0, vx = 0, vy = 0;
-  var dragging = false, moved = false, offX = 0, offY = 0, lastX = 0, lastY = 0, lastT = 0, raf = null;
+  var dragging = false, moved = false, offX = 0, offY = 0, lastX = 0, lastY = 0, lastT = 0, raf = null, placed = false;
   function bounds() { w = fab.offsetWidth; h = fab.offsetHeight; }
   function render() { fab.style.left = x + 'px'; fab.style.top = y + 'px'; fab.style.right = 'auto'; fab.style.bottom = 'auto'; }
   function save() { try { localStorage.setItem('loanpt_wa_pos', JSON.stringify({ left: x, top: y })); } catch (e) {} }
 
   bounds();
-  var r0 = fab.getBoundingClientRect(); x = r0.left; y = r0.top;
-  try { var s = JSON.parse(localStorage.getItem('loanpt_wa_pos') || 'null'); if (s && typeof s.left === 'number') { x = s.left; y = s.top; } } catch (e) {}
-  x = clamp(x, 6, window.innerWidth - w - 6); y = clamp(y, 6, window.innerHeight - h - 6); render();
+  // Only take over positioning if the user has dragged before (a saved position
+  // exists). Otherwise leave the CSS to rest it at bottom-left, above the sticky
+  // CTA bar — deriving the start position from getBoundingClientRect() on init was
+  // unreliable (landed top-left over the logo on mobile).
+  try {
+    var s = JSON.parse(localStorage.getItem('loanpt_wa_pos') || 'null');
+    if (s && typeof s.left === 'number') {
+      x = clamp(s.left, 6, window.innerWidth - w - 6);
+      y = clamp(s.top, 6, window.innerHeight - h - 6);
+      placed = true; render();
+    }
+  } catch (e) {}
 
   function animate() {
     vx *= 0.93; vy *= 0.93;          // friction
@@ -148,7 +157,7 @@ function loanptLead(src) {
   }
 
   fab.addEventListener('pointerdown', function (e) {
-    dragging = true; moved = false;
+    dragging = true; moved = false; placed = true;
     if (raf) { cancelAnimationFrame(raf); raf = null; }
     bounds();
     var r = fab.getBoundingClientRect(); x = r.left; y = r.top;
@@ -178,7 +187,7 @@ function loanptLead(src) {
   fab.addEventListener('pointerup', end);
   fab.addEventListener('pointercancel', end);
   fab.addEventListener('click', function (e) { if (moved) { e.preventDefault(); moved = false; } });
-  window.addEventListener('resize', function () { bounds(); x = clamp(x, 6, window.innerWidth - w - 6); y = clamp(y, 6, window.innerHeight - h - 6); render(); });
+  window.addEventListener('resize', function () { if (!placed) return; bounds(); x = clamp(x, 6, window.innerWidth - w - 6); y = clamp(y, 6, window.innerHeight - h - 6); render(); });
 })();
 
 /* ---------- Customer account (Google login + dashboard) ---------- */
