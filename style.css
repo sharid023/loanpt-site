@@ -165,6 +165,19 @@ details .a{padding:0 18px 16px;color:#3a4a41;font-size:15px}
 .hdr-support-pop a strong{font-size:14.5px;font-weight:700;overflow:hidden;text-overflow:ellipsis}
 .hdr-support-pop a em{font-size:12px;color:var(--muted);font-style:normal}
 .hdr-support-pop a:hover{background:var(--mint-soft)}
+
+/* Popular calculators — horizontal scroll strip */
+.calcstrip-sec{padding:44px 0}
+.calcstrip{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:6px max(18px,calc((100vw - var(--maxw))/2 + 18px)) 10px;scrollbar-width:none}
+.calcstrip::-webkit-scrollbar{display:none}
+.calcstrip-card{scroll-snap-align:start;flex:0 0 auto;width:190px;display:flex;flex-direction:column;gap:7px;padding:16px;border:1px solid var(--line);border-radius:16px;background:#fff;text-decoration:none;color:var(--ink);box-shadow:0 2px 10px rgba(20,63,41,.05);transition:transform .15s,box-shadow .15s,border-color .15s}
+.calcstrip-card:hover,.calcstrip-card:focus-visible{transform:translateY(-3px);box-shadow:0 14px 28px rgba(20,63,41,.12);border-color:var(--mint)}
+.cs-ic{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:var(--mint-soft);font-size:22px;line-height:1}
+.calcstrip-card strong{font-size:15.5px;font-weight:700;line-height:1.25}
+.calcstrip-card em{font-size:12.5px;color:var(--muted);font-style:normal;line-height:1.35}
+.calcstrip-card.cs-all{background:linear-gradient(135deg,var(--mint-soft),#fff);border-style:dashed;border-color:var(--mint)}
+@media(max-width:600px){.calcstrip-sec{padding:32px 0}.calcstrip-card{width:170px;padding:14px;gap:6px}.cs-ic{width:40px;height:40px;font-size:20px}.calcstrip-card strong{font-size:15px}}
+
 @media(max-width:860px){
   .hero .wrap{grid-template-columns:1fr;gap:28px;padding-top:34px}
   .hero h1{font-size:32px}.calc{grid-template-columns:1fr}

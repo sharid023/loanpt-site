@@ -132,6 +132,29 @@
   </div>
 </section>
 
+<!-- POPULAR CALCULATORS STRIP (engagement + internal links) -->
+<section class="calcstrip-sec" aria-label="Popular free calculators">
+  <div class="wrap">
+    <div class="sec-head" style="margin-bottom:18px">
+      <div class="kicker">Free tools</div>
+      <h2>Plan smart with calculators</h2>
+      <p>Tap any tool &mdash; EMI, eligibility, prepayment savings &amp; more. 100% free, no login needed.</p>
+    </div>
+  </div>
+  <div class="calcstrip" role="list">
+    <a class="calcstrip-card" role="listitem" href="<?php echo esc_url(home_url('/personal-loan-emi-calculator/')); ?>"><span class="cs-ic">&#128181;</span><strong>EMI Calculator</strong><em>Your monthly instalment in seconds</em></a>
+    <a class="calcstrip-card" role="listitem" href="<?php echo esc_url(home_url('/personal-loan-eligibility-calculator/')); ?>"><span class="cs-ic">&#9989;</span><strong>Eligibility</strong><em>How much loan can you get?</em></a>
+    <a class="calcstrip-card" role="listitem" href="<?php echo esc_url(home_url('/balance-transfer-savings-calculator/')); ?>"><span class="cs-ic">&#128260;</span><strong>Balance Transfer</strong><em>See how much you can save</em></a>
+    <a class="calcstrip-card" role="listitem" href="<?php echo esc_url(home_url('/loan-prepayment-calculator/')); ?>"><span class="cs-ic">&#128201;</span><strong>Prepayment</strong><em>Cut your interest &amp; tenure</em></a>
+    <a class="calcstrip-card" role="listitem" href="<?php echo esc_url(home_url('/home-loan-emi-calculator/')); ?>"><span class="cs-ic">&#127968;</span><strong>Home Loan EMI</strong><em>Plan your home purchase</em></a>
+    <a class="calcstrip-card" role="listitem" href="<?php echo esc_url(home_url('/car-loan-emi-calculator/')); ?>"><span class="cs-ic">&#128664;</span><strong>Car Loan EMI</strong><em>Budget your next car</em></a>
+    <a class="calcstrip-card" role="listitem" href="<?php echo esc_url(home_url('/gold-loan-emi-calculator/')); ?>"><span class="cs-ic">&#129689;</span><strong>Gold Loan EMI</strong><em>Unlock value from gold</em></a>
+    <a class="calcstrip-card" role="listitem" href="<?php echo esc_url(home_url('/business-loan-emi-calculator/')); ?>"><span class="cs-ic">&#128188;</span><strong>Business Loan EMI</strong><em>Fund your business growth</em></a>
+    <a class="calcstrip-card" role="listitem" href="<?php echo esc_url(home_url('/sip-calculator/')); ?>"><span class="cs-ic">&#128200;</span><strong>SIP Calculator</strong><em>Grow your savings monthly</em></a>
+    <a class="calcstrip-card cs-all" role="listitem" href="<?php echo esc_url(home_url('/calculators/')); ?>"><span class="cs-ic">&#129518;</span><strong>All calculators</strong><em>See every free tool &rarr;</em></a>
+  </div>
+</section>
+
 <!-- COMPARISON -->
 <section id="compare" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
   <div class="wrap">
