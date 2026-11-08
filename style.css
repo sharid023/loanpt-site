@@ -377,7 +377,7 @@ section{padding:64px 0}
 .blogcard:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(20,63,41,.1);border-color:var(--mint)}
 .blogcard-img{aspect-ratio:16/9;overflow:hidden;background:var(--mint-soft)}
 .blogcard-img img{width:100%;height:100%;object-fit:cover;display:block}
-.blogcard-noimg{display:grid;place-items:center;font-size:40px}
+.blogcard-noimg{aspect-ratio:auto;height:92px;display:grid;place-items:center;font-size:32px;background:linear-gradient(135deg,var(--mint-soft),#eaf4ee)}
 .blogcard-body{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
 .blogcard-date{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-weight:700}
 .blogcard h3{font-size:17px;margin:7px 0;color:var(--green2);line-height:1.3}
