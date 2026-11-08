@@ -532,3 +532,28 @@ body[data-lpmodal="open"]{overflow:hidden}
 .post-body a:hover{color:var(--green)}
 .post-body strong{color:var(--green2)}
 .post-body img{border-radius:14px;margin:14px 0}
+
+/* ---------- Mobile: fix horizontal overflow + readability (appended last so it wins) ---------- */
+@media (max-width: 860px) {
+  html, body { overflow-x: hidden; }
+  .hero .wrap > * { min-width: 0; }                 /* let the grid column shrink to the viewport */
+  .formcard, .field input, .field select, .formcard input, .formcard select, .calc input { min-width: 0; }
+  .row2 { grid-template-columns: 1fr; }             /* stack the two side-by-side fields */
+  .tablewrap { max-width: 100%; }
+}
+@media (max-width: 600px) {
+  .wrap { padding-left: 16px; padding-right: 16px; }
+  .hero .wrap { padding: 28px 16px 34px; gap: 20px; }
+  .hero h1 { font-size: 28px; letter-spacing: -0.3px; line-height: 1.16; }
+  .hero p.lead { font-size: 15.5px; max-width: none; }
+  .trust { gap: 8px 14px; font-size: 13px; }
+  .formcard { padding: 20px 16px; }
+  .formcard h2 { font-size: 19px; }
+  .trustbar .stat { flex: 1 1 42%; }                /* 2 stats per row */
+  .trustbar .stat b { font-size: 26px; }
+  .sec-head h2 { font-size: 23px; line-height: 1.18; }
+  .sec-head p { font-size: 14px; }
+  .calc { padding: 18px 14px; gap: 16px; }
+  .ctaband { padding: 28px 16px; }
+  .ctaband h2 { font-size: 24px; }
+}
