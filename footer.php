@@ -38,6 +38,7 @@
         <h4>Company</h4>
         <a href="#how">How it works</a>
         <a href="#faq">FAQ</a>
+        <a href="<?php echo esc_url(home_url('/career/')); ?>">Careers</a>
         <a href="tel:+91<?php echo esc_attr(loanpt_opt('phone', LOANPT_PHONE)); ?>">Contact us</a>
         <a href="https://wa.me/<?php echo esc_attr(loanpt_opt('wa', LOANPT_WA)); ?>">WhatsApp</a>
       </div>

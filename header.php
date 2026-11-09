@@ -67,6 +67,7 @@
             <a href="<?php echo esc_url(home_url('/about/')); ?>">About Us</a>
             <a href="<?php echo esc_url(home_url('/services/')); ?>">Our Services</a>
             <a href="<?php echo esc_url(home_url('/contact/')); ?>">Contact</a>
+            <a href="<?php echo esc_url(home_url('/career/')); ?>">Careers</a>
           </div>
         </div>
       </nav>

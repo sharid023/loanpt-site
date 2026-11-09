@@ -698,7 +698,7 @@ add_action('init', function () {
 }, 20);
 
 /* ---------- Blog + Eligibility Quiz + Customer Login + Legal ---------- */
-define('LOANPT_BLOG_VER', '3');
+define('LOANPT_BLOG_VER', '4');
 
 /** Full HTML body for the Privacy Policy page. */
 function loanpt_privacy_body() {
@@ -788,6 +788,12 @@ function loanpt_tool_pages() {
             'title' => 'Check Your Loan Eligibility — Free 60-Second Calculator',
             'meta'  => 'Check how much personal loan you may be eligible for in 60 seconds — free, no documents and no impact on your credit score. Instant estimate from LoanPt.',
             'tpl'   => 'tpl-quiz.php',
+        ),
+        'career' => array(
+            'h1'    => 'Careers at LoanPt',
+            'title' => 'Careers at LoanPt — Jobs in Noida | Sales, Telecaller & More',
+            'meta'  => 'Join LoanPt, a fast-growing loan facilitation company in Noida. Apply for sales, telecaller, relationship manager, digital marketing & HR jobs. Great incentives, fast growth.',
+            'tpl'   => 'tpl-career.php',
         ),
         'customer' => array(
             'h1'      => 'Customer Login',
