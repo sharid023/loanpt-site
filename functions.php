@@ -92,6 +92,21 @@ function loanpt_analytics() {
 }
 add_action('wp_head', 'loanpt_analytics', 1);
 
+/* Keep intentionally-noindexed pages (e.g. Customer Login) OUT of wp-sitemap.xml,
+   so Google doesn't flag a "sitemap says index / page says noindex" conflict. */
+add_filter('wp_sitemaps_posts_query_args', function ($args, $post_type) {
+    if ($post_type !== 'page') return $args;
+    $exclude = array();
+    foreach (array('customer') as $slug) {
+        $p = get_page_by_path($slug);
+        if ($p) $exclude[] = $p->ID;
+    }
+    if ($exclude) {
+        $args['post__not_in'] = array_merge(isset($args['post__not_in']) ? (array) $args['post__not_in'] : array(), $exclude);
+    }
+    return $args;
+}, 10, 2);
+
 /* Lead REST endpoint: receives the form (same-origin, no CORS) and forwards
    server-side to the CRM. Returns {ok:true} on success. */
 require get_template_directory() . '/inc/leads.php';
