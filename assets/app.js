@@ -922,6 +922,8 @@ function loanptLead(src) {
 (function () {
   var modal = document.getElementById('lpModal');
   if (!modal) return;
+  // Don't show the loan lead popup on the Careers page (job seekers, not borrowers).
+  if (/tpl-career/.test(document.body.className)) { modal.hidden = true; return; }
   var CFG = window.LOANPT || {};
   function ls(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
   var src = 'exit_popup';
