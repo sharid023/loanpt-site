@@ -1,6 +1,7 @@
 /* Fire a lead conversion to GA4 + Meta Pixel (no-op until those are configured). */
 function loanptLead(src) {
   try { if (window.gtag) gtag('event', 'generate_lead', { event_category: 'lead', event_label: src || 'website' }); } catch (e) {}
+  try { if (window.gtag && window.LOANPT && LOANPT.adsSend) gtag('event', 'conversion', { send_to: LOANPT.adsSend }); } catch (e) {}
   try { if (window.fbq) fbq('track', 'Lead'); } catch (e) {}
 }
 

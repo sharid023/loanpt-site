@@ -67,4 +67,8 @@ add_action('customize_register', function ($wp) {
     $wp->add_control('loanpt_pixel_id', array('label' => 'Meta (Facebook) Pixel ID', 'description' => 'the numeric Pixel ID from Meta Events Manager', 'section' => 'loanpt_analytics', 'type' => 'text'));
     $wp->add_setting('loanpt_google_verify', array('default' => '', 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'refresh'));
     $wp->add_control('loanpt_google_verify', array('label' => 'Google Search Console verification', 'description' => 'Paste ONLY the content value of the google-site-verification tag (the long code), not the whole tag.', 'section' => 'loanpt_analytics', 'type' => 'text'));
+    $wp->add_setting('loanpt_ads_id', array('default' => LOANPT_ADS_ID, 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'refresh'));
+    $wp->add_control('loanpt_ads_id', array('label' => 'Google Ads Conversion ID', 'description' => 'e.g. AW-16875142360 (the part before the / in the event snippet).', 'section' => 'loanpt_analytics', 'type' => 'text'));
+    $wp->add_setting('loanpt_ads_label', array('default' => LOANPT_ADS_LABEL, 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'refresh'));
+    $wp->add_control('loanpt_ads_label', array('label' => 'Google Ads Conversion Label', 'description' => 'The part AFTER the / in the event snippet.', 'section' => 'loanpt_analytics', 'type' => 'text'));
 });

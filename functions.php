@@ -18,6 +18,9 @@ if (!defined('LOANPT_TEAM_URL'))      define('LOANPT_TEAM_URL', 'https://crm.loa
 if (!defined('LOANPT_CONNECTOR_URL')) define('LOANPT_CONNECTOR_URL', 'https://crm.loanpt.com/portal');
 // Google Sign-In (Customer Login). Public Web client ID — safe in code. Customizer can override.
 if (!defined('LOANPT_GOOGLE_CLIENT_ID')) define('LOANPT_GOOGLE_CLIENT_ID', '903243722094-8mr9745qp45n8htev12kbnqec6nvg7oh.apps.googleusercontent.com');
+// Google Ads conversion tracking (public IDs — safe in code). Overridable in Customizer.
+if (!defined('LOANPT_ADS_ID'))    define('LOANPT_ADS_ID', 'AW-16875142360');
+if (!defined('LOANPT_ADS_LABEL')) define('LOANPT_ADS_LABEL', 'sHK7CLWYmLYdENj52O4-');
 
 function loanpt_setup() {
     add_theme_support('title-tag');
@@ -37,11 +40,14 @@ add_action('after_setup_theme', 'loanpt_setup');
 function loanpt_assets() {
     wp_enqueue_style('loanpt-font', 'https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap', array(), null);
     wp_enqueue_style('loanpt-style', get_stylesheet_uri(), array(), '1.28.0');
-    wp_enqueue_script('loanpt-app', get_template_directory_uri() . '/assets/app.js', array(), '1.21.0', true);
+    wp_enqueue_script('loanpt-app', get_template_directory_uri() . '/assets/app.js', array(), '1.22.0', true);
+    $ads_id    = preg_replace('/[^A-Za-z0-9\-]/', '', (string) loanpt_opt('ads_id', LOANPT_ADS_ID));
+    $ads_label = preg_replace('/[^A-Za-z0-9_\-]/', '', (string) loanpt_opt('ads_label', LOANPT_ADS_LABEL));
     wp_localize_script('loanpt-app', 'LOANPT', array(
         'leadUrl' => esc_url_raw(rest_url('loanpt/v1/lead')),
         'home'    => esc_url_raw(home_url('/')),
         'wa'      => 'https://wa.me/' . loanpt_opt('wa', LOANPT_WA) . '?text=' . rawurlencode('Hi LoanPt, I just applied on your website — I want to know about a loan.'),
+        'adsSend' => ($ads_id && $ads_label) ? $ads_id . '/' . $ads_label : '',
     ));
 }
 add_action('wp_enqueue_scripts', 'loanpt_assets');
@@ -77,12 +83,17 @@ function loanpt_analytics() {
     if ($gv) {
         echo '<meta name="google-site-verification" content="' . esc_attr($gv) . '">' . "\n";
     }
-    $ga = preg_replace('/[^A-Za-z0-9\-]/', '', (string) loanpt_opt('ga4_id', ''));
-    $px = preg_replace('/[^0-9]/', '', (string) loanpt_opt('pixel_id', ''));
-    if ($ga) {
-        echo "\n<!-- Google Analytics (GA4) -->\n";
-        echo '<script async src="https://www.googletagmanager.com/gtag/js?id=' . esc_attr($ga) . '"></script>' . "\n";
-        echo '<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","' . esc_js($ga) . '");</script>' . "\n";
+    $ga  = preg_replace('/[^A-Za-z0-9\-]/', '', (string) loanpt_opt('ga4_id', ''));
+    $ads = preg_replace('/[^A-Za-z0-9\-]/', '', (string) loanpt_opt('ads_id', LOANPT_ADS_ID));
+    $px  = preg_replace('/[^0-9]/', '', (string) loanpt_opt('pixel_id', ''));
+    if ($ga || $ads) {
+        $load = $ga ? $ga : $ads;   // load gtag.js once, then config each product
+        echo "\n<!-- Google tag (GA4 + Google Ads) -->\n";
+        echo '<script async src="https://www.googletagmanager.com/gtag/js?id=' . esc_attr($load) . '"></script>' . "\n";
+        echo '<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());';
+        if ($ga)  echo 'gtag("config","' . esc_js($ga) . '");';
+        if ($ads) echo 'gtag("config","' . esc_js($ads) . '");';
+        echo '</script>' . "\n";
     }
     if ($px) {
         echo "\n<!-- Meta Pixel -->\n";
