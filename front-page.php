@@ -216,6 +216,9 @@
   </div>
 </section>
 
+<!-- LOAN DISCLOSURE (rates, APR, tenure, representative example) -->
+<?php echo loanpt_loan_disclosure(); ?>
+
 <!-- FAQ -->
 <section id="faq">
   <div class="wrap" style="max-width:800px">

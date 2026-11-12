@@ -115,6 +115,9 @@ if (isset($bankmap[$d['product']])):
 </div></section>
 <?php endif; ?>
 
+<!-- LOAN DISCLOSURE (rates, APR, tenure, representative example) -->
+<?php echo loanpt_loan_disclosure(); ?>
+
 <!-- FAQ -->
 <section id="faq"><div class="wrap" style="max-width:800px">
   <div class="sec-head"><div class="kicker">Good to know</div><h2>Frequently asked questions</h2></div>

@@ -39,7 +39,7 @@ add_action('after_setup_theme', 'loanpt_setup');
 
 function loanpt_assets() {
     wp_enqueue_style('loanpt-font', 'https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap', array(), null);
-    wp_enqueue_style('loanpt-style', get_stylesheet_uri(), array(), '1.28.0');
+    wp_enqueue_style('loanpt-style', get_stylesheet_uri(), array(), '1.29.0');
     wp_enqueue_script('loanpt-app', get_template_directory_uri() . '/assets/app.js', array(), '1.22.0', true);
     $ads_id    = preg_replace('/[^A-Za-z0-9\-]/', '', (string) loanpt_opt('ads_id', LOANPT_ADS_ID));
     $ads_label = preg_replace('/[^A-Za-z0-9_\-]/', '', (string) loanpt_opt('ads_label', LOANPT_ADS_LABEL));
@@ -156,4 +156,28 @@ function loanpt_banks() {
         );
     }
     return $rows;
+}
+
+/**
+ * Required "Personal loans" disclosures for Google Ads (and general transparency):
+ * interest/APR ranges, min–max repayment tenure, and a representative example with
+ * total cost incl. fees. Shown on loan landing pages and the homepage.
+ */
+function loanpt_loan_disclosure() {
+    ob_start(); ?>
+    <section class="loandisc"><div class="wrap" style="max-width:920px">
+      <div class="sec-head" style="margin-bottom:16px"><div class="kicker">Transparency</div><h2>Rates, fees &amp; a representative example</h2></div>
+      <div class="ld-card">
+        <div class="ld-grid">
+          <div><span class="ld-l">Interest rate</span><strong>10.50% &ndash; 24% p.a.</strong></div>
+          <div><span class="ld-l">Representative APR*</span><strong>11% &ndash; 32% p.a.</strong></div>
+          <div><span class="ld-l">Repayment tenure</span><strong>3 to 84 months</strong></div>
+          <div><span class="ld-l">Processing fee</span><strong>Up to 3% + GST</strong></div>
+        </div>
+        <p class="ld-ex"><strong>Representative example:</strong> For a personal loan of <strong>&#8377;1,00,000</strong> at a <strong>16% p.a.</strong> interest rate over a <strong>24-month</strong> tenure, the monthly EMI is about <strong>&#8377;4,897</strong> and the total amount repayable is about <strong>&#8377;1,17,528</strong>, plus a one-time processing fee of up to 3% (&#8377;3,000) + applicable GST &mdash; a representative APR of about <strong>19.5% per annum</strong> (interest plus fees).</p>
+        <p class="ld-note">The minimum repayment period is 3 months (more than 60 days) &mdash; no loan is repayable in full within 60 days. *APR (Annual Percentage Rate) includes the interest rate plus applicable fees over one year. LoanPt is a loan facilitator (DSA), not a lender: the final interest rate, loan amount, fees, tenure, APR and approval are decided solely by the partner bank or NBFC based on your profile and their eligibility criteria. All figures above are representative, for illustration only, and will vary by lender and applicant.</p>
+      </div>
+    </div></section>
+    <?php
+    return ob_get_clean();
 }

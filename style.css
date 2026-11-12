@@ -166,6 +166,18 @@ details .a{padding:0 18px 16px;color:#3a4a41;font-size:15px}
 .hdr-support-pop a em{font-size:12px;color:var(--muted);font-style:normal}
 .hdr-support-pop a:hover{background:var(--mint-soft)}
 
+/* Loan disclosure (Google Ads "Personal loans" policy compliance) */
+.loandisc{padding:40px 0}
+.ld-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px}
+.ld-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.ld-grid>div{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.ld-l{display:block;font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.03em;margin-bottom:5px}
+.ld-grid strong{font-size:18px;color:var(--green2);font-weight:700}
+.ld-ex{font-size:15px;line-height:1.6;color:var(--ink);margin:0 0 12px;padding:14px 16px;background:var(--mint-soft);border-radius:11px}
+.ld-note{font-size:12.5px;line-height:1.6;color:var(--muted);margin:0}
+@media(max-width:700px){.ld-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.ld-grid{grid-template-columns:1fr}}
+
 /* Popular calculators — horizontal scroll strip */
 .calcstrip-sec{padding:44px 0}
 .calcstrip{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:6px max(18px,calc((100vw - var(--maxw))/2 + 18px)) 10px;scrollbar-width:none}
