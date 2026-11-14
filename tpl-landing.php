@@ -23,11 +23,11 @@ $products = array('Personal Loan', 'Business Loan', 'Home Loan', 'Overdraft', 'B
   <div>
     <span class="eyebrow">Credit in Pocket</span>
     <h1><?php echo wp_kses($d['h1'], array('em' => array())); ?></h1>
-    <p class="lead">Check your eligibility free — our team compares partner-bank offers and finds you the best option, with minimal paperwork.</p>
+    <p class="lead">Not an app or a call-centre — a real loan expert compares every bank &amp; NBFC for you and finds the best rate, with minimal paperwork. Free, and handled by a person you can actually talk to.</p>
     <div class="trust">
       <span><span class="tick">&#10003;</span> 100% free to apply</span>
       <span><span class="tick">&#10003;</span> All major banks &amp; NBFCs</span>
-      <span><span class="tick">&#10003;</span> Fully managed by us</span>
+      <span><span class="tick">&#10003;</span> A real person, not a bot</span>
     </div>
   </div>
   <div class="formcard" id="apply">
@@ -63,6 +63,9 @@ $products = array('Personal Loan', 'Business Loan', 'Home Loan', 'Overdraft', 'B
     <?php endforeach; ?>
   </div>
 </div></section>
+
+<!-- HUMAN + LOCAL DIFFERENTIATOR (vs loan apps / aggregators) -->
+<?php echo loanpt_human_local(); ?>
 
 <?php
 // City interlinks for the current product (strong internal linking for SEO).

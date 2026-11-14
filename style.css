@@ -178,6 +178,16 @@ details .a{padding:0 18px 16px;color:#3a4a41;font-size:15px}
 @media(max-width:700px){.ld-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:420px){.ld-grid{grid-template-columns:1fr}}
 
+/* Human + local differentiator (vs loan apps / aggregators) */
+.humanlocal{padding:44px 0}
+.hl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.hl{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 20px}
+.hl-ic{font-size:34px;line-height:1}
+.hl h3{font-size:17px;color:var(--green2);margin:10px 0 7px}
+.hl p{color:var(--muted);font-size:14px;line-height:1.5;margin:0}
+@media(max-width:860px){.hl-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.hl-grid{grid-template-columns:1fr}}
+
 /* Popular calculators — horizontal scroll strip */
 .calcstrip-sec{padding:44px 0}
 .calcstrip{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:6px max(18px,calc((100vw - var(--maxw))/2 + 18px)) 10px;scrollbar-width:none}

@@ -39,7 +39,7 @@ add_action('after_setup_theme', 'loanpt_setup');
 
 function loanpt_assets() {
     wp_enqueue_style('loanpt-font', 'https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap', array(), null);
-    wp_enqueue_style('loanpt-style', get_stylesheet_uri(), array(), '1.29.0');
+    wp_enqueue_style('loanpt-style', get_stylesheet_uri(), array(), '1.30.0');
     wp_enqueue_script('loanpt-app', get_template_directory_uri() . '/assets/app.js', array(), '1.22.0', true);
     $ads_id    = preg_replace('/[^A-Za-z0-9\-]/', '', (string) loanpt_opt('ads_id', LOANPT_ADS_ID));
     $ads_label = preg_replace('/[^A-Za-z0-9_\-]/', '', (string) loanpt_opt('ads_label', LOANPT_ADS_LABEL));
@@ -176,6 +176,25 @@ function loanpt_loan_disclosure() {
         </div>
         <p class="ld-ex"><strong>Representative example:</strong> For a personal loan of <strong>&#8377;1,00,000</strong> at a <strong>16% p.a.</strong> interest rate over a <strong>24-month</strong> tenure, the monthly EMI is about <strong>&#8377;4,897</strong> and the total amount repayable is about <strong>&#8377;1,17,528</strong>, plus a one-time processing fee of up to 3% (&#8377;3,000) + applicable GST &mdash; a representative APR of about <strong>19.5% per annum</strong> (interest plus fees).</p>
         <p class="ld-note">The minimum repayment period is 3 months (more than 60 days) &mdash; no loan is repayable in full within 60 days. *APR (Annual Percentage Rate) includes the interest rate plus applicable fees over one year. LoanPt is a loan facilitator (DSA), not a lender: the final interest rate, loan amount, fees, tenure, APR and approval are decided solely by the partner bank or NBFC based on your profile and their eligibility criteria. All figures above are representative, for illustration only, and will vary by lender and applicant.</p>
+      </div>
+    </div></section>
+    <?php
+    return ob_get_clean();
+}
+
+/**
+ * "Human + local" differentiator section — sets LoanPt apart from loan apps and
+ * faceless aggregators. Shown on loan landing pages and the homepage.
+ */
+function loanpt_human_local() {
+    ob_start(); ?>
+    <section class="humanlocal"><div class="wrap">
+      <div class="sec-head" style="margin-bottom:22px"><div class="kicker">The LoanPt difference</div><h2>Not an app. A real person who gets your loan done.</h2><p>Loan apps and websites leave you on your own with a form. We don&rsquo;t.</p></div>
+      <div class="hl-grid">
+        <div class="hl"><div class="hl-ic">&#129309;</div><h3>A real loan expert</h3><p>Not a bot or a call-centre &mdash; one person handles your file end to end, from comparing banks to disbursal.</p></div>
+        <div class="hl"><div class="hl-ic">&#128205;</div><h3>Local, in Noida &amp; NCR</h3><p>We&rsquo;re right here. Talk to us, meet us, and get help in your own city &mdash; not a faceless national app.</p></div>
+        <div class="hl"><div class="hl-ic">&#9989;</div><h3>Honest &amp; spam-free</h3><p>We never ask for OTP, card or password, and never charge you. Every fee is shown upfront &mdash; no surprises.</p></div>
+        <div class="hl"><div class="hl-ic">&#127919;</div><h3>Rejected online? We&rsquo;ll help</h3><p>Turned down by an app or website? As a DSA we work with every bank &amp; NBFC to find one that fits your profile.</p></div>
       </div>
     </div></section>
     <?php
