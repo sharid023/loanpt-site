@@ -28,6 +28,17 @@ function loanpt_handle_lead(WP_REST_Request $req) {
         return new WP_REST_Response(array('ok' => false, 'error' => 'Enter a valid 10-digit mobile number.'), 400);
     }
 
+    // Attribution: trust only a known source; capture the page/link + UTM so the
+    // CRM can tell Google Ads / Meta / organic apart and show which page it came from.
+    $allowed_src = array('website', 'google_ads', 'meta_ads', 'facebook', 'instagram');
+    $in_src = isset($p['source']) ? sanitize_text_field($p['source']) : '';
+    $source = in_array($in_src, $allowed_src, true) ? $in_src : 'website';
+    $in_utm = (isset($p['utm']) && is_array($p['utm'])) ? $p['utm'] : array();
+    $uf = function ($k, $d = '') use ($in_utm) {
+        return isset($in_utm[$k]) ? sanitize_text_field((string) $in_utm[$k]) : $d;
+    };
+    $ref = isset($p['ref']) ? sanitize_text_field($p['ref']) : '';
+
     $payload = array(
         'name'    => $name,
         'mobile'  => $mobile,
@@ -35,12 +46,17 @@ function loanpt_handle_lead(WP_REST_Request $req) {
         'amount'  => isset($p['amount'])  ? sanitize_text_field($p['amount'])  : '',
         'city'    => isset($p['city'])    ? sanitize_text_field($p['city'])    : '',
         'email'   => isset($p['email'])   ? sanitize_email($p['email'])        : '',
-        'source'  => 'website_wp',
+        'source'  => $source,
         'utm'     => array(
-            'source' => 'website',
-            'medium' => isset($p['ref']) && $p['ref'] !== '' ? 'referral' : 'organic',
-            'tool'   => isset($p['tool']) ? sanitize_text_field($p['tool']) : 'wp_home',
-            'ref'    => isset($p['ref']) ? sanitize_text_field($p['ref']) : '',
+            'source'   => $source,
+            'page'     => $uf('page'),
+            'tool'     => $uf('tool', isset($p['tool']) ? sanitize_text_field($p['tool']) : ''),
+            'gclid'    => $uf('gclid'),
+            'medium'   => $uf('utm_medium', $ref !== '' ? 'referral' : 'organic'),
+            'campaign' => $uf('utm_campaign'),
+            'term'     => $uf('utm_term'),
+            'landing'  => $uf('landing'),
+            'ref'      => $ref,
         ),
     );
 

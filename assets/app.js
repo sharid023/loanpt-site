@@ -5,6 +5,55 @@ function loanptLead(src) {
   try { if (window.fbq) fbq('track', 'Lead'); } catch (e) {}
 }
 
+/* Lead attribution — capture source + landing page + UTM once per visit, then
+ * ride it on every lead submit so the CRM knows WHERE each lead came from
+ * (Google Ads / Meta / organic) and WHICH page/link (/check, /instant-loan…). */
+var LPT_ATTR = (function () {
+  function qp() { try { return new URLSearchParams(location.search); } catch (e) { return new URLSearchParams(''); } }
+  function capture() {
+    var p = qp(), g = function (k) { return p.get(k) || ''; };
+    var gclid = g('gclid') || g('gbraid') || g('wbraid');
+    var fbclid = g('fbclid');
+    var us = (g('utm_source') || '').toLowerCase();
+    var source = 'website';
+    if (gclid || us === 'google' || us === 'google_ads' || us === 'googleads' || us === 'adwords') source = 'google_ads';
+    else if (fbclid || us === 'facebook' || us === 'fb' || us === 'meta' || us === 'instagram' || us === 'ig') source = 'meta_ads';
+    return {
+      source: source, gclid: gclid,
+      utm_source: g('utm_source'), utm_medium: g('utm_medium'), utm_campaign: g('utm_campaign'),
+      utm_term: g('utm_term'), utm_content: g('utm_content'), landing: location.pathname
+    };
+  }
+  // First touch wins, but a later paid click upgrades a plain "website" source.
+  var cur = capture();
+  try {
+    var saved = JSON.parse(sessionStorage.getItem('lpt_attr') || 'null');
+    if (!saved || (cur.source !== 'website' && saved.source === 'website')) {
+      sessionStorage.setItem('lpt_attr', JSON.stringify(cur));
+    } else { cur = saved; }
+  } catch (e) {}
+  return {
+    get: function () { try { return JSON.parse(sessionStorage.getItem('lpt_attr') || 'null') || cur; } catch (e) { return cur; } },
+    apply: function (payload) {
+      var a = this.get();
+      payload.source = a.source;
+      payload.utm = {
+        page: location.pathname,
+        tool: payload.tool || '',
+        gclid: a.gclid || '',
+        utm_source: a.utm_source || '',
+        utm_medium: a.utm_medium || '',
+        utm_campaign: a.utm_campaign || '',
+        utm_term: a.utm_term || '',
+        landing: a.landing || ''
+      };
+      return payload;
+    }
+  };
+})();
+/* Build a lead POST body with attribution (source + page + utm) merged in. */
+function lptLeadBody(obj) { try { return JSON.stringify(LPT_ATTR.apply(obj)); } catch (e) { return JSON.stringify(obj); } }
+
 (function () {
   'use strict';
   var CFG = window.LOANPT || {};
@@ -92,7 +141,7 @@ function loanptLead(src) {
       };
       fetch(CFG.leadUrl, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: lptLeadBody(payload)
       }).then(function (r) { return r.json().catch(function () { return {}; }); })
         .then(function (d) { if (d && d.ok !== false) { done(); } else { showErr((d && d.error) || 'Something went wrong. Please call 9625913455.'); reset(); } })
         .catch(function () { done(); });
@@ -749,7 +798,7 @@ function loanptLead(src) {
       if (!/^[6-9]\d{9}$/.test(m)) { err.textContent = 'Enter a valid 10-digit mobile.'; return; }
       var btn = f.querySelector('button'); btn.disabled = true; btn.textContent = 'Sending…';
       var ref = ''; try { ref = localStorage.getItem('loanpt_ref') || ''; } catch (e2) {}
-      fetch(CFG.leadUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: name, mobile: m, product: 'Personal Loan', tool: 'chatbot', ref: ref }) })
+      fetch(CFG.leadUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: lptLeadBody({ name: name, mobile: m, product: 'Personal Loan', tool: 'chatbot', ref: ref }) })
         .then(function () { done(name); }).catch(function () { done(name); });
       function done(nm) { f.remove(); addMsg('Thanks ' + nm + '! ✅ Our team will call you shortly with your best offer.', 'bot'); waOffer(); loanptLead('chatbot'); }
     });
@@ -974,7 +1023,7 @@ function loanptLead(src) {
     if (mobile.length !== 10) { err('Please enter a valid 10-digit mobile number.'); return; }
     var btn = document.getElementById('lpmSubmit'); btn.disabled = true; btn.textContent = 'Sending…';
     var ref = ''; try { ref = localStorage.getItem('loanpt_ref') || ''; } catch (e2) {}
-    fetch(CFG.leadUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: name, mobile: mobile, product: product, tool: src, ref: ref }) })
+    fetch(CFG.leadUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: lptLeadBody({ name: name, mobile: mobile, product: product, tool: src, ref: ref }) })
       .then(done).catch(done);
     function done() {
       ls('loanpt_lead_done', '1');
