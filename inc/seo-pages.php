@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) exit;
  * use the "LoanPt Landing" template. Bump LOANPT_PAGES_VER to re-seed.
  */
 
-define('LOANPT_PAGES_VER', '14');
+define('LOANPT_PAGES_VER', '15');
 
 /** Content for each landing page, keyed by URL slug (base products + city pages). */
 function loanpt_landing_data() {
@@ -439,6 +439,81 @@ function loanpt_gold_city_defs() {
 /** High-intent keyword landing pages (search-intent modifiers) — unique content per page (SEO). */
 function loanpt_keyword_defs() {
     return array(
+        'personal-loan-for-government-employees' => array(
+            'title' => 'Personal Loan for Government Employees — Best Rates & Easy Approval',
+            'h1'    => 'Personal Loan for <em>Government Employees</em> — Lowest Rate',
+            'meta'  => 'Government or PSU employee? Compare personal loan offers with preferential rates and easy approval from leading banks & NBFCs. Check eligibility free with LoanPt — zero cost.',
+            'product' => 'Personal Loan',
+            'intro' => 'Government, PSU and public-sector employees are among the most creditworthy borrowers, so banks often offer them lower interest rates, higher loan eligibility and faster approval. LoanPt compares personal loan offers across leading banks and NBFCs, matches you to the best rate your department and profile qualify for, and handles the paperwork end to end. It is completely free for you.',
+            'bullets' => array('Preferential rates for govt staff*', 'Higher loan eligibility', 'Easy, faster approval', 'Minimal documents', 'Collateral-free', 'Fixed, predictable EMI'),
+            'compare' => true,
+            'faq' => array(
+                'Do government employees get lower interest rates?' => 'Often yes — many lenders treat government and PSU staff as low-risk and offer preferential rates and higher eligibility. The final rate is decided by the lender; we compare several to find your best fit, free.',
+                'Who counts as a government employee?' => 'Central and state government, PSU, defence, railways, and most public-sector staff typically qualify. Share your details and we match you to the lenders best suited to your department.',
+                'What documents are needed?' => 'Usually ID & address proof, PAN, recent salary slips and bank statements. We guide you through the exact list for the bank you qualify for.',
+                'Is LoanPt free?' => 'Yes — our service is free to you. Lenders may charge their own processing fee, shown transparently.',
+            ),
+        ),
+        'pre-approved-personal-loan' => array(
+            'title' => 'Pre-Approved Personal Loan — Check Your Instant Offer Free',
+            'h1'    => 'Pre-Approved <em>Personal Loan</em> — Check Your Offer',
+            'meta'  => 'Check your pre-approved personal loan offer in 60 seconds. Compare instant pre-approved offers from leading banks & NBFCs based on your profile. Free, no impact on credit score — LoanPt.',
+            'product' => 'Personal Loan',
+            'intro' => 'A pre-approved personal loan is an offer a bank extends based on your income and credit profile, usually with minimal documents and quick disbursal. LoanPt checks your profile against multiple banks and NBFCs to surface the pre-approved offers you qualify for, free and with no impact on your credit score, then helps you pick the lowest-cost one and get funds fast.',
+            'bullets' => array('Instant eligibility check', 'Offers matched to your profile', 'Minimal documents', 'Fast disbursal', 'No impact on credit score', 'Compare every bank'),
+            'compare' => true,
+            'faq' => array(
+                'What is a pre-approved personal loan?' => 'It is a loan offer a lender extends based on your income and credit profile, before a full application. It usually means fewer documents and faster disbursal for eligible applicants.',
+                'Will checking my offer affect my credit score?' => 'No — our eligibility check is a soft enquiry and does not impact your credit score. A hard enquiry happens only when you formally apply to a lender.',
+                'How much can I get?' => 'It depends on your income, existing obligations and credit profile. Share your details for an indicative pre-approved amount — free.',
+                'Is LoanPt free?' => 'Yes — our service is free to you. Lenders may charge their own processing fee, shown transparently.',
+            ),
+        ),
+        'personal-loan-for-women' => array(
+            'title' => 'Personal Loan for Women — Compare Offers & Apply Easily',
+            'h1'    => 'Personal Loan for <em>Women</em> — Compare & Apply',
+            'meta'  => 'Personal loan for women — compare offers from leading banks & NBFCs with easy eligibility for salaried and self-employed women. Check free, get the lowest rate with LoanPt.',
+            'product' => 'Personal Loan',
+            'intro' => 'Whether you are salaried, self-employed or running your own business, a personal loan gives you independent, collateral-free funds for anything you need — a goal, an emergency or an opportunity. LoanPt compares personal loan offers for women across leading banks and NBFCs, matches you to the lowest rate your profile qualifies for, and handles the paperwork. It is completely free for you.',
+            'bullets' => array('For salaried & self-employed women', 'Collateral-free funds', 'Lowest-rate matching', 'Minimal documents', 'Quick disbursal', 'Fixed, predictable EMI'),
+            'compare' => true,
+            'faq' => array(
+                'Can women apply for a personal loan independently?' => 'Yes — any eligible salaried or self-employed woman can apply in her own name based on her income and credit profile. We match you to the lenders best suited to you.',
+                'Do women get special loan schemes?' => 'Some lenders run schemes or offers that can benefit women applicants. Availability varies by lender; we compare several and find the best option for your profile, free.',
+                'What documents are needed?' => 'Usually ID & address proof, PAN, and recent salary slips or bank statements. We guide you through the exact list for the bank you qualify for.',
+                'Is LoanPt free?' => 'Yes — our service is free to you. Lenders may charge their own processing fee, shown transparently.',
+            ),
+        ),
+        'personal-loan-for-doctors' => array(
+            'title' => 'Personal Loan for Doctors & Professionals — Preferential Rates',
+            'h1'    => 'Personal Loan for <em>Doctors &amp; Professionals</em>',
+            'meta'  => 'Doctor, CA, engineer or other professional? Compare personal loan offers with preferential rates and higher eligibility from leading banks & NBFCs. Check free with LoanPt.',
+            'product' => 'Personal Loan',
+            'intro' => 'Qualified professionals — doctors, chartered accountants, engineers, architects and more — are seen as low-risk, high-income borrowers, so banks often offer them preferential rates, higher loan amounts and faster approval. LoanPt compares personal loan offers across leading banks and NBFCs, matches you to the best rate your profession and profile qualify for, and handles the paperwork. It is completely free for you.',
+            'bullets' => array('Preferential rates for professionals*', 'Higher loan eligibility', 'Faster approval', 'Minimal documents', 'Collateral-free', 'Fixed, predictable EMI'),
+            'compare' => true,
+            'faq' => array(
+                'Do doctors and professionals get better loan rates?' => 'Often yes — many lenders offer qualified professionals preferential rates and higher eligibility because of their income stability. The final rate is set by the lender; we compare several to find your best fit.',
+                'Which professionals qualify?' => 'Doctors, chartered accountants, company secretaries, engineers, architects and similar qualified professionals, whether salaried or in practice. Share your details and we match you to the right lenders.',
+                'What documents are needed?' => 'Usually KYC, qualification/registration proof, and income proof (salary slips or ITR and bank statements). We guide you through the exact list.',
+                'Is LoanPt free?' => 'Yes — our service is free to you. Lenders may charge their own processing fee, shown transparently.',
+            ),
+        ),
+        'personal-loan-for-private-company-employees' => array(
+            'title' => 'Personal Loan for Private Company Employees — Salaried Offers',
+            'h1'    => 'Personal Loan for <em>Private Company Employees</em>',
+            'meta'  => 'Work at a private company? Compare personal loan offers for salaried employees from leading banks & NBFCs with easy approval and minimal documents. Check free with LoanPt.',
+            'product' => 'Personal Loan',
+            'intro' => 'If you are salaried at a private company, a personal loan gives you quick, collateral-free funds against your income — for a wedding, a medical need, travel or consolidating existing debt. LoanPt compares personal loan offers across leading banks and NBFCs, matches you to the lowest rate your employer category and profile qualify for, and handles the paperwork. It is completely free for you.',
+            'bullets' => array('For private-sector salaried', 'Based on your salary & employer', 'Lowest-rate matching', 'Minimal documents', 'Quick disbursal', 'Fixed, predictable EMI'),
+            'compare' => true,
+            'faq' => array(
+                'Can private company employees get a personal loan?' => 'Yes — salaried employees at private companies are a core borrower segment. Approval and rate depend on your income, employer category and credit profile. We match you to the best-fit lenders, free.',
+                'Does my employer category affect my rate?' => 'It can — many banks categorise employers, and staff at larger or listed companies may get better rates. We compare several lenders so you get the best offer for your profile.',
+                'What documents are needed?' => 'Usually ID & address proof, PAN, recent salary slips and bank statements. We guide you through the exact list for the bank you qualify for.',
+                'Is LoanPt free?' => 'Yes — our service is free to you. Lenders may charge their own processing fee, shown transparently.',
+            ),
+        ),
         'urgent-personal-loan' => array(
             'title' => 'Urgent Personal Loan — Get Funds Fast, Same-Day Options',
             'h1'    => 'Urgent Personal Loan — Funds When You <em>Need Them Fast</em>',
