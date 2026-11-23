@@ -86,18 +86,23 @@
 <section class="tiles">
   <div class="wrap">
     <div class="sec-head" style="margin-bottom:22px"><div class="kicker">One place for everything</div><h2>Loans, Cards &amp; Free Tools</h2><p>Pick what you need — compare offers from every major bank in minutes.</p></div>
+    <div class="seg-title"><span class="seg-dot"></span>Loans &amp; Cards</div>
     <div class="tilegrid">
       <a class="tile" href="<?php echo esc_url(home_url('/personal-loan/')); ?>"><span class="tile-ico"><span class="tile-ic">&#128176;</span><span class="tile-badge">Lowest rate</span></span><span class="tile-name">Personal Loan</span></a>
+      <a class="tile" href="<?php echo esc_url(home_url('/business-loan/')); ?>"><span class="tile-ico"><span class="tile-ic">&#127970;</span></span><span class="tile-name">Business Loan</span></a>
+      <a class="tile" href="<?php echo esc_url(home_url('/home-loan/')); ?>"><span class="tile-ico"><span class="tile-ic">&#127968;</span></span><span class="tile-name">Home Loan</span></a>
+      <a class="tile" href="<?php echo esc_url(home_url('/loan-against-property/')); ?>"><span class="tile-ico"><span class="tile-ic">&#127963;</span></span><span class="tile-name">Loan Against Property</span></a>
       <a class="tile" href="<?php echo esc_url(home_url('/overdraft/')); ?>"><span class="tile-ico"><span class="tile-ic">&#128260;</span><span class="tile-badge">Flexible</span></span><span class="tile-name">Overdraft</span></a>
       <a class="tile" href="<?php echo esc_url(home_url('/balance-transfer/')); ?>"><span class="tile-ico"><span class="tile-ic">&#128201;</span><span class="tile-badge">Save EMI</span></span><span class="tile-name">Balance Transfer</span></a>
       <a class="tile" href="<?php echo esc_url(home_url('/instant-loan/')); ?>"><span class="tile-ico"><span class="tile-ic">&#9889;</span><span class="tile-badge">Instant</span></span><span class="tile-name">Instant Loan</span></a>
       <a class="tile" href="<?php echo esc_url(home_url('/credit-card/')); ?>"><span class="tile-ico"><span class="tile-ic">&#128179;</span></span><span class="tile-name">Credit Card</span></a>
-      <a class="tile" href="<?php echo esc_url(home_url('/business-loan/')); ?>"><span class="tile-ico"><span class="tile-ic">&#127970;</span></span><span class="tile-name">Business Loan</span></a>
-      <a class="tile" href="<?php echo esc_url(home_url('/home-loan/')); ?>"><span class="tile-ico"><span class="tile-ic">&#127968;</span></span><span class="tile-name">Home Loan</span></a>
-      <a class="tile" href="<?php echo esc_url(home_url('/cibil-score/')); ?>"><span class="tile-ico"><span class="tile-ic">&#128202;</span><span class="tile-badge">Free</span></span><span class="tile-name">Credit Score</span></a>
+    </div>
+    <div class="seg-title"><span class="seg-dot"></span>Free Tools &amp; Credit Score</div>
+    <div class="tilegrid">
       <a class="tile" href="<?php echo esc_url(home_url('/loan-eligibility/')); ?>"><span class="tile-ico"><span class="tile-ic">&#9989;</span><span class="tile-badge">Free</span></span><span class="tile-name">Check Eligibility</span></a>
-      <a class="tile" href="<?php echo esc_url(home_url('/#calc')); ?>"><span class="tile-ico"><span class="tile-ic">&#129518;</span></span><span class="tile-name">EMI Calculator</span></a>
-      <a class="tile" href="<?php echo esc_url(home_url('/#compare')); ?>"><span class="tile-ico"><span class="tile-ic">&#127974;</span></span><span class="tile-name">Compare Banks</span></a>
+      <a class="tile" href="<?php echo esc_url(home_url('/cibil-score/')); ?>"><span class="tile-ico"><span class="tile-ic">&#128202;</span><span class="tile-badge">Free</span></span><span class="tile-name">Credit Score</span></a>
+      <a class="tile" href="<?php echo esc_url(home_url('/personal-loan-emi-calculator/')); ?>"><span class="tile-ico"><span class="tile-ic">&#129518;</span></span><span class="tile-name">EMI Calculator</span></a>
+      <a class="tile" href="<?php echo esc_url(home_url('/#compare')); ?>"><span class="tile-ico"><span class="tile-ic">&#128269;</span></span><span class="tile-name">Compare Banks</span></a>
       <a class="tile" href="<?php echo esc_url(home_url('/blog/')); ?>"><span class="tile-ico"><span class="tile-ic">&#128218;</span></span><span class="tile-name">Loan Guides</span></a>
     </div>
   </div>
@@ -133,27 +138,40 @@
 </section>
 
 <!-- POPULAR CALCULATORS STRIP (engagement + internal links) -->
-<section class="calcstrip-sec" aria-label="Popular free calculators">
-  <div class="wrap">
-    <div class="sec-head" style="margin-bottom:18px">
-      <div class="kicker">Free tools</div>
-      <h2>Plan smart with calculators</h2>
-      <p>Tap any tool &mdash; EMI, eligibility, prepayment savings &amp; more. 100% free, no login needed.</p>
+<section class="calcols-sec" aria-label="Free calculators"><div class="wrap">
+  <div class="sec-head" style="margin-bottom:26px">
+    <div class="kicker">Free tools</div>
+    <h2>Plan smart with calculators</h2>
+    <p>Check eligibility, calculate EMIs &amp; plan your finances &mdash; 100% free, no login needed. Choose a calculator to get started:</p>
+  </div>
+  <div class="calcols">
+    <div class="calcol">
+      <div class="calcol-h h-emi"><span class="calcol-ic">&#129518;</span><span>Loan EMI Calculators</span></div>
+      <a href="<?php echo esc_url(home_url('/personal-loan-emi-calculator/')); ?>">Personal Loan EMI Calculator<span class="chev">&#8250;</span></a>
+      <a href="<?php echo esc_url(home_url('/business-loan-emi-calculator/')); ?>">Business Loan EMI Calculator<span class="chev">&#8250;</span></a>
+      <a href="<?php echo esc_url(home_url('/home-loan-emi-calculator/')); ?>">Home Loan EMI Calculator<span class="chev">&#8250;</span></a>
+      <a href="<?php echo esc_url(home_url('/car-loan-emi-calculator/')); ?>">Car Loan EMI Calculator<span class="chev">&#8250;</span></a>
+      <a href="<?php echo esc_url(home_url('/gold-loan-emi-calculator/')); ?>">Gold Loan EMI Calculator<span class="chev">&#8250;</span></a>
+      <a href="<?php echo esc_url(home_url('/loan-against-property-emi-calculator/')); ?>">Loan Against Property EMI<span class="chev">&#8250;</span></a>
+    </div>
+    <div class="calcol">
+      <div class="calcol-h h-elig"><span class="calcol-ic">&#9989;</span><span>Loan Eligibility Calculators</span></div>
+      <a href="<?php echo esc_url(home_url('/personal-loan-eligibility-calculator/')); ?>">Personal Loan Eligibility<span class="chev">&#8250;</span></a>
+      <a href="<?php echo esc_url(home_url('/home-loan-eligibility-calculator/')); ?>">Home Loan Eligibility<span class="chev">&#8250;</span></a>
+      <a href="<?php echo esc_url(home_url('/business-loan-eligibility-calculator/')); ?>">Business Loan Eligibility<span class="chev">&#8250;</span></a>
+      <a href="<?php echo esc_url(home_url('/loan-prepayment-calculator/')); ?>">Loan Prepayment Calculator<span class="chev">&#8250;</span></a>
+      <a href="<?php echo esc_url(home_url('/balance-transfer-savings-calculator/')); ?>">Balance Transfer Savings<span class="chev">&#8250;</span></a>
+    </div>
+    <div class="calcol">
+      <div class="calcol-h h-other"><span class="calcol-ic">&#128200;</span><span>Other Free Calculators</span></div>
+      <a href="<?php echo esc_url(home_url('/sip-calculator/')); ?>">SIP Calculator<span class="chev">&#8250;</span></a>
+      <a href="<?php echo esc_url(home_url('/fd-calculator/')); ?>">Fixed Deposit (FD) Calculator<span class="chev">&#8250;</span></a>
+      <a href="<?php echo esc_url(home_url('/gst-calculator/')); ?>">GST Calculator<span class="chev">&#8250;</span></a>
+      <a href="<?php echo esc_url(home_url('/cibil-score/')); ?>">Free Credit Score Check<span class="chev">&#8250;</span></a>
+      <a class="calcol-all" href="<?php echo esc_url(home_url('/calculators/')); ?>">See all calculators<span class="chev">&#8250;</span></a>
     </div>
   </div>
-  <div class="calcstrip" role="list">
-    <a class="calcstrip-card" role="listitem" href="<?php echo esc_url(home_url('/personal-loan-emi-calculator/')); ?>"><span class="cs-ic">&#128181;</span><strong>EMI Calculator</strong><em>Your monthly instalment in seconds</em></a>
-    <a class="calcstrip-card" role="listitem" href="<?php echo esc_url(home_url('/personal-loan-eligibility-calculator/')); ?>"><span class="cs-ic">&#9989;</span><strong>Eligibility</strong><em>How much loan can you get?</em></a>
-    <a class="calcstrip-card" role="listitem" href="<?php echo esc_url(home_url('/balance-transfer-savings-calculator/')); ?>"><span class="cs-ic">&#128260;</span><strong>Balance Transfer</strong><em>See how much you can save</em></a>
-    <a class="calcstrip-card" role="listitem" href="<?php echo esc_url(home_url('/loan-prepayment-calculator/')); ?>"><span class="cs-ic">&#128201;</span><strong>Prepayment</strong><em>Cut your interest &amp; tenure</em></a>
-    <a class="calcstrip-card" role="listitem" href="<?php echo esc_url(home_url('/home-loan-emi-calculator/')); ?>"><span class="cs-ic">&#127968;</span><strong>Home Loan EMI</strong><em>Plan your home purchase</em></a>
-    <a class="calcstrip-card" role="listitem" href="<?php echo esc_url(home_url('/car-loan-emi-calculator/')); ?>"><span class="cs-ic">&#128664;</span><strong>Car Loan EMI</strong><em>Budget your next car</em></a>
-    <a class="calcstrip-card" role="listitem" href="<?php echo esc_url(home_url('/gold-loan-emi-calculator/')); ?>"><span class="cs-ic">&#129689;</span><strong>Gold Loan EMI</strong><em>Unlock value from gold</em></a>
-    <a class="calcstrip-card" role="listitem" href="<?php echo esc_url(home_url('/business-loan-emi-calculator/')); ?>"><span class="cs-ic">&#128188;</span><strong>Business Loan EMI</strong><em>Fund your business growth</em></a>
-    <a class="calcstrip-card" role="listitem" href="<?php echo esc_url(home_url('/sip-calculator/')); ?>"><span class="cs-ic">&#128200;</span><strong>SIP Calculator</strong><em>Grow your savings monthly</em></a>
-    <a class="calcstrip-card cs-all" role="listitem" href="<?php echo esc_url(home_url('/calculators/')); ?>"><span class="cs-ic">&#129518;</span><strong>All calculators</strong><em>See every free tool &rarr;</em></a>
-  </div>
-</section>
+</div></section>
 
 <!-- COMPARISON -->
 <section id="compare" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">

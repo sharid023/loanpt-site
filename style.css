@@ -214,6 +214,20 @@ details .a{padding:0 18px 16px;color:#3a4a41;font-size:15px}
 .calcstrip-card em{font-size:12.5px;color:var(--muted);font-style:normal;line-height:1.35}
 .calcstrip-card.cs-all{background:linear-gradient(135deg,var(--mint-soft),#fff);border-style:dashed;border-color:var(--mint)}
 @media(max-width:600px){.calcstrip-sec{padding:32px 0}.calcstrip-card{width:170px;padding:14px;gap:6px}.cs-ic{width:40px;height:40px;font-size:20px}.calcstrip-card strong{font-size:15px}}
+/* Calculators — 3-column grouped (Plan smart with calculators) */
+.calcols-sec{padding:48px 0;background:#f6faf8;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.calcols{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.calcol{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 4px 16px rgba(20,63,41,.05)}
+.calcol-h{display:flex;align-items:center;gap:12px;padding:18px 20px;font-size:17px;font-weight:800;color:var(--green2)}
+.calcol-h.h-emi{background:#eef7f1}.calcol-h.h-elig{background:#eaf4ff}.calcol-h.h-other{background:#fff6e6}
+.calcol-ic{width:40px;height:40px;border-radius:12px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:20px}
+.calcol a{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px 20px;border-top:1px solid var(--line);text-decoration:none;color:var(--ink);font-weight:600;font-size:15px;transition:background .15s,color .15s}
+.calcol a:hover,.calcol a:focus-visible{background:var(--mint-soft);color:var(--green2)}
+.calcol a .chev{color:var(--muted);font-weight:800;font-size:22px;line-height:1;transition:transform .15s,color .15s}
+.calcol a:hover .chev{transform:translateX(3px);color:var(--mint2)}
+.calcol a.calcol-all{font-weight:800;color:var(--mint2)}
+@media(max-width:900px){.calcols{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.calcols{grid-template-columns:1fr}.calcols-sec{padding:34px 0}}
 
 @media(max-width:860px){
   .hero .wrap{grid-template-columns:1fr;gap:28px;padding-top:34px}
@@ -342,6 +356,9 @@ section{padding:64px 0}
 /* product/tool tiles (quick access) */
 .tiles{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .tilegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:14px}
+.seg-title{display:flex;align-items:center;gap:10px;font-size:14.5px;font-weight:800;color:var(--green2);letter-spacing:.04em;text-transform:uppercase;margin:0 0 16px}
+.tiles .tilegrid + .seg-title{margin-top:36px}
+.seg-dot{width:10px;height:10px;border-radius:50%;background:var(--mint2);box-shadow:0 0 0 4px var(--mint-soft)}
 .tile{display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none;padding:10px 4px;border-radius:14px;transition:transform .2s ease,background .2s ease;animation:tileUp .5s cubic-bezier(.22,1,.36,1) backwards}
 .tile:nth-child(1){animation-delay:.02s}.tile:nth-child(2){animation-delay:.06s}.tile:nth-child(3){animation-delay:.1s}.tile:nth-child(4){animation-delay:.14s}.tile:nth-child(5){animation-delay:.18s}.tile:nth-child(6){animation-delay:.22s}.tile:nth-child(7){animation-delay:.26s}.tile:nth-child(8){animation-delay:.3s}.tile:nth-child(9){animation-delay:.34s}.tile:nth-child(10){animation-delay:.38s}.tile:nth-child(11){animation-delay:.42s}.tile:nth-child(12){animation-delay:.46s}
 .tile:hover{transform:translateY(-6px) scale(1.05);background:var(--paper)}
