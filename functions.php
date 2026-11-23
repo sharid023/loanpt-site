@@ -55,10 +55,24 @@ add_action('wp_enqueue_scripts', 'loanpt_assets');
 /* SEO: sensible meta description + Organization/FAQ structured data on the homepage.
    (Install Rank Math or Yoast to control per-page titles/descriptions at scale.) */
 function loanpt_head() {
+    // Social-share image on every page — so a shared loanpt.com link shows a
+    // branded preview card on WhatsApp / Facebook / LinkedIn (more clicks).
+    $og_image = get_template_directory_uri() . '/assets/og-image.png';
+    echo '<meta property="og:image" content="' . esc_url($og_image) . '">' . "\n";
+    echo '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">' . "\n";
+    echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
+    echo '<meta name="twitter:image" content="' . esc_url($og_image) . '">' . "\n";
+
     if (is_front_page()) {
         $desc = 'Compare personal loan, overdraft & balance transfer offers from HDFC, Kotak, Axis, ICICI, Bajaj & more. Check eligibility free, get the lowest rate. Zero cost — LoanPt.';
+        $og_title = 'LoanPt — Compare Personal Loans from Every Bank, Get the Lowest Rate';
         echo '<meta name="description" content="' . esc_attr($desc) . '">' . "\n";
         echo '<meta property="og:type" content="website"><meta property="og:site_name" content="LoanPt">' . "\n";
+        echo '<meta property="og:title" content="' . esc_attr($og_title) . '">' . "\n";
+        echo '<meta property="og:description" content="' . esc_attr($desc) . '">' . "\n";
+        echo '<meta property="og:url" content="' . esc_url(home_url('/')) . '">' . "\n";
+        echo '<meta name="twitter:title" content="' . esc_attr($og_title) . '">' . "\n";
+        echo '<meta name="twitter:description" content="' . esc_attr($desc) . '">' . "\n";
         $ld = array(
             '@context' => 'https://schema.org',
             '@graph'   => array(
@@ -67,6 +81,8 @@ function loanpt_head() {
                     array('@type' => 'Question', 'name' => 'Is LoanPt free to use?', 'acceptedAnswer' => array('@type' => 'Answer', 'text' => 'Yes. Comparing offers and applying through LoanPt is completely free for you. We are paid by the lender, not by you.')),
                     array('@type' => 'Question', 'name' => 'Which banks can I compare?', 'acceptedAnswer' => array('@type' => 'Answer', 'text' => 'Leading banks and NBFCs including HDFC, Kotak, ICICI, Axis, Bajaj Finserv and more.')),
                     array('@type' => 'Question', 'name' => 'What interest rate will I get?', 'acceptedAnswer' => array('@type' => 'Answer', 'text' => 'Rates depend on the lender, the product and your profile. The final rate is decided by the lender after approval.')),
+                    array('@type' => 'Question', 'name' => 'Do you charge any fee?', 'acceptedAnswer' => array('@type' => 'Answer', 'text' => 'No. LoanPt never charges you a fee. Our service is free — we are paid by the partner bank or NBFC, not by you.')),
+                    array('@type' => 'Question', 'name' => 'Is my data safe?', 'acceptedAnswer' => array('@type' => 'Answer', 'text' => 'Yes. We never ask for your OTP, card or bank account details. Your information is used only to match you with the right lender.')),
                 )),
             ),
         );
