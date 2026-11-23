@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) exit;
  * use the "LoanPt Landing" template. Bump LOANPT_PAGES_VER to re-seed.
  */
 
-define('LOANPT_PAGES_VER', '13');
+define('LOANPT_PAGES_VER', '14');
 
 /** Content for each landing page, keyed by URL slug (base products + city pages). */
 function loanpt_landing_data() {
@@ -265,6 +265,11 @@ function loanpt_city_defs() {
 function loanpt_biz_city_defs() {
     $bullets = array('Collateral-free options', 'Working capital & term loans', 'Flexible tenure', 'Quick disbursal', 'Minimal paperwork', 'For self-employed & businesses');
     $cities = array(
+        'noida'         => array('Noida', 'Looking for a business loan in Noida? From traders and manufacturers in the Sector 2–10 industrial belt to IT firms and MSMEs in Sector 62/63, LoanPt compares unsecured business-loan and working-capital offers from leading banks and NBFCs, matches you to a lender comfortable with your profile, and handles the paperwork end to end — completely free.'),
+        'ghaziabad'     => array('Ghaziabad', 'Need a business loan in Ghaziabad? For traders, manufacturers and shops across the Sahibabad industrial area, Mohan Nagar and the wider city, LoanPt compares working-capital and term-loan offers from top banks and NBFCs, finds a lender for your profile, and manages the process end to end — at zero cost to you.'),
+        'gurugram'      => array('Gurugram', 'Searching for a business loan in Gurugram (Gurgaon)? Whether you run a startup in Cyber City, a unit in Udyog Vihar or a growing firm anywhere in the city, LoanPt compares unsecured business-loan offers from leading banks and NBFCs, matches you to the right lender, and handles the documentation — free of charge.'),
+        'greater-noida' => array('Greater Noida', 'Looking for a business loan in Greater Noida? From manufacturers and traders in the Surajpur and Ecotech industrial areas to businesses across the sectors, LoanPt compares working-capital and business-loan offers from top banks and NBFCs, finds your best fit, and manages the paperwork — at no cost to you.'),
+        'faridabad'     => array('Faridabad', 'Need a business loan in Faridabad? For manufacturers, traders and MSMEs across the city industrial belt and NIT, LoanPt compares unsecured business-loan and working-capital offers from leading banks and NBFCs, matches you to a comfortable lender, and handles everything end to end — completely free.'),
         'delhi'     => array('Delhi', 'Looking for a business loan in Delhi? From traders and MSMEs in the wholesale markets to growing companies across the city, LoanPt compares unsecured business-loan and working-capital offers from leading banks and NBFCs, matches you to the right lender, and handles the paperwork — free of charge.'),
         'mumbai'    => array('Mumbai', 'Need a business loan in Mumbai? For businesses across BKC, Andheri and the wider metro, LoanPt compares working-capital and term-loan offers from top banks and NBFCs, finds a lender comfortable with your profile, and manages the process end to end — at zero cost to you.'),
         'bangalore' => array('Bengaluru', 'Searching for a business loan in Bengaluru? Whether you run a startup, shop or growing firm, LoanPt compares unsecured business-loan offers from leading banks and NBFCs, matches you to the right lender, and handles the documentation — completely free.'),
