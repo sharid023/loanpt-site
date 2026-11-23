@@ -102,6 +102,21 @@ section{padding:52px 0}
 .calc .ctrl .calc-words{font-size:11.5px;color:var(--muted);margin-top:5px;font-weight:500;line-height:1.3}
 .calc .result .calc-words-main{font-size:12.5px;color:#bff0da;margin-top:6px;line-height:1.35;font-weight:600}
 .calc .result .btn{margin-top:16px;justify-content:center}
+/* EMI breakdown: principal vs interest split bar + label→value rows */
+.calc .result .calc-split{margin-top:18px}
+.calc .result .cs-bar{display:flex;height:12px;border-radius:8px;overflow:hidden;background:rgba(255,255,255,.12)}
+.calc .result .cs-bar .cs-p{background:var(--mint);height:100%}
+.calc .result .cs-bar .cs-i{background:#ffd84d;height:100%}
+.calc .result .cs-leg{display:flex;justify-content:space-between;margin-top:9px;font-size:12px;color:#cfe9db;font-weight:600}
+.calc .result .cs-leg b{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
+.calc .result .cs-leg .d-p{background:var(--mint)}
+.calc .result .cs-leg .d-i{background:#ffd84d}
+.calc .result .meta{margin-top:16px;display:flex;flex-direction:column;gap:0;text-align:left}
+.calc .result .meta .cr{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:14px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.calc .result .meta .cr:last-child{border-bottom:none}
+.calc .result .meta .crl{color:#bff0da}
+.calc .result .meta .crv{color:#fff;font-weight:800;white-space:nowrap}
+.calc .result .meta .crn{display:block;font-size:13.5px;color:#cfe9db;line-height:1.7;text-align:center}
 /* comparison */
 .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 4px 16px rgba(20,63,41,.05)}
 table.cmp{width:100%;border-collapse:collapse;min-width:680px}

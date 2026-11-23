@@ -853,9 +853,16 @@ function lptLeadBody(obj) { try { return JSON.stringify(LPT_ATTR.apply(obj)); } 
   var engines = {
     emi: function (v) {
       var P = v.amount, emi = emiOf(P, v.rate, v.tenure), total = emi * v.tenure, interest = total - P;
-      return { mainLabel: 'Your monthly EMI', main: money(emi), mainNum: emi, rows: [
-        'Total payable: ' + money(total),
-        'Total interest: ' + money(interest) ] };
+      var years = v.tenure / 12, flatPA = (years > 0 && P > 0) ? (interest / P / years * 100) : 0;
+      return { mainLabel: 'Your monthly EMI', main: money(emi), mainNum: emi,
+        split: { principalPct: total > 0 ? Math.round(P / total * 100) : 100 },
+        rows: [
+          { label: 'Principal amount', value: money(P) },
+          { label: 'Total interest', value: money(interest) },
+          { label: 'Total payable', value: money(total) },
+          { label: 'Flat interest rate', value: flatPA.toFixed(2) + '% p.a. · ' + (flatPA / 12).toFixed(2) + '% p.m.' },
+          { label: 'Interest / year (avg)', value: money(interest / Math.max(1, years)) }
+        ] };
     },
     prepay: function (v) {
       var P = v.amount, rate = v.rate, N = v.tenure, L = v.prepay;
@@ -941,7 +948,25 @@ function lptLeadBody(obj) { try { return JSON.stringify(LPT_ATTR.apply(obj)); } 
         if (!mw) { mw = document.createElement('div'); mw.className = 'calc-words-main'; mw.setAttribute('data-main-words', ''); mainEl.insertAdjacentElement('afterend', mw); }
         mw.textContent = (typeof out.mainNum === 'number' && isFinite(out.mainNum)) ? rupeesWords(out.mainNum) : '';
       }
-      if (rowsEl) rowsEl.innerHTML = out.rows.map(function (r) { return '<span>' + r + '</span>'; }).join('<br>');
+      if (rowsEl) {
+        rowsEl.innerHTML = out.rows.map(function (r) {
+          return (r && typeof r === 'object')
+            ? '<span class="cr"><span class="crl">' + r.label + '</span><span class="crv">' + r.value + '</span></span>'
+            : '<span class="crn">' + r + '</span>';
+        }).join('');
+      }
+      // Principal vs interest split bar (for calculators that provide a split)
+      var splitEl = box.querySelector('[data-split]');
+      if (out.split) {
+        if (!splitEl) {
+          splitEl = document.createElement('div'); splitEl.setAttribute('data-split', ''); splitEl.className = 'calc-split';
+          if (rowsEl) rowsEl.insertAdjacentElement('beforebegin', splitEl);
+          else if (mainEl) mainEl.insertAdjacentElement('afterend', splitEl);
+        }
+        var pp = Math.max(0, Math.min(100, out.split.principalPct));
+        splitEl.innerHTML = '<div class="cs-bar"><i class="cs-p" style="width:' + pp + '%"></i><i class="cs-i" style="width:' + (100 - pp) + '%"></i></div>'
+          + '<div class="cs-leg"><span><b class="d-p"></b>Principal ' + pp + '%</span><span><b class="d-i"></b>Interest ' + (100 - pp) + '%</span></div>';
+      } else if (splitEl) { splitEl.remove(); }
     }
     sliders.forEach(function (sl) {
       sl.addEventListener('input', function () { vals[sl.getAttribute('data-role')] = parseFloat(sl.value); render(); });
