@@ -114,29 +114,6 @@
   <span>HDFC</span><span>ICICI</span><span>Axis</span><span>Kotak</span><span>Bajaj Finserv</span><span>IDFC First</span><span>&amp; more</span>
 </div></div>
 
-<!-- EMI CALCULATOR (lead magnet) -->
-<section id="calc">
-  <div class="wrap">
-    <div class="sec-head"><div class="kicker">Plan your loan</div><h2>EMI Calculator</h2><p>See your monthly EMI instantly, then get the best rate for it.</p></div>
-    <div class="calc" data-calc="emi" data-cfg="{}">
-      <div>
-        <div class="ctrl"><div class="top"><span>Loan amount</span><input type="text" inputmode="numeric" class="val" data-val="amount" data-fmt="money" aria-label="Loan amount"></div>
-          <input type="range" data-role="amount" data-fmt="money" min="50000" max="5000000" step="10000" value="500000"></div>
-        <div class="ctrl"><div class="top"><span>Interest rate (p.a.)</span><input type="text" inputmode="decimal" class="val" data-val="rate" data-fmt="pct" aria-label="Interest rate"></div>
-          <input type="range" data-role="rate" data-fmt="pct" min="9" max="24" step="0.25" value="11"></div>
-        <div class="ctrl"><div class="top"><span>Tenure</span><input type="text" inputmode="numeric" class="val" data-val="tenure" data-fmt="months" aria-label="Tenure"></div>
-          <input type="range" data-role="tenure" data-fmt="months" min="6" max="84" step="6" value="36"></div>
-      </div>
-      <div class="result">
-        <div class="lbl" data-main-label>Your monthly EMI</div>
-        <div class="emi" data-main>&#8377;16,369</div>
-        <div class="meta" data-rows></div>
-        <a class="btn btn-pri" href="#apply">Get this at the best rate &rarr;</a>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- POPULAR CALCULATORS STRIP (engagement + internal links) -->
 <section class="calcols-sec" aria-label="Free calculators"><div class="wrap">
   <div class="sec-head" style="margin-bottom:26px">

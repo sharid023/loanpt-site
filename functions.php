@@ -39,7 +39,7 @@ add_action('after_setup_theme', 'loanpt_setup');
 
 function loanpt_assets() {
     wp_enqueue_style('loanpt-font', 'https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap', array(), null);
-    wp_enqueue_style('loanpt-style', get_stylesheet_uri(), array(), '1.32.0');
+    wp_enqueue_style('loanpt-style', get_stylesheet_uri(), array(), '1.33.0');
     wp_enqueue_script('loanpt-app', get_template_directory_uri() . '/assets/app.js', array(), '1.24.0', true);
     $ads_id    = preg_replace('/[^A-Za-z0-9\-]/', '', (string) loanpt_opt('ads_id', LOANPT_ADS_ID));
     $ads_label = preg_replace('/[^A-Za-z0-9_\-]/', '', (string) loanpt_opt('ads_label', LOANPT_ADS_LABEL));
