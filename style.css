@@ -355,10 +355,10 @@ section{padding:64px 0}
 }
 /* product/tool tiles (quick access) */
 .tiles{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.tilegrid{display:grid;grid-template-columns:repeat(8,1fr);gap:18px}
-@media(max-width:1024px){.tilegrid{grid-template-columns:repeat(6,1fr)}}
-@media(max-width:760px){.tilegrid{grid-template-columns:repeat(4,1fr)}}
-@media(max-width:470px){.tilegrid{grid-template-columns:repeat(3,1fr)}}
+.tilegrid{display:flex;flex-wrap:wrap;justify-content:center;gap:20px 26px}
+.tilegrid .tile{flex:0 0 112px}
+@media(max-width:760px){.tilegrid{gap:18px 22px}.tilegrid .tile{flex:0 0 104px}}
+@media(max-width:470px){.tilegrid{gap:16px 14px}.tilegrid .tile{flex:0 0 96px}}
 .seg-title{display:flex;align-items:center;gap:10px;font-size:14.5px;font-weight:800;color:var(--green2);letter-spacing:.04em;text-transform:uppercase;margin:0 0 16px}
 .tiles .tilegrid + .seg-title{margin-top:36px}
 .seg-dot{width:10px;height:10px;border-radius:50%;background:var(--mint2);box-shadow:0 0 0 4px var(--mint-soft)}
